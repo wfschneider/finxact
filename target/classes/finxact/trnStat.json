@@ -1,0 +1,91 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnStat.json",
+            "title": "Transaction statistic",
+      "description": "Defines transaction statistics based on predefined parameters",
+       "x-createDt": "09/16/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "12/20/2018",
+       "x-updateBy": "Vince Arpa",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "statGroup": {
+                    "title": "Accumulation group",
+              "description": "Group name the statistics are accumulating to",
+                     "type": "string",
+                "maxLength": 20
+            },
+             "dateType": {
+                    "title": "Date type",
+              "description": "Date type to accumulate on",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Chronological" ],
+                            [1, "Effective" ],
+                            [2, "GL journal" ],
+                            [3, "Settlement" ]
+                     ],
+                  "minimum": 0,
+                  "maximim": 255,
+                  "default": 0
+            },
+            "periodDtm": {
+                    "title": "Accumulation period",
+              "description": "The datetime period accumulated to",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "totCntDr": {
+                    "title": "Total Debits",
+              "description": "Total Debit count",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+             "totCntCr": {
+                    "title": "Total Credits",
+              "description": "Total Credit count",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+             "totAmtDr": {
+                    "title": "Total Debit amount",
+              "description": "Total Debit amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "totAmtCr": {
+                    "title": "Total Credit amount",
+              "description": "Total Credit amount",
+                     "type": "number",
+                   "format": "currency"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id", "statGroup", "dateType", "periodDtm" ],
+          "foreignKeys": [
+                            {
+                         "name": "posnId",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "statGroup",
+                   "foreignKey": ["statGroup" ],
+              "referenceEntity": "trnStatGroup.json",
+                 "referenceKey": ["statGroup" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

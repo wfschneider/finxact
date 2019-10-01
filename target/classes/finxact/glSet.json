@@ -1,0 +1,105 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/glSet.json",
+            "title": "General ledger set code",
+      "description": "Set of GL accounts linking position sub-balances to the GL",
+       "x-createDt": "08/11/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+            "glSetCode": {
+                    "title": "Set code",
+              "description": "GL account numbers set code",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Account type description",
+                     "type": "string"
+            },
+         "balAcctGroup": {
+                    "title": "Account Group",
+              "description": "Account group code of the position balance account number",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+           "balAcctNbr": {
+                    "title": "Position balance account number",
+              "description": "Account number the position balance accumulates to",
+                     "type": ["integer", "string" ],
+                "maxLength": 20
+            },
+          "subBalAccts": {
+                    "title": "Sub-balance accounts",
+              "description": "Balance, income, and expense accounts by sub-balance type",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "object",
+                   "properties": {
+                        "acctGroup": {
+                                "title": "Account Group",
+                          "description": "Account Group code",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 65535
+                              },
+                          "acctNbr": {
+                                "title": "Balance account number",
+                          "description": "The account number used for sub-balance accumulation",
+                                 "type": ["integer", "string" ],
+                            "maxLength": 20
+                              },
+                       "incAcctNbr": {
+                                "title": "Income account number",
+                          "description": "The account number used for sub-balance income accumulation",
+                                 "type": ["integer", "string" ],
+                            "maxLength": 20
+                              },
+                       "expAcctNbr": {
+                                "title": "Expense account number",
+                          "description": "The account number used for sub-balance expense accumulation",
+                                 "type": ["integer", "string" ],
+                            "maxLength": 20
+                              }
+                        },
+                "x-dbInterface": {
+                      "foreignKeys": [
+                                        {
+                                     "name": "acctGroupAcctNbr",
+                               "foreignKey": ["acctGroup", "acctNbr" ],
+                          "referenceEntity": "acct.json",
+                             "referenceKey": ["acctGroup", "acctNbr" ]
+                                        }
+                           ]
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["glSetCode" ],
+          "foreignKeys": [
+                            {
+                         "name": "balAcctGroupAcctNbr",
+                   "foreignKey": ["balAcctGroup", "balAcctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "subBalAccts",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

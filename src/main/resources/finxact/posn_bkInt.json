@@ -1,0 +1,44 @@
+{
+           "$schema": "http://json-schema.org/draft-04/schema#",
+                "id": "http://finxact.com/product/schemas/posn_bkInt.json",
+             "title": "Position interest",
+       "description": "Position interest component template",
+        "x-createDt": "11/11/2018",
+        "x-createBy": "Gaurav Agrawal",
+        "x-updateDt": "12/07/2018",
+        "x-updateBy": "Pat Kelly",
+              "type": "object",
+        "properties": {
+                      "_Id": {
+                           "title": "Position identifier",
+                     "description": "Unique position identifier",
+                            "type": "string",
+                          "format": "tguid"
+              	},
+               "accumToDtm": {
+                           "title": "Accumulate to Date",
+                     "description": "Accrued interest accumulated through datetime",
+                            "type": "string",
+                          "format": "date-time"
+              	},
+               "accrIntBal": {
+                           "title": "Accrued interest",
+                     "description": "Accrued interest this period",
+                            "type": "number",
+                          "format": "rate",
+                         "minimum": 0,
+                      "multipleOf": 0.00001
+              	},
+              "promoExpDtm": {
+                           "title": "Promotional interest rate expiration date",
+                     "description": "Date promotional interest rate expires and position reverts to standard rate",
+                            "type": "string",
+                          "format": "date-time"
+              	}
+       	},
+          "required": ["_Id", "accumToDtm"],
+  "x-reportDbInterface": {
+    "journal": true
+  }
+
+}

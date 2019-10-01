@@ -1,0 +1,66 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/batchFile.json",
+            "title": "Batch File",
+      "description": "Batch File information",
+       "x-createDt": "05/16/2019",
+       "x-createBy": "Jason Hunter",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Batch file identifier",
+              "description": "Unique batch file identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "resource": {
+                    "title": "Name and path of source of input to or output from batch posting",
+                     "type": "string",
+                   "format": "uri"
+            },
+              "network": {
+                    "title": "Batch file network name",
+              "description": "Batch file network source name",
+                     "type": "string",
+                "maxLength": 20
+            },
+         "filePostAmts": {
+                    "title": "File posted amounts",
+              "description": "The posted amounts for the file",
+                     "type": "object",
+                     "$ref": "batchAmts.json"
+            },
+          "fileTotAmts": {
+                    "title": "File total amounts",
+              "description": "The expected total amounts for the file",
+                     "type": "object",
+                     "$ref": "batchAmts.json"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "network",
+                   "foreignKey": ["network" ],
+              "referenceEntity": "network.json",
+                 "referenceKey": ["network" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "filePostAmts",
+                       "format": "json"
+                            },
+                            {
+                         "name": "fileTotAmts",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

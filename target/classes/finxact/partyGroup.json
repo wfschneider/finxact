@@ -1,0 +1,206 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/partyGroup.json",
+            "title": "Party group",
+      "description": "Defines a collection of parties of a particular type",
+       "x-createDt": "10/19/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/26/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+              "groupId": {
+                    "title": "Group identifier",
+              "description": "Unique PartyGroup identifier",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+                 "name": {
+                    "title": "Group name",
+              "description": "Group name",
+                     "type": "string",
+                "maxLength": 60
+            },
+                 "desc": {
+                    "title": "Group description",
+              "description": "Group description",
+                     "type": "string",
+                "maxLength": 255
+            },
+         "groupOwnerId": {
+                    "title": "Group owner",
+              "description": "Party Id that owns the group",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "groupType": {
+                    "title": "Group type",
+              "description": "Group type code",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Family" ],
+                            [2, "Household" ],
+                            [3, "Employee" ],
+                            [4, "Customer" ],
+                            [5, "Vendor" ],
+                            [6, "Payee" ],
+                            [7, "Volunteer" ],
+                            [8, "Social, club or team" ],
+                            [9, "Fraternity or sorority" ],
+                            [10, "Professional or association" ],
+                            [11, "Contact" ],
+                            [12, "AML, Fraud or blackist" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                 "minvalue": 0,
+                 "maxValue": 255
+            },
+              "members": {
+                    "title": "Group members",
+              "description": "Collection of member parties in a group",
+                     "type": "array",
+                    "items": {
+                        "title": "Group member",
+                         "type": "object",
+                   "properties": {
+                          "partyId": {
+                                "title": "Party Id",
+                          "description": "Party within group",
+                                 "type": "string",
+                               "format": "tguid"
+                              },
+                       "partyTitle": {
+                                "title": "Party title",
+                          "description": "The title of Party within group",
+                                 "type": "string",
+                            "maxLength": 80
+                              },
+                         "memberId": {
+                                "title": "Member Id",
+                          "description": "The member Id of Party within group",
+                                 "type": ["string", "integer" ],
+                            "maxLength": 80
+                              },
+                         "startDtm": {
+                                "title": "Date added",
+                          "description": "The date the party was added to group",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                           "endDtm": {
+                                "title": "Date expired",
+                          "description": "The date the party was expired from the group",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                           "isHead": {
+                                "title": "Is group head",
+                          "description": "The member is a head of the group",
+                                 "type": "boolean"
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                   "primaryKey": ["memberId" ],
+                  "foreignKeys": [
+                                    {
+                                 "name": "partyId",
+                           "foreignKey": ["partyId" ],
+                      "referenceEntity": "party.json",
+                         "referenceKey": ["_Id" ]
+                                    }
+                      ]
+                  }
+            },
+            "subGroups": {
+                    "title": "Sub groups",
+              "description": "Collection of sub-groups in a group",
+                     "type": "array",
+                    "items": {
+                        "title": "Subgroup",
+                         "type": "object",
+                   "properties": {
+                       "subGroupId": {
+                                "title": "Sub-group Id",
+                          "description": "Sub-group within group",
+                                 "type": ["string", "integer" ],
+                            "maxLength": 30
+                              },
+                       "groupTitle": {
+                                "title": "Sub-group title",
+                          "description": "The title of sub-group within group",
+                                 "type": "string",
+                            "maxLength": 80
+                              },
+                         "startDtm": {
+                                "title": "Date added",
+                          "description": "The date the sub-group was added to group",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                           "endDtm": {
+                                "title": "Date expired",
+                          "description": "The date the sub-group was expired from the group",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                         "roleCode": {
+                                "title": "Sub-group role",
+                          "description": "The sub-group role in the group",
+                                 "type": "integer",
+                              "choices": [
+                                        [0, "Unknown" ],
+                                        [1, "Department" ],
+                                        [2, "Division" ],
+                                        [3, "Chapter" ],
+                                        [4, "Bracket" ],
+                                        [5, "Region" ],
+                                        [6, "Conference" ],
+                                        [254, "Other" ],
+                                        [255, "N/A" ]
+                                    ],
+                            "minLength": 0,
+                            "maxLength": 255
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                   "primaryKey": ["subGroupId" ],
+                  "foreignKeys": [
+                                    {
+                                 "name": "groupId",
+                           "foreignKey": ["subGroupId" ],
+                      "referenceEntity": "partyGroup.json",
+                         "referenceKey": ["groupId" ]
+                                    }
+                      ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["groupId" ],
+              "indexes": [
+                            {
+                         "name": "name",
+                     "indexKey": ["name" ]
+                            },
+                            {
+                         "name": "groupOwner",
+                     "indexKey": ["groupOwnerId" ]
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "groupOwner",
+                   "foreignKey": ["groupOwnerId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

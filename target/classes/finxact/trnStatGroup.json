@@ -1,0 +1,84 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnStatGroup.json",
+            "title": "Transaction statistic group",
+      "description": "Specific statistics being tracked",
+       "x-createDt": "01/05/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+            "statGroup": {
+                    "title": "Accumulation group",
+              "description": "Group name the statistics are accumulating to",
+                     "type": "string",
+                "maxLength": 20
+            },
+                 "desc": {
+                    "title": "Group description",
+              "description": "Accumulation group description",
+                     "type": "string"
+            },
+            "dateTypes": {
+                    "title": "Accumulation date types",
+              "description": "Date types to accumulate to",
+                     "type": "array",
+                    "items": {
+                        "title": "Date type",
+                  "description": "Date type to accumulate on",
+                         "type": "integer",
+                      "choices": [
+                                [0, "Chronological" ],
+                                [1, "Effective" ],
+                                [2, "GL journal" ],
+                                [3, "Settlement" ]
+                          ],
+                      "minimum": 0,
+                      "maximim": 255
+                  }
+            },
+            "precision": {
+                    "title": "Resolution interval",
+              "description": "Duration between accumulation points",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Event" ],
+                            [1, "Second" ],
+                            [2, "Minute" ],
+                            [3, "Hour" ],
+                            [4, "Day" ],
+                            [5, "Week" ],
+                            [6, "Month" ]
+                     ],
+                  "minimum": 0,
+                  "maximim": 255,
+                  "default": 4
+            },
+              "accumDr": {
+                    "title": "Accumulate Debits",
+              "description": "Flag to accumulate debit transactions",
+                     "type": "boolean"
+            },
+              "accumCr": {
+                    "title": "Accumulate Credits",
+              "description": "Flag to accumulate credit transactions",
+                     "type": "boolean"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["statGroup" ],
+            "serialize": [
+                            {
+                         "name": "dateTypes",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

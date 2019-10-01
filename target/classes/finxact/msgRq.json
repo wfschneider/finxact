@@ -1,0 +1,85 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/logRequest.json",
+            "title": "Log request message",
+      "description": "Log request message",
+       "x-createDt": "08/30/2017",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "08/15/2019",
+       "x-updateBy": "Mike O'Toole",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Log Identifier",
+              "description": "Unique Identifier for this log reference",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                 "body": {
+                    "title": "Message body",
+              "description": "Message body",
+                     "type": "string",
+                "maxLength": 5000
+            },
+                  "hdr": {
+                    "title": "Message header",
+              "description": "Message header",
+                     "type": "object",
+                     "$ref": "msgHdr.json"
+            },
+               "userId": {
+                    "title": "User Identifier",
+              "description": "User identifier on the user that generated the message",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+            "userRoles": {
+                    "title": "Role",
+              "description": "Role of the user",
+                     "type": "array",
+                    "items": {
+                        "title": "val",
+                  "description": "Role value",
+                         "type": "string",
+                    "maxLength": 20
+                  }
+            },
+               "logDtm": {
+                    "title": "Log Date",
+              "description": "The date and time of the log entry",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "ipAddr": {
+                    "title": "IP Address",
+              "description": "IP address where the request originated",
+                     "type": "string",
+                "maxLength": 80
+            },
+                 "mthd": {
+                    "title": "Method",
+              "description": "The HTTP verb i.e. put, post, etc",
+                     "type": "string",
+                "maxLength": 20
+            },
+                  "url": {
+                    "title": "URL",
+              "description": "The URL that was called by the user",
+                     "type": "string",
+                "maxLength": 255
+            }
+      },
+    "x-dbInterface": {
+            "serialize": [
+                            {
+                         "name": "userRoles",
+                       "format": "json"
+                            },
+                            {
+                         "name": "hdr",
+                       "format": "json"
+                            }
+              ],
+           "primaryKey": ["_Id" ]
+      }
+}

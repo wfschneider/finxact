@@ -1,0 +1,40 @@
+{
+          "$schema": "http://json-schema.org/draft-01/schema#",
+               "id": "http://finxact.com/product/schemas/partyIdVerify.json",
+            "title": "Party Id Verification",
+      "description": "Id Verification Information for a party",
+       "x-createDt": "03/26/2019",
+       "x-createBy": "Amanda Mathis",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+            "verifySrc": {
+                    "title": "Verification Source",
+              "description": "Identity verification source",
+                     "type": "string",
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "verifyDtm": {
+                    "title": "Verification Date",
+              "description": "Date verification occured",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "verifyScore": {
+                    "title": "Verfication Score",
+              "description": "Verification score",
+                     "type": "string",
+                  "minimum": 0,
+                  "maximum": 40
+            },
+      "verifyScoreDesc": {
+                    "title": "Verfication Score Description",
+              "description": "Verification score description",
+                     "type": "string",
+                  "minimum": 0,
+                  "maximum": 225
+            }
+      }
+}

@@ -1,0 +1,60 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnEntryAuth.json",
+            "title": "Transaction entry authorization",
+      "description": "Transaction entry authorization",
+       "x-createDt": "08/04/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+            "isAuthAll": {
+                    "title": "Is authorize all",
+              "description": "if true, authorize all exceptions on this item",
+                     "type": "boolean"
+            },
+           "exceptions": {
+                    "title": "Exception authorization",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                       "exceptCode": {
+                                "title": "Exception code",
+                                 "type": "string",
+                            "maxLength": 20
+                              },
+                           "reason": {
+                                "title": "Override decision reason",
+                          "description": "The reason for exception override decision",
+                                 "type": "string",
+                            "maxLength": 60
+                              },
+                             "note": {
+                                "title": "Authorize note",
+                          "description": "Authorization note",
+                                 "type": "string",
+                               "format": "text-area"
+                              },
+                            "roles": {
+                                "title": "authorization roles",
+                                 "type": "array",
+                                "items": {
+                                    "title": "role code",
+                                     "type": "string",
+                                "maxLength": 20
+                                    }
+                              },
+                           "userId": {
+                                "title": "Authorize user",
+                          "description": "Authorization user",
+                                 "type": "string",
+                            "maxLength": 60
+                              }
+                        },
+                     "required": ["exceptCode" ]
+                  }
+            }
+      }
+}

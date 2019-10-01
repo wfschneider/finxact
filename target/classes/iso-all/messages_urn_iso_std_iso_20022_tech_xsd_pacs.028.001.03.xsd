@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:s8="urn:iso:std:iso:20022:tech:xsd:pacs.028.001.03"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:iso:std:iso:20022:tech:xsd:pacs.028.001.03"
+    elementFormDefault="qualified">
+  <xs:complexType name="ActiveOrHistoricCurrencyAndAmount">
+    <xs:simpleContent>
+      <xs:extension base="s8:ActiveOrHistoricCurrencyAndAmount_SimpleType">
+        <xs:attribute name="Ccy" type="s8:ActiveOrHistoricCurrencyCode" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ActiveOrHistoricCurrencyAndAmount_SimpleType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:totalDigits value="18"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ActiveOrHistoricCurrencyCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="USD"/>
+      <xs:pattern value="[A-Z]{3,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="BranchAndFinancialInstitutionIdentification6">
+    <xs:sequence>
+      <xs:element name="FinInstnId" type="s8:FinancialInstitutionIdentification16"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClearingSystemMemberIdentification2">
+    <xs:sequence>
+      <xs:element name="MmbId" type="s8:Min9Max9Text"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Document">
+    <xs:sequence>
+      <xs:element name="FIToFIPmtStsReq" type="s8:FIToFIPaymentStatusRequestV03_DRAFT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Document_TCH">
+    <xs:sequence>
+      <xs:element name="FIToFIPmtStsReq" type="s8:FIToFIPaymentStatusRequestV03_DRAFT_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FinancialInstitutionIdentification16">
+    <xs:sequence>
+      <xs:element name="ClrSysMmbId" type="s8:ClearingSystemMemberIdentification2" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FIToFIPaymentStatusRequestV03_DRAFT">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GrpHdr" type="s8:GroupHeader91"/>
+      <xs:element name="OrgnlGrpInf" type="s8:OriginalGroupInformation27"/>
+      <xs:element name="TxInf" type="s8:PaymentTransaction113"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FIToFIPaymentStatusRequestV03_DRAFT_TCH">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GrpHdr" type="s8:GroupHeader91_TCH"/>
+      <xs:element name="OrgnlGrpInf" type="s8:OriginalGroupInformation27_TCH"/>
+      <xs:element name="TxInf" type="s8:PaymentTransaction113_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GroupHeader91">
+    <xs:sequence>
+      <xs:element name="MsgId" type="s8:Max35Text"/>
+      <xs:element name="CreDtTm" type="s8:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GroupHeader91_TCH">
+    <xs:sequence>
+      <xs:element name="MsgId" type="s8:Max35Text_TCH"/>
+      <xs:element name="CreDtTm" type="s8:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ISODate">
+    <xs:restriction base="xs:date"/>
+  </xs:simpleType>
+  <xs:simpleType name="ISODateTime">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+  <xs:simpleType name="Max15NumericText">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{1,15}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Max35Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Max35Text_TCH">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+      <xs:pattern value="M[0-9]{4}(((01|03|05|07|08|10|12)((0[1-9])|([1-2][0-9])|(3[0-1])))|((04|06|09|11)((0[1-9])|([1-2][0-9])|30))|((02)((0[1-9])|([1-2][0-9]))))[A-Z0-9]{11}.*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Min9Max9Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="9"/>
+      <xs:maxLength value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="OriginalGroupInformation27">
+    <xs:sequence>
+      <xs:element name="OrgnlMsgId" type="s8:Max35Text"/>
+      <xs:element name="OrgnlMsgNmId" type="s8:OrigMsgName_2019"/>
+      <xs:element name="OrgnlCreDtTm" type="s8:ISODateTime" minOccurs="0"/>
+      <xs:element name="OrgnlNbOfTxs" type="s8:Max15NumericText" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OriginalGroupInformation27_TCH">
+    <xs:sequence>
+      <xs:element name="OrgnlMsgId" type="s8:Max35Text"/>
+      <xs:element name="OrgnlMsgNmId" type="s8:OrigMsgName_2019_TCH"/>
+      <xs:element name="OrgnlCreDtTm" type="s8:ISODateTime"/>
+      <xs:element name="OrgnlNbOfTxs" type="s8:Max15NumericText"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OriginalTransactionReference28">
+    <xs:sequence>
+      <xs:element name="IntrBkSttlmAmt" type="s8:ActiveOrHistoricCurrencyAndAmount" minOccurs="0"/>
+      <xs:element name="IntrBkSttlmDt" type="s8:ISODate" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OriginalTransactionReference28_TCH">
+    <xs:sequence>
+      <xs:element name="IntrBkSttlmAmt" type="s8:ActiveOrHistoricCurrencyAndAmount"/>
+      <xs:element name="IntrBkSttlmDt" type="s8:ISODate"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="OrigMsgName_2019">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="acmt.022.001.03"/>
+      <xs:enumeration value="acmt.023.001.03"/>
+      <xs:enumeration value="acmt.024.001.03"/>
+      <xs:enumeration value="admi.002.001.01"/>
+      <xs:enumeration value="admi.004.001.02"/>
+      <xs:enumeration value="admn.001.001.01"/>
+      <xs:enumeration value="admn.002.001.01"/>
+      <xs:enumeration value="admn.003.001.01"/>
+      <xs:enumeration value="admn.004.001.01"/>
+      <xs:enumeration value="admn.005.001.01"/>
+      <xs:enumeration value="admn.006.001.01"/>
+      <xs:enumeration value="admn.007.001.01"/>
+      <xs:enumeration value="admn.008.001.01"/>
+      <xs:enumeration value="camt.026.001.07"/>
+      <xs:enumeration value="camt.028.001.09"/>
+      <xs:enumeration value="camt.029.001.09"/>
+      <xs:enumeration value="camt.035.001.05"/>
+      <xs:enumeration value="camt.056.001.08"/>
+      <xs:enumeration value="pacs.002.001.10"/>
+      <xs:enumeration value="pacs.008.001.08"/>
+      <xs:enumeration value="pacs.009.001.08"/>
+      <xs:enumeration value="pacs.028.001.02"/>
+      <xs:enumeration value="pain.013.001.07"/>
+      <xs:enumeration value="pain.014.001.07"/>
+      <xs:enumeration value="remt.001.001.04"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OrigMsgName_2019_TCH">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pacs.008.001.08"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PaymentTransaction113">
+    <xs:sequence>
+      <xs:element name="OrgnlInstrId" type="s8:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlTxId" type="s8:Max35Text" minOccurs="0"/>
+      <xs:element name="AccptncDtTm" type="s8:ISODateTime" minOccurs="0"/>
+      <xs:element name="InstgAgt" type="s8:BranchAndFinancialInstitutionIdentification6" minOccurs="0"/>
+      <xs:element name="InstdAgt" type="s8:BranchAndFinancialInstitutionIdentification6" minOccurs="0"/>
+      <xs:element name="OrgnlTxRef" type="s8:OriginalTransactionReference28" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentTransaction113_TCH">
+    <xs:sequence>
+      <xs:element name="OrgnlInstrId" type="s8:Max35Text"/>
+      <xs:element name="OrgnlTxId" type="s8:Max35Text"/>
+      <xs:element name="AccptncDtTm" type="s8:ISODateTime"/>
+      <xs:element name="InstgAgt" type="s8:BranchAndFinancialInstitutionIdentification6"/>
+      <xs:element name="InstdAgt" type="s8:BranchAndFinancialInstitutionIdentification6"/>
+      <xs:element name="OrgnlTxRef" type="s8:OriginalTransactionReference28_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

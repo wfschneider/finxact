@@ -1,0 +1,87 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/systemCalendar.json",
+            "title": "System event calendar",
+      "description": "System event calendar",
+       "x-createDt": "02/16/2017",
+       "x-createBy": "Mike O'Toole",
+       "x-updateDt": "08/28/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "System Event identifier",
+              "description": "Unique System Event identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "eventFreq": {
+                    "title": "System Event Frequency",
+              "description": "System Event frequency",
+                     "type": "string",
+                   "format": "frequency"
+            },
+                 "name": {
+                    "title": "Event name",
+              "description": "The event name",
+                     "type": "string",
+                "maxLength": 20
+            },
+            "eventType": {
+                    "title": "Event type",
+              "description": "The event type",
+                     "type": "string",
+                "maxLength": 20
+            },
+         "nextSchedDtm": {
+                    "title": "Next Schedule Date",
+              "description": "Next Schedule Date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+         "prevSchedDtm": {
+                    "title": "Previous Schedule Dt",
+              "description": "Previous Schedule Dt",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "isScheduled": {
+                    "title": "Event scheduled",
+              "description": "Flag determines whether the event is in process",
+                     "type": "boolean"
+            },
+                 "args": {
+                    "title": "Arguments key value pairs",
+              "description": "The key-value pairing for process arguments",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                              "key": {
+                                "title": "Key",
+                          "description": "Key describing the data for this pairing",
+                                 "type": "string",
+                            "maxLength": 30
+                              },
+                              "val": {
+                                "title": "val",
+                          "description": "Value associated with key",
+                                 "type": ["string", "number", "boolean", "array", "object" ]
+                              }
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "nextSchedDtm",
+                     "indexKey": ["nextSchedDtm" ]
+                            }
+                ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

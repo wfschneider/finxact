@@ -1,0 +1,37 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/glAccrLog.json",
+            "title": "GL Accrual Log",
+      "description": "Transaction log for GL accrual accumulation",
+       "x-createDt": "05/03/2018",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "11/21/2018",
+       "x-updateBy": "Vince Arpa",
+             "type": "object",
+       "properties": {
+            "glSetCode": {
+                    "title": "Set code",
+              "description": "GL account numbers set code",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+       "glDepAccrToDtm": {
+                    "title": "Gl Deposit Accrual To Date",
+              "description": "The date and time of the last GL deposit accrual end date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+        "glLnAccrToDtm": {
+                    "title": "Gl Loan Accrual To Date",
+              "description": "The date and time of the last GL loan accrual end date",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["glSetCode" ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

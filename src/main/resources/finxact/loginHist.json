@@ -1,0 +1,68 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/loginHist.json",
+            "title": "User login change history",
+      "description": "User login change history",
+       "x-createDt": "04/17/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "domainId": {
+                    "title": "Domain Id",
+              "description": "Domain unique identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+              "loginId": {
+                    "title": "Login Id",
+              "description": "Unique login within a domain",
+                     "type": "string",
+                "maxLength": 100
+            },
+                  "seq": {
+                    "title": "Login sequence",
+              "description": "Login sequence",
+                     "type": "integer",
+                  "minimum": 0
+            },
+             "eventDtm": {
+                    "title": "Event date",
+              "description": "Login attempted on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                "logId": {
+                    "title": "Log Id",
+              "description": "Message log id",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+           "secretType": {
+                    "title": "Secret option",
+              "description": "Secret option",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Password" ],
+                            [2, "Passphrase" ],
+                            [3, "PIN" ],
+                            [4, "Token" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "oldVal": {
+                    "title": "Encrypted value",
+              "description": "Encrypted value",
+                     "type": ["integer", "string" ]
+            }
+      },
+         "required": ["domainId", "loginId", "seq", "eventDtm", "secretType", "oldVal" ],
+    "x-dbInterface": {
+           "primaryKey": ["domainId", "loginId", "seq" ]
+      },
+  "x-reportDbInterface": {
+    "journal": false
+  }
+}

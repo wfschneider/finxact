@@ -1,0 +1,94 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/fee.json",
+            "title": "Fee details",
+      "description": "Defines parameters associated to a fee",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+              "feeCode": {
+                    "title": "Fee code",
+              "description": "The fee code",
+                     "type": "string"
+            },
+                 "desc": {
+                    "title": "Fee description",
+              "description": "The fee description",
+                     "type": "string"
+            },
+               "reason": {
+                    "title": "Fee reason",
+              "description": "Fee reason text",
+                     "type": "string",
+                "maxLength": 20
+            },
+             "fixAmtPd": {
+                    "title": "Fixed fee paid",
+              "description": "The fixed fee amount paid",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "fixAmtAccr": {
+                    "title": "Fixed fee accrued",
+              "description": "The fixed fee amount accrued",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "fixAmtWaived": {
+                    "title": "Fixed fee waived",
+              "description": "The fixed fee amount waived",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "varAmtPd": {
+                    "title": "Variable fee paid",
+              "description": "The variable fee amount paid",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "varAmtAccr": {
+                    "title": "Variable fee accrued",
+              "description": "The variable fee amount accrued",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "varAmtWaived": {
+                    "title": "Fixed fee waived",
+              "description": "The variable fee amount waived",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "totAmtPd": {
+                    "title": "Total fee paid",
+              "description": "The total fee amount paid",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "totAmtAccr": {
+                    "title": "Total fee accrued",
+              "description": "The total fee amount accrued",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "totAmtWaived": {
+                    "title": "Totalfee waived",
+              "description": "The total fee amount waived",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "feeTax": {
+                    "title": "Fee tax",
+              "description": "The total tax on fee",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "varPct": {
+                    "title": "Variable pcnt",
+              "description": "The variable fee percentage",
+                     "type": "number"
+            }
+      }
+}

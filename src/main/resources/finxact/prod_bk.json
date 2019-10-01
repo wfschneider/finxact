@@ -1,0 +1,238 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/prod_bk.json",
+            "title": "Bank account product definition",
+      "description": "Product definition for a bank account",
+       "x-createDt": "04/01/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/30/2019",
+       "x-updateBy": "Keval Shah",
+             "type": "object",
+       "properties": {
+             "prodType": {
+                    "title": "Product type",
+              "description": "Product type name",
+                     "type": "string",
+                "maxLength": 10
+            },
+          "prodSubType": {
+                    "title": "Product sub-type",
+              "description": "The product sub-type within prodType",
+                     "type": "string",
+                "maxLength": 10
+            },
+            "prodGroup": {
+                    "title": "Product group",
+              "description": "Product group name",
+                     "type": "string",
+                "maxLength": 10
+            },
+                 "name": {
+                    "title": "Product name",
+              "description": "Product name",
+                     "type": "string",
+                "maxLength": 30
+            },
+            "attachments": {
+                  "title": "Attached items",
+                  "description": "URI References to attached documents and images",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "attach.json"
+                  }
+                },
+                "glCat": {
+                    "title": "GL category",
+              "description": "GL category code",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Asset" ],
+                            [2, "Liability" ],
+                            [3, "Capital" ],
+                            [4, "Revenue" ],
+                            [5, "Expense" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+              "version": {
+                    "title": "Product type version",
+              "description": "Product type version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Product type description",
+                     "type": "string"
+            },
+          "avlStartDtm": {
+                    "title": "Available start date",
+              "description": "Date and time product is first offered and new positions may be opened",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "avlEndDtm": {
+                    "title": "Available end date",
+              "description": "Date and time product is no longer offered and new positions cannot be opened",
+                     "type": "string",
+                   "format": "date-time"
+            },
+              "ccyCode": {
+                    "title": "Currency code",
+              "description": "Currency code",
+                     "type": "string",
+                "minLength": 3,
+                "maxLength": 3,
+                  "default": "USD"
+            },
+             "fundTerm": {
+                    "title": "Funding term",
+              "description": "Window beginning at position opening during which position must be funded",
+                     "type": "string",
+                   "format": "duration"
+            },
+          "isFedExempt": {
+                    "title": "Federal withholding exempt product",
+              "description": "Is exempt from federal withholding",
+                     "type": "boolean"
+            },
+          "isNraExempt": {
+                    "title": "NRA withholding exempt product",
+              "description": "Is exempt from Non-Resident Alien withholding",
+                     "type": "boolean"
+            },
+        "isStateExempt": {
+                    "title": "State withholding exempt product",
+              "description": "Is exempt from state withholding",
+                     "type": "boolean"
+            },
+           "components": {
+                    "title": "Components",
+              "description": "Position components list segmented into posn_bk<component> classes",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "component.json"
+                  }
+            },
+            "glSetCode": {
+                    "title": "General ledger set code",
+              "description": "General ledger acccounts used for reporting",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+             "stmtFreq": {
+                    "title": "Statement frequency",
+              "description": "Default frequency to create a position statement",
+                     "type": "string",
+                   "format": "frequency"
+            },
+               "isRegD": {
+                    "title": "Reg D product",
+              "description": "Indicates whether or not product positions are subject to Regulation D",
+                     "type": "boolean"
+            },
+          "ifxAcctType": {
+                    "title": "IFX account type",
+              "description": "Assigns account to a generally recognized industry standard category",
+                     "type": "string",
+                  "choices": [
+                            ["DDA", "Demand deposit account" ],
+                            ["MMA", "Money market account" ],
+                            ["SDA", "Savings deposit account" ],
+                            ["CDA", "Certificate of deposit" ],
+                            ["CMA", "Cash management account" ],
+                            ["CCA", "Credit card account" ],
+                            ["EQU", "Home equity loan" ],
+                            ["ILA", "Installment loan account" ],
+                            ["CLA", "Commercial loan account" ],
+                            ["LOC", "Consumer line of credit" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 10
+            },
+                  "apy": {
+                    "title": "Annual percentage yield",
+              "description": "Annualized rate that reflects the relationship between the amount of interest that would be earned by a position for the position term and the principal amount used to calculate that interest, as specified by Reg DD",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+               "multipleOf": 0.00001
+            },
+            "maxLtvPct": {
+                    "title": "Maximum ltv percentage",
+              "description": "Maximum allowed loan to value percentage, null value indicates no collateral requirements",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 100,
+               "multipleOf": 0.00001
+            },
+            "posnClass": {
+                    "title": "Position Class",
+              "description": "Position Classes for Account Group",
+                     "type": "string",
+                  "choices": [
+                            ["posn_dep", "Bank Deposit Account Position" ],
+                            ["posn_ln", "Bank Loan Account Position" ]
+                     ]
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["name" ],
+          "foreignKeys": [
+                            {
+                         "name": "prodType",
+                   "foreignKey": ["prodType" ],
+              "referenceEntity": "prodType.json",
+                 "referenceKey": ["prodType" ]
+                            },
+                            {
+                         "name": "prodSubType",
+                   "foreignKey": ["prodType", "prodSubType" ],
+              "referenceEntity": "prodSubType.json",
+                 "referenceKey": ["prodType", "prodSubType" ]
+                            },
+                            {
+                         "name": "prodGroup",
+                   "foreignKey": ["prodType", "prodSubType", "prodGroup" ],
+              "referenceEntity": "prodGroup.json",
+                 "referenceKey": ["prodType", "prodSubType", "prodGroup" ]
+                            },
+                            {
+                         "name": "glSetCode",
+                   "foreignKey": ["glSetCode" ],
+              "referenceEntity": "glSet.json",
+                 "referenceKey": ["glSetCode" ]
+                            },
+                            {
+                         "name": "ccyCode",
+                   "foreignKey": ["ccyCode" ],
+              "referenceEntity": "ccyCode.json",
+                 "referenceKey": ["ccyCode" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "components",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true,
+              "indexes": [
+                            {
+                         "name": "product_ifxAcctType",
+                     "indexKey": ["rptAsOf", "ifxAcctType", "name" ],
+                     "isUnique": true
+                            }
+                ]
+      }
+}

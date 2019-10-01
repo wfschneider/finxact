@@ -1,0 +1,94 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/partyGroupMemberAcct.json",
+            "title": "PartyGroup member to account",
+      "description": "PartyGroup member to account relationship",
+       "x-createDt": "04/17/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/14/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+       "properties": {
+              "groupId": {
+                    "title": "Party group",
+              "description": "Party group containing member accounts",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+             "memberId": {
+                    "title": "Member Id",
+              "description": "The member id of the party within group (a.k.a. customerId, employeeId)",
+                     "type": ["string", "integer" ],
+                "maxLength": 40
+            },
+            "acctGroup": {
+                    "title": "Account group",
+              "description": "Account group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "acctNbr": {
+                    "title": "Account number",
+              "description": "The unique account identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+             "acctName": {
+                    "title": "Account name",
+              "description": "The unique name for this account for the customer",
+                     "type": "string",
+                   "format": "text"
+            },
+            "ownerCode": {
+                    "title": "Ownership type",
+              "description": "Code that defines account ownership relationship",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Single" ],
+                            [2, "Joint tenant with right of survivorship" ],
+                            [3, "Joint tenant in common" ],
+                            [4, "Joint payable on death" ],
+                            [5, "Tenants by entirety" ],
+                            [6, "Tenants in common" ],
+                            [7, "In trust for" ],
+                            [8, "Uniform gift to minor" ],
+                            [9, "Uniform transfer to minor" ],
+                            [10, "Durable power of attorney" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["groupId", "memberId", "acctGroup", "acctNbr" ],
+              "indexes": [
+                            {
+                         "name": "acctName",
+                     "indexKey": ["acctName", "groupId", "memberId", "acctGroup", "acctNbr" ],
+                     "isUnique": true
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "acctGroupAcctNbr",
+                   "foreignKey": ["acctGroup", "acctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true,
+              "indexes": [
+                            {
+                         "name": "partyGroupMemberAcct_AcctNbr",
+                     "indexKey": ["rptAsOf", "acctNbr", "groupId", "memberId" ],
+                     "isUnique": true
+                            }
+                ]
+      }
+}

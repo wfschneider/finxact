@@ -1,0 +1,144 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/componentTd.json",
+            "title": "Term deposit attributes",
+      "description": "Processing attributes for a term deposit",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+        "componentName": {
+                    "title": "Component name",
+              "description": "Term component name",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "Component version",
+              "description": "Term component version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+             "rollProd": {
+                    "title": "Rollover product",
+              "description": "Product the term deposit rolling over rolls into",
+                     "type": "string"
+            },
+                 "term": {
+                    "title": "Term",
+              "description": "Term assigned to position",
+                     "type": "string",
+                   "format": "frequency"
+            },
+              "intRate": {
+                    "title": "Fixed interest rate",
+              "description": "Fixed interest rate",
+                     "type": "number",
+                   "format": "rate",
+                  "decimal": 5,
+                  "minimum": 0,
+                  "maximum": 20
+            },
+            "intMatrix": {
+                    "title": "Interest matrix",
+              "description": "Matrix used to determine interest rate",
+                     "type": "string"
+            },
+           "earlyDrPen": {
+                    "title": "Early withdrawal penalty",
+              "description": "Method used to calculate an early withdrawal penalty",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Forfeit a number of days accrued interest" ]
+                     ]
+            },
+            "penMatrix": {
+                    "title": "Penalty matrix",
+              "description": "Provides values used in early withdrawal penalty calculation",
+                     "type": "string"
+            },
+               "notice": {
+                    "title": "Maturity notice",
+              "description": "Notification period prior to maturity",
+                     "type": "string",
+                   "format": "duration"
+            },
+          "maturityOpt": {
+                    "title": "Maturity option",
+              "description": "Maturity option",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Capitalize interest and rollover" ],
+                            [2, "Transfer principal and interest" ],
+                            [3, "Rollover principal; transfer interest" ],
+                            [4, "Capitalize interest; remain on deposit" ],
+                            [5, "Partial transfer" ]
+                     ]
+            },
+          "rollDrGrace": {
+                    "title": "Debit grace period",
+              "description": "Period after rollover when withdrawals can be made without penalty",
+                     "type": "string",
+                   "format": "duration"
+            },
+        "rollGraceRate": {
+                    "title": "Grace debit interest rate",
+              "description": "Matrix used to determine accrual adjustment rate for withdrawals during debit grace period",
+                     "type": "string"
+            },
+       "rollDrGraceAdj": {
+                    "title": "Debit grace period interest adjustment",
+              "description": "Adjustment to accrued interest on funds withdrawn during grace period",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Adjust accrual to accrue at bank savings rate" ],
+                            [2, "No adjustment to interest" ],
+                            [3, "Forfeit accrued interest" ]
+                     ]
+            },
+          "rollCrGrace": {
+                    "title": "Rollover credit grace period",
+              "description": "Period after rollover where deposits can be made without extending the term",
+                     "type": "string",
+                   "format": "duration"
+            },
+            "crTermExt": {
+                    "title": "Credit term extension",
+              "description": "Extension to the maturity date when credits are made outside the rollover credit grace period",
+                     "type": "string",
+                   "format": "frequency"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["componentName", "version" ],
+          "foreignKeys": [
+                            {
+                         "name": "intMatrix",
+                   "foreignKey": ["intMatrix" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            },
+                            {
+                         "name": "penMatrix",
+                   "foreignKey": ["penMatrix" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            },
+                            {
+                         "name": "rollGraceRate",
+                   "foreignKey": ["rollGraceRate" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            }
+            ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

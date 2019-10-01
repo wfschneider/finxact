@@ -1,0 +1,101 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/feeBal.json",
+            "title": "Balance based fee",
+      "description": "Defines fees assessed based on position balance",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/28/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                "odFee": {
+                    "title": "Overdraft fee amount",
+              "description": "The overdraft fee amount assessed when the position is nsf",
+                     "type": "number"
+            },
+          "odFeeLimits": {
+                    "title": "Overdraft fee amount limits",
+              "description": "Defines maximum overdraft fee amounts that may be assessed for a period",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                             "freq": {
+                                "title": "Period",
+                          "description": "Defines the period used to determine whether or not the overdraft fees assessed exceed a maximum amount",
+                                 "type": "string",
+                               "format": "frequency"
+                              },
+                        "nsfFeeMax": {
+                                "title": "Maximum overdraft fee for period",
+                          "description": "Maximum total overdraft fees that may be assessed for period",
+                                 "type": "number"
+                              }
+                        }
+                  }
+            },
+               "nsfFee": {
+                    "title": "Nsf fee amount",
+              "description": "The nsf fee amount assessed when the position is nsf",
+                     "type": "number"
+            },
+         "nsfFeeLimits": {
+                    "title": "NSF fee limits",
+              "description": "Defines maximum NSF fee amounts that may be assessed for a period",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                             "freq": {
+                                "title": "Period",
+                          "description": "Defines the period used to determine whether or not the NSF fees assessed exceed a maximum amount",
+                                 "type": "string",
+                               "format": "frequency"
+                              },
+                        "nsfFeeMax": {
+                                "title": "Maximum NSF fees for period",
+                          "description": "Maximum total NSF fees that may be assessed for period",
+                                 "type": "number"
+                              }
+                        }
+                  }
+            },
+      "odsweepFeeFixed": {
+                    "title": "Fixed overdraft sweep fee amount",
+              "description": "The overdraft sweep fee amount assessed when funds are swept to cover an nsf condition",
+                     "type": "number"
+            },
+        "odsweepFeePct": {
+                    "title": "Overdraft sweep fee percentage",
+              "description": "Percentage of the amount swept to cover the overdraft that is assessed as a fee",
+                     "type": "number"
+            },
+        "odsweepFeeMin": {
+                    "title": "Minimum overdraft sweep fee amount",
+              "description": "Minimum overdraft fee amount that may be assessed per overdraft sweep",
+                     "type": "number"
+            },
+     "odsweepFeeLimits": {
+                    "title": "Overdraft sweep fee limits",
+              "description": "Defines maximum overdraft sweep fee amounts that may be assessed for a period",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                             "freq": {
+                                "title": "Period",
+                          "description": "Defines the period used to determine whether or not the overdraft sweep fees assessed exceed a maximum amount",
+                                 "type": "string",
+                               "format": "frequency"
+                              },
+                        "nsfFeeMax": {
+                                "title": "Maximum overdraft sweep fees for period",
+                          "description": "Maximum total overdraft sweep fees that may be assessed for period",
+                                 "type": "number"
+                              }
+                        }
+                  }
+            }
+      }
+}

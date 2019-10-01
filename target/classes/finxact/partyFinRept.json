@@ -1,0 +1,120 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/partyFinRept.json",
+            "title": "Party financial report",
+      "description": "Financial report schedule information for party entities that provide financial statements",
+       "x-createDt": "09/15/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "05/09/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Party id",
+              "description": "Foreign key to party",
+                     "type": "string",
+                   "format": "tguid"
+            },
+          "fiscalYrEnd": {
+                    "title": "Fiscal year end",
+              "description": "Month of fiscal year-end",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 12
+            },
+               "isReqd": {
+                    "title": "Is statement required",
+              "description": "Indicates whether financial statement is required",
+                     "type": "boolean"
+            },
+             "lastDate": {
+                    "title": "Date last statement",
+              "description": "Date the last financial statement was due",
+                     "type": "string",
+                   "format": "date"
+            },
+             "nextDate": {
+                    "title": "Date next statement",
+              "description": "Date the next financial statement is due",
+                     "type": "string",
+                   "format": "date"
+            },
+                 "isMo": {
+                    "title": "Is monthly required",
+              "description": "Monthly statement required",
+                     "type": "boolean"
+            },
+                "isQtr": {
+                    "title": "Is quarterly required",
+              "description": "Quarterly statement required",
+                     "type": "boolean"
+            },
+             "isAnnual": {
+                    "title": "Is annual required",
+              "description": "Annual statement required",
+                     "type": "boolean"
+            },
+                "stmts": {
+                    "title": "Financial statements",
+              "description": "Individual financial statements",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                          "stmtDtm": {
+                                "title": "Cutoff date",
+                          "description": "Reporting period cutoff date",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                      "acquiredDtm": {
+                                "title": "Acquired date",
+                          "description": "Statement acquired on date",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                           "period": {
+                                "title": "Reporting period",
+                          "description": "Statement reporting period",
+                                 "type": "integer",
+                              "choices": [
+                                        [0, "Unknown" ],
+                                        [1, "Month" ],
+                                        [2, "Quarter" ],
+                                        [3, "Annual" ],
+                                        [254, "Other" ],
+                                        [255, "N/A" ]
+                                    ],
+                              "minimum": 0,
+                              "maximum": 255
+                              },
+                      "attachments": {
+                                "title": "Statement attachments",
+                          "description": "Additional Items attached to statement",
+                                 "type": "array",
+                                "items": {
+                                     "type": "object",
+                                     "$ref": "attach.json"
+                                    }
+                              }
+                        },
+                     "required": ["stmtDtm", "period", "attachments" ]
+                  }
+            }
+      },
+         "required": ["_Id", "isReqd", "lastDate", "isMo", "isQtr", "isAnnual" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "party",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

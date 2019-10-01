@@ -1,0 +1,52 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depFee.json",
+            "title": "Service fee attributes",
+      "description": "Calculation and amounts collected for service fees",
+       "x-createDt": "01/10/2019",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "03/12/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "posn_bkFee.json"
+                        }
+             ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+      "extends": "posn_dep.json",
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "componentName",
+                   "foreignKey": ["componentName", "version" ],
+              "referenceEntity": "componentFee.json",
+                 "referenceKey": ["componentName", "version" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "feeDtl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "collectFrom",
+                       "format": "json"
+                            }
+              ],
+             "temporal": {
+                "tableName": "posn_dep_feeDtl_hist",
+                   "option": 4,
+           "baseProperties": ["earnings", "sumForfeited"]
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

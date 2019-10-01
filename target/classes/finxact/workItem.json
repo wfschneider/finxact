@@ -1,0 +1,85 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/workItem.json",
+            "title": "Work item",
+      "description": "Work item",
+       "x-createDt": "09/30/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Case identifier",
+              "description": "The case identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "appId": {
+                    "title": "Application identifier",
+              "description": "The case application identifier",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+               "caseId": {
+                    "title": "Unique case identifier within apppId",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+             "caseType": {
+                    "title": "Case type",
+              "description": "The case type",
+                     "type": "string",
+                "maxLength": 20
+            },
+              "openDtm": {
+                    "title": "Opened on",
+              "description": "When case was opened",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "status": {
+                    "title": "Status",
+              "description": "The case status",
+                     "type": "string",
+                "maxLength": 20
+            },
+             "activity": {
+                    "title": "Activity",
+              "description": "The case activity",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+                 "task": {
+                    "title": "Task",
+              "description": "The case task",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+                 "step": {
+                    "title": "Step",
+              "description": "The case step within task",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+                 "note": {
+                    "title": "Note",
+              "description": "Free text case note",
+                     "type": "string",
+                   "format": "text-area"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "appIdCaseId",
+                     "indexKey": ["appId", "caseId" ],
+                     "isUnique": true
+                            }
+                ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

@@ -1,0 +1,58 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/insuranceInfo.json",
+            "title": "Insurance information",
+      "description": "Insurance policy information",
+       "x-createDt": "06/18/2019",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "06/18/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+            "policyNbr": {
+                    "title": "Policy number",
+              "description": "Insurance policy number",
+                     "type": "string"
+            },
+        "policyExpDate": {
+                    "title": "Policy expiration date",
+              "description": "Expiration date of the insurance policy",
+                     "type": "string",
+                   "format": "date"
+            },
+           "policyDesc": {
+                    "title": "Policy description",
+              "description": "Insurance policy description",
+                     "type": "string"
+            },
+          "forcePlaced": {
+                    "title": "Force placed",
+              "description": "Insurance force placed flag",
+                     "type": "boolean"
+            },
+          "coverageAmt": {
+                    "title": "Coverage amount",
+              "description": "Insurance policy coverage amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "premiumAmt": {
+                    "title": "Premium amount",
+              "description": "Insurance policy premium amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "insAgent": {
+                    "title": "Insurance agent",
+              "description": "Insurance agent party person",
+                     "type": "string",
+                     "$ref": "party.json"
+            },
+           "insCompany": {
+                    "title": "Insurance company",
+              "description": "Insurance company party organization",
+                     "type": "string",
+                     "$ref": "party_org.json"
+            }
+      }
+}

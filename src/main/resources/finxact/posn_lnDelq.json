@@ -1,0 +1,82 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_lnDelq.json",
+            "title": "Position delinquency attributes",
+      "description": "Delinquency, non-accrual, reclassification, charge-off and write-off attributes for loan position",
+       "x-createDt": "07/02/2019",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "07/02/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "status": {
+                    "title": "Delinquency status",
+              "description": "Delinquency status of the loan position",
+                     "type": "integer",
+                  "choices": [
+                            [0, "N/A" ],
+                            [1, "Non accrual" ],
+                            [2, "Charge-off" ],
+                            [3, "Write-off" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+        "origGlSetCode": {
+                    "title": "Original general ledger set code",
+              "description": "General ledger acccounts at the time of position creation",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+              "nonAccr": {
+                    "title": "Non accrual attributes",
+              "description": "Attributes for reporting non accrual loans",
+                     "type": "object",
+               "properties": {
+                     "startDtm": {
+                            "title": "Non-accrual start date-time",
+                      "description": "Date-time non-accrual statred on the position",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                       "endDtm": {
+                            "title": "Non-accrual end date-time",
+                      "description": "Date-time non-accrual ended on the position",
+                             "type": "string",
+                           "format": "date-time"
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "nonAccr",
+                       "format": "json"
+                            }
+              ],
+             "temporal": {
+                "tableName": "posn_lnDelqhist",
+                   "option": 4,
+           "baseProperties": ["status" ]
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

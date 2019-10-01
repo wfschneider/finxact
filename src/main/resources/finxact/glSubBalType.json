@@ -1,0 +1,65 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/glSubBalType.json",
+            "title": "General ledger sub-balance type",
+      "description": "Types of GL sub-balances",
+       "x-createDt": "09/30/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+                 "name": {
+                    "title": "Sub-balance type",
+              "description": "Name of a sub-balance type",
+                     "type": "string",
+                "maxLength": 30
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Sub-balance description",
+                     "type": "string"
+            },
+            "accumType": {
+                    "title": "Accumulation type",
+              "description": "Accumulation option type",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255,
+                  "default": 1,
+                  "choices": [
+                            [0, "None" ],
+                            [1, "GL Set Code" ],
+                            [2, "Account Id" ],
+                            [3, "Position Id" ]
+                     ]
+            },
+       "isSubLedgerBal": {
+                    "title": "Is sub-ledger balance",
+              "description": "Is a sub-balance of the ledger balance on a position",
+                     "type": "boolean",
+                  "default": false
+            },
+               "isMemo": {
+                    "title": "Is memo",
+              "description": "Is a memo sub-balance type, not balanced, accumulated or settled",
+                     "type": "boolean",
+                  "default": false
+            },
+        "isZeroToClose": {
+                    "title": "Is zero balance for closeout",
+              "description": "An indicator to detremine if this sub balance needs to be zero for a closeout",
+                     "type": "boolean",
+                  "default": false
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["name" ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

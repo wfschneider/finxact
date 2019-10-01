@@ -1,0 +1,137 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/collateralEntry.json",
+            "title": "Collateral entry",
+      "description": "Collateral information entry",
+       "x-createDt": "06/18/2019",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "06/18/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+       "collateralType": {
+                    "title": "Type",
+              "description": "Collateral type",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/collateralType.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+                 "desc": {
+                    "title": "description",
+              "description": "Collateral entry description",
+                     "type": "string"
+            },
+                 "addr": {
+                    "title": "Collateral address",
+                     "type": "object",
+                     "$ref": "addr.json"
+            },
+            "insurance": {
+                    "title": "Collateral insurance",
+              "description": "Collateral insurance information",
+                     "type": "object",
+                     "$ref": "insuranceInfo.json"
+            },
+          "vehicleInfo": {
+                    "title": "Vehicle information",
+              "description": "Vehicle identification information",
+                     "type": "object",
+                     "$ref": "vehicleInfo.json"
+            },
+           "vesselInfo": {
+                    "title": "Vessel information",
+              "description": "Vessel identification information",
+                     "type": "object",
+                     "$ref": "vesselInfo.json"
+            },
+      "pledgedAcctInfo": {
+                    "title": "Pledged account",
+              "description": "Collateral pledged account information",
+                     "type": "object",
+                     "$ref": "counterparty.json"
+            },
+       "realEstateInfo": {
+                    "title": "Real estate information",
+              "description": "Real estate identification information",
+                     "type": "object",
+                     "$ref": "realEstateInfo.json"
+            },
+            "otherDtls": {
+                    "title": "Other collateral details",
+              "description": "Additional details about the collateral",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "string",
+                        "title": "Value",
+                  "description": "Value of the additional property"
+                  }
+            },
+              "ccyCode": {
+                    "title": "Currency code",
+              "description": "Currency code ISO 4217",
+                     "type": "string",
+                "minLength": 3,
+                "maxLength": 3,
+                  "default": "USD"
+            },
+              "origVal": {
+                    "title": "Original value",
+              "description": "Original collateral value",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "origValDtm": {
+                    "title": "Original valuation date",
+              "description": "Date-time of original valuation",
+                     "type": "string",
+                   "format": "date-time"
+            },
+              "currVal": {
+                    "title": "Current value",
+              "description": "Current collateral value",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "currValDtm": {
+                    "title": "Current valuation date",
+              "description": "Date-time of current valuation",
+                     "type": "string",
+                   "format": "date-time"
+            },
+         "maxPledgeAmt": {
+                    "title": "Maximum pledged amount",
+              "description": "Maximum available pledged amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "maxPledgePct": {
+                    "title": "Maximum pledged percentage",
+              "description": "Maximum available pledged amount as percentage of currVal",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "decimal": 5
+            },
+          "recoveryPct": {
+                    "title": "Recovery percentage",
+              "description": "Maximum recovery percentage",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "decimal": 5
+            },
+           "netOperInc": {
+                    "title": "Net operating income",
+              "description": "Net operating income of non-owner occupied real estate",
+                     "type": "number",
+                   "format": "currency"
+            }
+      }
+}

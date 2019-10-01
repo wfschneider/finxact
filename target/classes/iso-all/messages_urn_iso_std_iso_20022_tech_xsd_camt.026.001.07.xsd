@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:fi="urn:iso:std:iso:20022:tech:xsd:camt.026.001.07"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:iso:std:iso:20022:tech:xsd:camt.026.001.07"
+    elementFormDefault="qualified">
+  <xs:complexType name="ActiveOrHistoricCurrencyAndAmount">
+    <xs:simpleContent>
+      <xs:extension base="fi:ActiveOrHistoricCurrencyAndAmount_SimpleType">
+        <xs:attribute name="Ccy" type="fi:ActiveOrHistoricCurrencyCode" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ActiveOrHistoricCurrencyAndAmount_SimpleType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:totalDigits value="18"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ActiveOrHistoricCurrencyCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="USD"/>
+      <xs:pattern value="[A-Z]{3,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="BranchAndFinancialInstitutionIdentification6">
+    <xs:sequence>
+      <xs:element name="FinInstnId" type="fi:FinancialInstitutionIdentification16"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BranchAndFinancialInstitutionIdentification6_TCH">
+    <xs:sequence>
+      <xs:element name="FinInstnId" type="fi:FinancialInstitutionIdentification16_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Case5">
+    <xs:sequence>
+      <xs:element name="Id" type="fi:Max35Text"/>
+      <xs:element name="Cretr" type="fi:Party39Choice"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Case5_TCH">
+    <xs:sequence>
+      <xs:element name="Id" type="fi:Max35Text"/>
+      <xs:element name="Cretr" type="fi:Party39Choice_TCH_2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CaseAssignment5">
+    <xs:sequence>
+      <xs:element name="Id" type="fi:Max35Text"/>
+      <xs:element name="Assgnr" type="fi:Party39Choice"/>
+      <xs:element name="Assgne" type="fi:Party39Choice"/>
+      <xs:element name="CreDtTm" type="fi:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CaseAssignment5_TCH">
+    <xs:sequence>
+      <xs:element name="Id" type="fi:Max35Text_TCH"/>
+      <xs:element name="Assgnr" type="fi:Party39Choice_TCH"/>
+      <xs:element name="Assgne" type="fi:Party39Choice_TCH"/>
+      <xs:element name="CreDtTm" type="fi:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClearingSystemMemberIdentification2">
+    <xs:sequence>
+      <xs:element name="MmbId" type="fi:Min9Max9Text"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DateAndDateTime2Choice">
+    <xs:choice>
+      <xs:element name="Dt" type="fi:ISODate"/>
+      <xs:element name="DtTm" type="fi:ISODateTime"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="Document">
+    <xs:sequence>
+      <xs:element name="UblToApply" type="fi:UnableToApplyV07_DRAFT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Document_TCH">
+    <xs:sequence>
+      <xs:element name="UblToApply" type="fi:UnableToApplyV07_DRAFT_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FinancialInstitutionIdentification16">
+    <xs:sequence>
+      <xs:element name="ClrSysMmbId" type="fi:ClearingSystemMemberIdentification2" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FinancialInstitutionIdentification16_TCH">
+    <xs:sequence>
+      <xs:element name="ClrSysMmbId" type="fi:ClearingSystemMemberIdentification2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ISODate">
+    <xs:restriction base="xs:date"/>
+  </xs:simpleType>
+  <xs:simpleType name="ISODateTime">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+  <xs:simpleType name="Max140Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="140"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Max35Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Max35Text_TCH">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+      <xs:pattern value="M[0-9]{4}(((01|03|05|07|08|10|12)((0[1-9])|([1-2][0-9])|(3[0-1])))|((04|06|09|11)((0[1-9])|([1-2][0-9])|30))|((02)((0[1-9])|([1-2][0-9]))))[A-Z0-9]{11}.*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Min9Max9Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="9"/>
+      <xs:maxLength value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MissingOrIncorrectInformation3">
+    <xs:sequence>
+      <xs:element name="MssngInf" type="fi:UnableToApplyMissing1" minOccurs="0" maxOccurs="10"/>
+      <xs:element name="IncrrctInf" type="fi:UnableToApplyIncorrect1" minOccurs="0" maxOccurs="10"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MissingOrIncorrectInformation3_TCH">
+    <xs:sequence>
+      <xs:element name="MssngInf" type="fi:UnableToApplyMissing1_TCH" minOccurs="0" maxOccurs="10"/>
+      <xs:element name="IncrrctInf" type="fi:UnableToApplyIncorrect1_TCH" minOccurs="0" maxOccurs="10"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="OrigMsgName">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="acmt.022.001.02"/>
+      <xs:enumeration value="admi.002.001.01"/>
+      <xs:enumeration value="admi.004.001.02"/>
+      <xs:enumeration value="admn.001.001.01"/>
+      <xs:enumeration value="admn.002.001.01"/>
+      <xs:enumeration value="admn.003.001.01"/>
+      <xs:enumeration value="admn.004.001.01"/>
+      <xs:enumeration value="admn.005.001.01"/>
+      <xs:enumeration value="admn.006.001.01"/>
+      <xs:enumeration value="admn.007.001.01"/>
+      <xs:enumeration value="admn.008.001.01"/>
+      <xs:enumeration value="camt.026.001.05"/>
+      <xs:enumeration value="camt.026.001.07"/>
+      <xs:enumeration value="camt.028.001.06"/>
+      <xs:enumeration value="camt.028.001.09"/>
+      <xs:enumeration value="camt.029.001.06"/>
+      <xs:enumeration value="camt.029.001.09"/>
+      <xs:enumeration value="camt.035.001.03"/>
+      <xs:enumeration value="camt.035.001.05"/>
+      <xs:enumeration value="camt.056.001.05"/>
+      <xs:enumeration value="camt.056.001.08"/>
+      <xs:enumeration value="pacs.002.001.07"/>
+      <xs:enumeration value="pacs.002.001.10"/>
+      <xs:enumeration value="pacs.008.001.06"/>
+      <xs:enumeration value="pacs.008.001.08"/>
+      <xs:enumeration value="pacs.009.001.08"/>
+      <xs:enumeration value="pacs.028.001.02"/>
+      <xs:enumeration value="pain.013.001.05"/>
+      <xs:enumeration value="pain.013.001.07"/>
+      <xs:enumeration value="pain.014.001.05"/>
+      <xs:enumeration value="pain.014.001.07"/>
+      <xs:enumeration value="remt.001.001.02"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OrigMsgName_TCH">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pain.013.001.07"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OrigMsgName_TCH_2">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pacs.008.001.08"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Party39Choice">
+    <xs:choice>
+      <xs:element name="Pty" type="fi:PartyIdentification135"/>
+      <xs:element name="Agt" type="fi:BranchAndFinancialInstitutionIdentification6"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="Party39Choice_TCH">
+    <xs:choice>
+      <xs:element name="Agt" type="fi:BranchAndFinancialInstitutionIdentification6_TCH"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="Party39Choice_TCH_2">
+    <xs:choice>
+      <xs:element name="Pty" type="fi:PartyIdentification135_TCH"/>
+      <xs:element name="Agt" type="fi:BranchAndFinancialInstitutionIdentification6_TCH"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="PartyIdentification135">
+    <xs:sequence>
+      <xs:element name="Nm" type="fi:Max140Text" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartyIdentification135_TCH">
+    <xs:sequence>
+      <xs:element name="Nm" type="fi:Max140Text"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnableToApplyIncorrect1">
+    <xs:sequence>
+      <xs:element name="Cd" type="fi:UnableToApplyIncorrectInformation4Code"/>
+      <xs:element name="AddtlIncrrctInf" type="fi:Max140Text" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnableToApplyIncorrect1_TCH">
+    <xs:sequence>
+      <xs:element name="Cd" type="fi:UnableToApplyIncorrectInformation4Code_TCH"/>
+      <xs:element name="AddtlIncrrctInf" type="fi:Max140Text" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="UnableToApplyIncorrectInformation4Code">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IN01"/>
+      <xs:enumeration value="IN02"/>
+      <xs:enumeration value="IN03"/>
+      <xs:enumeration value="IN04"/>
+      <xs:enumeration value="IN05"/>
+      <xs:enumeration value="IN06"/>
+      <xs:enumeration value="IN07"/>
+      <xs:enumeration value="IN08"/>
+      <xs:enumeration value="IN09"/>
+      <xs:enumeration value="IN10"/>
+      <xs:enumeration value="IN11"/>
+      <xs:enumeration value="IN12"/>
+      <xs:enumeration value="IN13"/>
+      <xs:enumeration value="IN14"/>
+      <xs:enumeration value="IN15"/>
+      <xs:enumeration value="IN16"/>
+      <xs:enumeration value="IN17"/>
+      <xs:enumeration value="IN18"/>
+      <xs:enumeration value="IN19"/>
+      <xs:enumeration value="IN33"/>
+      <xs:enumeration value="IN36"/>
+      <xs:enumeration value="IN37"/>
+      <xs:enumeration value="IN38"/>
+      <xs:enumeration value="IN39"/>
+      <xs:enumeration value="MM20"/>
+      <xs:enumeration value="MM21"/>
+      <xs:enumeration value="MM22"/>
+      <xs:enumeration value="MM25"/>
+      <xs:enumeration value="MM26"/>
+      <xs:enumeration value="MM27"/>
+      <xs:enumeration value="MM28"/>
+      <xs:enumeration value="MM29"/>
+      <xs:enumeration value="MM30"/>
+      <xs:enumeration value="MM31"/>
+      <xs:enumeration value="MM32"/>
+      <xs:enumeration value="MM34"/>
+      <xs:enumeration value="MM35"/>
+      <xs:enumeration value="NARR"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UnableToApplyIncorrectInformation4Code_TCH">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IN01"/>
+      <xs:enumeration value="IN04"/>
+      <xs:enumeration value="IN06"/>
+      <xs:enumeration value="IN15"/>
+      <xs:enumeration value="IN19"/>
+      <xs:enumeration value="IN38"/>
+      <xs:enumeration value="IN39"/>
+      <xs:enumeration value="MM20"/>
+      <xs:enumeration value="MM21"/>
+      <xs:enumeration value="NARR"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="UnableToApplyJustification3Choice">
+    <xs:choice>
+      <xs:element name="MssngOrIncrrctInf" type="fi:MissingOrIncorrectInformation3"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="UnableToApplyJustification3Choice_TCH">
+    <xs:choice>
+      <xs:element name="MssngOrIncrrctInf" type="fi:MissingOrIncorrectInformation3_TCH"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="UnableToApplyMissing1">
+    <xs:sequence>
+      <xs:element name="Cd" type="fi:UnableToApplyMissingInformation3Code"/>
+      <xs:element name="AddtlMssngInf" type="fi:Max140Text" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnableToApplyMissing1_TCH">
+    <xs:sequence>
+      <xs:element name="Cd" type="fi:UnableToApplyMissingInformation3Code_TCH"/>
+      <xs:element name="AddtlMssngInf" type="fi:Max140Text" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="UnableToApplyMissingInformation3Code">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MS01"/>
+      <xs:enumeration value="MS02"/>
+      <xs:enumeration value="MS03"/>
+      <xs:enumeration value="MS04"/>
+      <xs:enumeration value="MS05"/>
+      <xs:enumeration value="MS06"/>
+      <xs:enumeration value="MS07"/>
+      <xs:enumeration value="MS08"/>
+      <xs:enumeration value="MS09"/>
+      <xs:enumeration value="MS10"/>
+      <xs:enumeration value="MS11"/>
+      <xs:enumeration value="MS12"/>
+      <xs:enumeration value="MS13"/>
+      <xs:enumeration value="MS14"/>
+      <xs:enumeration value="MS15"/>
+      <xs:enumeration value="MS16"/>
+      <xs:enumeration value="MS17"/>
+      <xs:enumeration value="NARR"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UnableToApplyMissingInformation3Code_TCH">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MS01"/>
+      <xs:enumeration value="NARR"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="UnableToApplyV07_DRAFT">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Assgnmt" type="fi:CaseAssignment5"/>
+      <xs:element name="Case" type="fi:Case5"/>
+      <xs:element name="Undrlyg" type="fi:UnderlyingTransaction5Choice"/>
+      <xs:element name="Justfn" type="fi:UnableToApplyJustification3Choice"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnableToApplyV07_DRAFT_TCH">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Assgnmt" type="fi:CaseAssignment5_TCH"/>
+      <xs:element name="Case" type="fi:Case5_TCH"/>
+      <xs:element name="Undrlyg" type="fi:UnderlyingTransaction5Choice_TCH"/>
+      <xs:element name="Justfn" type="fi:UnableToApplyJustification3Choice_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingGroupInformation1">
+    <xs:sequence>
+      <xs:element name="OrgnlMsgId" type="fi:Max35Text"/>
+      <xs:element name="OrgnlMsgNmId" type="fi:OrigMsgName"/>
+      <xs:element name="OrgnlCreDtTm" type="fi:ISODateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingGroupInformation1_TCH">
+    <xs:sequence>
+      <xs:element name="OrgnlMsgId" type="fi:Max35Text"/>
+      <xs:element name="OrgnlMsgNmId" type="fi:OrigMsgName_TCH"/>
+      <xs:element name="OrgnlCreDtTm" type="fi:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingGroupInformation1_TCH_2">
+    <xs:sequence>
+      <xs:element name="OrgnlMsgId" type="fi:Max35Text"/>
+      <xs:element name="OrgnlMsgNmId" type="fi:OrigMsgName_TCH_2"/>
+      <xs:element name="OrgnlCreDtTm" type="fi:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingPaymentInstruction5">
+    <xs:sequence>
+      <xs:element name="OrgnlGrpInf" type="fi:UnderlyingGroupInformation1" minOccurs="0"/>
+      <xs:element name="OrgnlPmtInfId" type="fi:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlEndToEndId" type="fi:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlInstdAmt" type="fi:ActiveOrHistoricCurrencyAndAmount"/>
+      <xs:element name="ReqdExctnDt" type="fi:DateAndDateTime2Choice" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingPaymentInstruction5_TCH">
+    <xs:sequence>
+      <xs:element name="OrgnlGrpInf" type="fi:UnderlyingGroupInformation1_TCH"/>
+      <xs:element name="OrgnlPmtInfId" type="fi:Max35Text"/>
+      <xs:element name="OrgnlEndToEndId" type="fi:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlInstdAmt" type="fi:ActiveOrHistoricCurrencyAndAmount"/>
+      <xs:element name="ReqdExctnDt" type="fi:DateAndDateTime2Choice"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingPaymentTransaction4">
+    <xs:sequence>
+      <xs:element name="OrgnlGrpInf" type="fi:UnderlyingGroupInformation1" minOccurs="0"/>
+      <xs:element name="OrgnlInstrId" type="fi:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlEndToEndId" type="fi:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlTxId" type="fi:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlIntrBkSttlmAmt" type="fi:ActiveOrHistoricCurrencyAndAmount"/>
+      <xs:element name="OrgnlIntrBkSttlmDt" type="fi:ISODate"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingPaymentTransaction4_TCH">
+    <xs:sequence>
+      <xs:element name="OrgnlGrpInf" type="fi:UnderlyingGroupInformation1_TCH_2"/>
+      <xs:element name="OrgnlInstrId" type="fi:Max35Text"/>
+      <xs:element name="OrgnlEndToEndId" type="fi:Max35Text" minOccurs="0"/>
+      <xs:element name="OrgnlTxId" type="fi:Max35Text"/>
+      <xs:element name="OrgnlIntrBkSttlmAmt" type="fi:ActiveOrHistoricCurrencyAndAmount"/>
+      <xs:element name="OrgnlIntrBkSttlmDt" type="fi:ISODate"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingTransaction5Choice">
+    <xs:choice>
+      <xs:element name="Initn" type="fi:UnderlyingPaymentInstruction5"/>
+      <xs:element name="IntrBk" type="fi:UnderlyingPaymentTransaction4"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="UnderlyingTransaction5Choice_TCH">
+    <xs:choice>
+      <xs:element name="Initn" type="fi:UnderlyingPaymentInstruction5_TCH"/>
+      <xs:element name="IntrBk" type="fi:UnderlyingPaymentTransaction4_TCH"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:schema>

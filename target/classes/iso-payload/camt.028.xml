@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:tch" xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:if="urn:iso:std:iso:20022:tech:xsd:camt.028.001.09">
+    <AppHdr>
+        <head:Fr>
+            <head:FIId>
+                <head:FinInstnId>
+                    <head:ClrSysMmbId>
+                        <head:MmbId>BOFASGS5XXX</head:MmbId>
+                    </head:ClrSysMmbId>
+                </head:FinInstnId>
+            </head:FIId>
+        </head:Fr>
+        <head:To>
+            <head:FIId>
+                <head:FinInstnId>
+                    <head:ClrSysMmbId>
+                        <head:MmbId>BOFASGS5XXX</head:MmbId>
+                    </head:ClrSysMmbId>
+                </head:FinInstnId>
+            </head:FIId>
+        </head:To>
+        <head:BizMsgIdr>B20160307BOFASGS5HAA0754909</head:BizMsgIdr>
+        <head:MsgDefIdr>camt.028.001.09</head:MsgDefIdr>
+        <head:CreDt>2016-03-07T15:09:31</head:CreDt>
+		<head:Sgntr>
+			<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+				<SignedInfo>
+					<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+					<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1" />
+					<Reference URI="">
+						<Transforms>
+							<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+							<Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11" />
+						</Transforms>
+						<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+						<DigestValue>kg27p4wZF68PGwRMoYhefg9Rwu54QJgtW5i8VIHNmeA=</DigestValue>
+					</Reference>
+				</SignedInfo>
+				<SignatureValue>0aYz9mQLqBF2XChM1Kp9ft3d2BM=</SignatureValue>
+				<KeyInfo>
+					<X509Data>
+						<X509SubjectName>CN=rsa0,OU=ips,O=vocalink,L=rickmansworth,ST=Unknown,C=uk</X509SubjectName>
+						<X509IssuerSerial>
+							<X509IssuerName>CN=sign0, OU=ips, O=vocalink, L=rickmansworth, ST=Unknown, C=uk</X509IssuerName>
+							<X509SerialNumber>1328092436</X509SerialNumber>
+						</X509IssuerSerial>
+					</X509Data>
+				</KeyInfo>
+			</Signature>
+		</head:Sgntr>
+    </AppHdr>
+    <ResponseRequestForInformation>
+        <if:AddtlPmtInf>
+            <if:Assgnmt>
+                <if:Id>M20151112131000000HII0000000001</if:Id>
+                <if:Assgnr>
+                    <if:Agt>
+                        <if:FinInstnId>
+                            <if:ClrSysMmbId>
+                                <if:MmbId>123456789</if:MmbId>
+                            </if:ClrSysMmbId>
+                        </if:FinInstnId>
+                    </if:Agt>
+                </if:Assgnr>
+                <if:Assgne>
+                    <if:Agt>
+                        <if:FinInstnId>
+                            <if:ClrSysMmbId>
+                                <if:MmbId>123456789</if:MmbId>
+                            </if:ClrSysMmbId>
+                        </if:FinInstnId>
+                    </if:Agt>
+                </if:Assgne>
+                <if:CreDtTm>2015-11-12T10:09:33</if:CreDtTm>
+            </if:Assgnmt>
+            <if:Case>
+                <if:Id>12000194212199001</if:Id>
+                <if:Cretr>
+                    <if:Agt>
+                        <if:FinInstnId>
+                            <if:ClrSysMmbId>
+                                <if:MmbId>000000001</if:MmbId>
+                            </if:ClrSysMmbId>
+                        </if:FinInstnId>
+                    </if:Agt>
+                </if:Cretr>
+            </if:Case>
+            <if:Undrlyg>
+                <if:Initn>
+                    <if:OrgnlGrpInf>
+                        <if:OrgnlMsgId>OgiginMessage</if:OrgnlMsgId>
+                        <if:OrgnlMsgNmId>pain.013.001.07</if:OrgnlMsgNmId>
+                    </if:OrgnlGrpInf>
+                    <if:OrgnlPmtInfId>20151115021200201BCPA0000000001</if:OrgnlPmtInfId>
+                    <if:OrgnlEndToEndId>OrgnlEndToEndId1</if:OrgnlEndToEndId>
+                    <if:OrgnlInstdAmt
+                        Ccy="USD">1212912121</if:OrgnlInstdAmt>
+                    <if:ReqdExctnDt>
+                        <if:Dt>2015-11-12</if:Dt>
+                    </if:ReqdExctnDt>
+                </if:Initn>
+            </if:Undrlyg>
+            <if:Inf>
+                <if:UltmtDbtr>
+                    <if:Nm>Debtor Name</if:Nm>
+                    <if:PstlAdr>
+                        <if:StrtNm>Dbtr street name</if:StrtNm>
+                        <if:BldgNb>350</if:BldgNb>
+                        <if:PstCd>NY 10118</if:PstCd>
+                        <if:TwnNm>Dbtr city</if:TwnNm>
+                        <if:CtrySubDvsn>US</if:CtrySubDvsn>
+                        <if:Ctry>US</if:Ctry>
+                        <if:AdrLine>c/o The Clearing House</if:AdrLine>
+                    </if:PstlAdr>
+                    <if:Id>
+                        <if:OrgId>
+                            <if:LEI>12345678901234567812</if:LEI>
+                        </if:OrgId>
+                    </if:Id>
+                </if:UltmtDbtr>
+                <if:Dbtr>
+                    <if:Nm>Debtor Name</if:Nm>
+                    <if:PstlAdr>
+                        <if:StrtNm>The Empire State Building; 5th Ave</if:StrtNm>
+                        <if:BldgNb>350</if:BldgNb>
+                        <if:PstCd>NY 10118</if:PstCd>
+                        <if:TwnNm>New York</if:TwnNm>
+                        <if:CtrySubDvsn>New York</if:CtrySubDvsn>
+                        <if:Ctry>US</if:Ctry>
+                        <if:AdrLine>c/o The Clearing House</if:AdrLine>
+                    </if:PstlAdr>
+                    <if:Id>
+                        <if:OrgId>
+                            <if:LEI>12345678901234567812</if:LEI>
+                        </if:OrgId>
+                    </if:Id>
+                </if:Dbtr>
+                <if:Cdtr>
+                    <if:Nm>Creditor Name</if:Nm>
+                    <if:PstlAdr>
+                        <if:StrtNm>Park Avenue</if:StrtNm>
+                        <if:BldgNb>45; Apt. 303</if:BldgNb>
+                        <if:PstCd>NY 10016</if:PstCd>
+                        <if:TwnNm>New York</if:TwnNm>
+                        <if:CtrySubDvsn>New York</if:CtrySubDvsn>
+                        <if:Ctry>US</if:Ctry>
+                        <if:AdrLine>c/o The Clearing House</if:AdrLine>
+                    </if:PstlAdr>
+                    <if:Id>
+                        <if:OrgId>
+                            <if:LEI>12345678901234567812</if:LEI>
+                        </if:OrgId>
+                    </if:Id>
+                    <if:CtctDtls>
+                        <if:PhneNb>+1-555-123-4567</if:PhneNb>
+                    </if:CtctDtls>
+                </if:Cdtr>
+                <if:UltmtCdtr>
+                    <if:Nm>Ultimate Creditor Account Name</if:Nm>
+                    <if:PstlAdr>
+                        <if:StrtNm>Dbtr street name</if:StrtNm>
+                        <if:BldgNb>350</if:BldgNb>
+                        <if:PstCd>NY 10118</if:PstCd>
+                        <if:TwnNm>Dbtr city</if:TwnNm>
+                        <if:CtrySubDvsn>US</if:CtrySubDvsn>
+                        <if:Ctry>US</if:Ctry>
+                        <if:AdrLine>c/o The Clearing House</if:AdrLine>
+                    </if:PstlAdr>
+                    <if:Id>
+                        <if:OrgId>
+                            <if:LEI>12345678901234567812</if:LEI>
+                        </if:OrgId>
+                    </if:Id>
+                </if:UltmtCdtr>
+            </if:Inf>
+        </if:AddtlPmtInf>
+    </ResponseRequestForInformation>
+</Message>

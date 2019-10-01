@@ -1,0 +1,55 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/hold.json",
+            "title": "Position hold",
+      "description": "Position hold determines availability of specific sums of funds",
+       "x-createDt": "08/20/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "05/29/2019",
+       "x-updateBy": "Ken Rohlfing",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "hold.json"
+                        }
+             ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "holdExpire",
+                     "indexKey": ["posnId", "endDtm", "_Id" ]
+                            },
+                            {
+                         "name": "networkAuthRef",
+                     "indexKey": ["network", "authRef" ],
+                     "isUnique": true
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "slices",
+                       "format": "json"
+                            },
+                            {
+                         "name": "eft",
+                       "format": "json"
+                            },
+                            {
+                         "name": "updtRef",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,105 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/attach.json",
+            "title": "Attachment",
+      "description": "Attached folder, file or URI item",
+       "x-createDt": "05/01/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/28/2019",
+       "x-updateBy": "Keval Shah",
+             "type": "object",
+       "properties": {
+                 "attachName": {
+                    "title": "Attachment name",
+              "description": "The name of the attached item",
+                     "type": "string",
+                "maxLength": 30
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "The description of the attached item",
+                     "type": "string"
+            },
+             "itemType": {
+                    "title": "Attachment type",
+              "description": "The type of the attached item",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Folder" ],
+                            [2, "text/uri" ],
+                            [3, "text/plain" ],
+                            [4, "text/csv" ],
+                            [5, "text/markdown" ],
+                            [6, "text/html" ],
+                            [7, "text/json" ],
+                            [8, "text/xml" ],
+                            [9, "pdf" ],
+                            [10, "jpeg" ],
+                            [11, "png" ],
+                            [12, "tiff" ],
+                            [13, "gif" ],
+                            [14, "wav" ],
+                            [15, "Email" ],
+                            [16, "Calendar" ],
+                            [100, "Case" ],
+                            [101, "Object" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "createDtm": {
+                    "title": "Attachment created on",
+              "description": "The date the attachment was created",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "createBy": {
+                    "title": "Attachment created by",
+              "description": "The party the attachment was created by",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+                  "val": {
+                    "title": "Content value",
+              "description": "The attached content value",
+                     "type": "string",
+                   "format": "text"
+            },
+              "valType": {
+                    "title": "Content type",
+              "description": "The format type of the content",
+                     "type": "integer",
+                  "choices": [
+                            [1, "uri" ],
+                            [2, "text" ],
+                            [3, "binary" ]
+                     ],
+                  "minimum": 1,
+                  "maximum": 255,
+                  "default": 2
+            },
+             "encoding": {
+                    "title": "Binary encoding",
+              "description": "Binary encoding",
+                     "type": "integer",
+                  "choices": [
+                            [1, "none" ],
+                            [2, "base64" ]
+                     ],
+                  "minimum": 1,
+                  "maximum": 255,
+                  "default": 1
+            }
+      },
+    "x-dbInterface": {
+            "serialize": [
+                            {
+                         "name": "createBy",
+                       "format": "json"
+                            }
+              ]
+      }
+}

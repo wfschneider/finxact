@@ -1,0 +1,390 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/dbInterface.json",
+            "title": "Database Interface",
+      "description": "Database interface schema for x-dbInterface schema object",
+       "x-createDt": "10/23/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+          "elementName": {
+                    "title": "Element name",
+              "description": "Class or table name - default to schema file name",
+                     "type": "string",
+                "maxLength": 40
+            },
+           "primaryKey": {
+                    "title": "Primary key",
+              "description": "Unique primary key",
+                     "type": "array",
+                    "items": {
+                        "title": "Property name",
+                         "type": "string",
+                    "maxLength": 40
+                  }
+            },
+             "isExtend": {
+                    "title": "Is extended",
+              "description": "Class has extents",
+                     "type": "boolean",
+                  "default": false
+            },
+              "extends": {
+                    "title": "Extends class",
+              "description": "Class name that this class extends",
+                     "type": "string",
+                "maxLength": 40
+            },
+          "foreignKeys": {
+                    "title": "Foreign keys",
+              "description": "Foreign key definitions",
+                     "type": "array",
+                    "items": {
+                        "title": "Foreign key",
+                         "type": "object",
+                   "properties": {
+                             "name": {
+                                "title": "Reference name",
+                          "description": "Foreign key reference name",
+                                 "type": "string",
+                            "maxLength": 80
+                              },
+                       "foreignKey": {
+                                "title": "Foreign key",
+                          "description": "Foreign keys reference",
+                                 "type": "array",
+                                "items": {
+                                    "title": "Property name",
+                                     "type": "string",
+                                "maxLength": 40
+                                    }
+                              },
+                  "referenceEntity": {
+                                "title": "Reference name",
+                          "description": "Foreign key reference name",
+                                 "type": "string",
+                            "maxLength": 80
+                              },
+                     "referenceKey": {
+                                "title": "Reference name",
+                          "description": "Foreign key reference name",
+                                 "type": "array",
+                                "items": {
+                                    "title": "Property name",
+                                     "type": "string",
+                                "maxLength": 40
+                                    }
+                              }
+                        },
+                     "required": ["name", "foreignKey", "referenceEntity", "referenceKey" ]
+                  },
+                 "minItems": 1
+            },
+              "indexes": {
+                    "title": "Index definitions",
+              "description": "Index definitions in class",
+                     "type": "array",
+                    "items": {
+                        "title": "Index",
+                         "type": "object",
+                   "properties": {
+                             "name": {
+                                "title": "Reference name",
+                          "description": "Foreign key reference name",
+                                 "type": "string",
+                            "maxLength": 80
+                              },
+                         "isUnique": {
+                                "title": "Unique index",
+                          "description": "Is a unique index",
+                                 "type": "boolean",
+                              "default": false
+                              },
+                         "indexKey": {
+                                "title": "Index name",
+                          "description": "Index key name",
+                                 "type": "array",
+                                "items": {
+                                    "title": "Property name",
+                                     "type": "string",
+                                "maxLength": 40
+                                    }
+                              }
+                        },
+                     "required": ["name", "indexKey" ]
+                  },
+                 "minItems": 1
+            },
+            "serialize": {
+                    "title": "Serialized properties",
+              "description": "Serialized properties definition",
+                     "type": "array",
+                    "items": {
+                        "title": "Property definition",
+                         "type": "object",
+                   "properties": {
+                             "name": {
+                                "title": "Property name",
+                          "description": "Property name to serialize",
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                           "format": {
+                                "title": "Serialize format",
+                          "description": "Serialization format",
+                                 "type": "string",
+                              "choices": [
+                                        ["json", "JavaScript Object Notation" ],
+                                        ["delimited", "Delimited String" ]
+                                    ],
+                            "maxLength": 20,
+                              "default": "json"
+                              },
+                        "delimiter": {
+                                "title": "Delimiter character",
+                          "description": "Property delimiter character, including escape if needed",
+                                 "type": "string",
+                            "maxLength": 2
+                              },
+                         "propList": {
+                                "title": "Ordered list",
+                          "description": "Ordered list of property names for delimited string",
+                                 "type": "array",
+                                "items": {
+                                    "title": "Property name",
+                                     "type": "string",
+                                "maxLength": 40
+                                    },
+                             "minItems": 1
+                              }
+                        },
+                     "required": ["name" ]
+                  },
+                 "minItems": 1
+            },
+            "computeds": {
+                    "title": "Computed properties",
+              "description": "Computed properties definition",
+                     "type": "array",
+                    "items": {
+                        "title": "Computed definition",
+                         "type": "object",
+                   "properties": {
+                             "name": {
+                                "title": "Property name",
+                          "description": "Computed property name",
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                               "ex": {
+                                "title": "Computed expression",
+                          "description": "Computed property expression",
+                                 "type": "string",
+                            "maxLength": 255
+                              }
+                        },
+                     "required": ["name", "ex" ]
+                  },
+                 "minItems": 1
+            },
+             "temporal": {
+                    "title": "Temporal properties",
+              "description": "Temporal properties definition",
+                     "type": "object",
+               "properties": {
+                       "option": {
+                            "title": "Temporal option",
+                      "description": "Temporal implementation option",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Element key" ],
+                                    [2, "Object version" ],
+                                    [3, "Helper delta" ],
+                                    [4, "Helper history" ]
+                               ]
+                        },
+                  "elementName": {
+                            "title": "Element name",
+                      "description": "Class or table name for persistent temporal data",
+                             "type": "string",
+                        "maxLength": 40
+                        },
+                   "ctxtValues": {
+                            "title": "Context values to include in class",
+                      "description": "Context values to include in history or delta helper",
+                             "type": "array",
+                            "items": {
+                                 "type": "object",
+                           "properties": {
+                                      "key": {
+                                        "title": "Property key",
+                                  "description": "Property key in context object",
+                                         "type": "string",
+                                    "maxLength": 80
+                                          },
+                                     "type": {
+                                        "title": "Value type",
+                                  "description": "Context property value data type",
+                                         "type": "string",
+                                      "choices": [
+                                                ["boolean", "Boolean data type" ],
+                                                ["integer", "Integer data type" ],
+                                                ["object", "Object data type" ],
+                                                ["number", "Numeric data type" ],
+                                                ["string", "String data type" ]
+                                              ]
+                                          },
+                                   "format": {
+                                        "title": "Value format",
+                                  "description": "Context property value format, JSON value format",
+                                         "type": "string"
+                                          },
+                                 "required": {
+                                        "title": "Context required",
+                                  "description": "Context property is required",
+                                         "type": "boolean"
+                                          },
+                          "referenceEntity": {
+                                        "title": "Reference entity",
+                                  "description": "Reference class if foreign key",
+                                         "type": "string",
+                                    "maxLength": 80
+                                          },
+                            "referenceProp": {
+                                        "title": "Reference property",
+                                  "description": "Reference property name if foreign key",
+                                         "type": "string",
+                                    "maxLength": 40
+                                          }
+                                    },
+                             "required": ["key" ]
+                              },
+                         "minItems": 0
+                        },
+               "baseProperties": {
+                            "title": "Base properties",
+                      "description": "List of properties from base table to include in history or delta",
+                             "type": "array",
+                            "items": {
+                                "title": "Property name",
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                         "minItems": 1
+                        }
+                  },
+                 "required": ["elementName", "option" ]
+            },
+                "views": {
+                    "title": "Class views",
+              "description": "Embedded class views",
+                     "type": "array",
+                    "items": {
+                        "title": "Query",
+                         "type": "object",
+                   "properties": {
+                         "viewName": {
+                                "title": "View name",
+                          "description": "Unique view name",
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                           "select": {
+                                 "type": "object",
+                                "title": "Select list",
+                          "description": "Base table properties selected list",
+                                "allOf": [
+                                            {
+                                         "$ref": "#/definitions/propList"
+                                            }
+                                      ]
+                              },
+                             "join": {
+                                "title": "Join definitions",
+                          "description": "Join definitions",
+                                 "type": "array",
+                                "items": {
+                                    "title": "Join definition",
+                                     "type": "object",
+                               "properties": {
+                                    "className": {
+                                            "title": "Class name",
+                                      "description": "Class to join to base class",
+                                             "type": "string",
+                                        "maxLength": 40
+                                                },
+                                      "objProp": {
+                                            "title": "Object property",
+                                      "description": "Serialized object property name",
+                                             "type": "string",
+                                        "maxLength": 40
+                                                },
+                                      "joinKey": {
+                                            "allOf": [
+                                                        {
+                                                    "title": "Join key",
+                                              "description": "Key to join foreign class"
+                                                        },
+                                                        {
+                                                     "$ref": "#/definitions/propList"
+                                                        }
+                                                     ]
+                                                },
+                                   "primaryKey": {
+                                            "allOf": [
+                                                        {
+                                                    "title": "Primary key",
+                                              "description": "Primary key in foreign class"
+                                                        },
+                                                        {
+                                                     "$ref": "#/definitions/propList"
+                                                        }
+                                                     ]
+                                                },
+                                       "select": {
+                                            "allOf": [
+                                                        {
+                                                    "title": "Select list",
+                                              "description": "List of properties to select"
+                                                        },
+                                                        {
+                                                     "$ref": "#/definitions/propList"
+                                                        }
+                                                     ]
+                                                }
+                                          }
+                                    }
+                              },
+                           "filter": {
+                                "title": "Filter expression",
+                          "description": "Finxact syntax boolean expression",
+                                 "type": "string",
+                            "maxLength": 255
+                              }
+                        },
+                     "required": ["viewName", "select" ]
+                  }
+            }
+      },
+      "definitions": {
+             "propList": {
+                     "type": "object",
+               "properties": {
+                    "propNames": {
+                            "title": "Property name",
+                             "type": "array",
+                            "items": {
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                         "minItems": 1
+                        }
+                  }
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

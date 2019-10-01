@@ -1,0 +1,47 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/tmZone.json",
+            "title": "Time zone",
+      "description": "List of time zones",
+       "x-createDt": "09/15/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+           "tmZoneCode": {
+                    "title": "Time zone Common Locale Data Repository (CLDR) code",
+                     "type": "string",
+                "maxLength": 10
+            },
+               "tmZone": {
+                    "title": "Time zone Id",
+              "description": "Time zone Id specified by long form of time zone name",
+                     "type": "string",
+                "maxLength": 64
+            },
+   "tmZoneUtcStdOffset": {
+                    "title": "Time zone standard offset",
+              "description": "Time zone offset in minutes during standard time relative to UTC",
+                     "type": "integer",
+                  "minimum": -720,
+                  "maximum": 720
+            },
+   "tmZoneUtcDstOffset": {
+                    "title": "Time zone daylight savings offset",
+              "description": "Time zone offset in minutes during daylight savings time relative to UTC",
+                     "type": "integer",
+                  "minimum": -720,
+                  "maximum": 720
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["tmZoneCode" ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

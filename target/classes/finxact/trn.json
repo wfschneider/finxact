@@ -1,0 +1,173 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trn.json",
+            "title": "Transaction",
+      "description": "Balanced financial transaction",
+       "x-createDt": "09/15/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "05/22/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "trnHdr.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Transaction identifier",
+              "description": "Unique Transaction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "entries": {
+                    "title": "Transaction entries",
+              "description": "Individual debit and credit transaction items",
+                     "type": "array",
+                 "minItems": 2,
+                    "items": {
+                         "type": "object",
+                        "allOf": [
+                                    {
+                                 "$ref": "trnEntry.json"
+                                    }
+                            ],
+                   "properties": {
+                          "addHold": {
+                                "title": "Add hold",
+                          "description": "Add a hold record",
+                                 "type": "object",
+                                 "$ref": "hold.json"
+                              },
+                       "removeHold": {
+                                "title": "Remove Hold",
+                          "description": "Remove a hold record",
+                                 "type": "object",
+                                 "$ref": "hold.json"
+                              },
+                             "auth": {
+                                "title": "Authorization",
+                          "description": "Transaction entry exceptions and authorization",
+                                 "type": "object",
+                                 "$ref": "trnEntryAuth.json"
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                      "indexes": [
+                                    {
+                                 "name": "threadId",
+                             "indexKey": ["threadId"],
+                             "isUnique": false
+                                    }
+                          ],
+                    "serialize": [
+                                    {
+                                 "name": "auth",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "chkDtl",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "exceptions",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "exch",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "subBalAmts",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "passbook",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "addHold",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "removeHold",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "otherProperties",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "tags",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            },
+  "x-reportDbInterface": {
+                  "journal": false,
+                  "indexes": [
+                                {
+                             "name": "trnEntries_Id_Ix",
+                         "indexKey": ["posnId", "_Id", "_Ix" ],
+                         "isUnique": true
+                                }
+                     ]
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "batchId",
+                     "indexKey": ["batchId", "_Id" ],
+                     "isUnique": true
+                            }
+                ],
+            "serialize": [
+                            {
+                         "name": "attachments",
+                       "format": "json"
+                            },
+                            {
+                         "name": "workItem",
+                       "format": "json"
+                            },
+                            {
+                         "name": "eft",
+                       "format": "json"
+                            },
+                            {
+                         "name": "order",
+                       "format": "json"
+                            },
+                            {
+                         "name": "otherProperties",
+                       "format": "json"
+                            },
+                            {
+                         "name": "terminal",
+                       "format": "json"
+                            },
+                            {
+                         "name": "tags",
+                       "format": "json"
+                            },
+                            {
+                         "name": "bill",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": false,
+              "indexes": [
+                            {
+                         "name": "trnSet_glJrnlDate",
+                     "indexKey": ["glJrnlDate", "_Id" ],
+                     "isUnique": true
+                            }
+                ]
+      }
+}

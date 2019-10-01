@@ -1,0 +1,105 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/vehicleInfo.json",
+            "title": "Vehicle information",
+      "description": "Vehicle identification information",
+       "x-createDt": "06/18/2019",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "06/18/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+                  "vin": {
+                    "title": "Vehicle number",
+              "description": "Vehicle identification number",
+                     "type": "string"
+            },
+           "licenseNbr": {
+                    "title": "License plate number",
+              "description": "License plate number of the vehicle",
+                     "type": "string"
+            },
+            "regdState": {
+                    "title": "Registered state",
+              "description": "Vehicle registered state",
+                     "type": "string"
+            },
+                 "make": {
+                    "title": "Vehicle make",
+              "description": "Brand of the vehicle",
+                     "type": "string"
+            },
+                "model": {
+                    "title": "Vehicle model",
+              "description": "Name of the vehicle product",
+                     "type": "string"
+            },
+                 "year": {
+                    "title": "Model year",
+              "description": "Year model was manufactured",
+                     "type": "string"
+            },
+                "color": {
+                    "title": "Vehicle color",
+              "description": "Color of the vehicle",
+                     "type": "string"
+            },
+          "vehicleType": {
+                    "title": "Vehicle type",
+              "description": "Type of vehicle, e.g. car, motorcycle, truck etc.",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/vehicleType.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "titleType": {
+                    "title": "Title type",
+              "description": "Title type of the vehicle such as clear, salvage, junk, bonded, etc. ",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/vehicleTitleType.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "titleNbr": {
+                    "title": "Title number",
+              "description": "Title number of the vehicle",
+                     "type": "string"
+            },
+            "titleDate": {
+                    "title": "Title date",
+              "description": "Date title created",
+                     "type": "string",
+                   "format": "date"
+            },
+         "titleExpDate": {
+                    "title": "Title expiration date",
+              "description": "Expiration date of the title",
+                     "type": "string",
+                   "format": "date"
+            },
+            "origMiles": {
+                    "title": "Original miles",
+              "description": "Odometer reading in miles at the time of purchase",
+                     "type": "number"
+            },
+            "currMiles": {
+                    "title": "Current miles",
+              "description": "Odometer reading in miles",
+                     "type": "number"
+            },
+        "currMilesDate": {
+                    "title": "Current miles date",
+              "description": "Date odometer reading was taken",
+                     "type": "string",
+                   "format": "date"
+            }
+      }
+}

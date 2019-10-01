@@ -1,0 +1,36 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/cardShippingInfo.json",
+            "title": "Card shipping information",
+      "description": "Card shipping information",
+       "x-createDt": "06/14/2019",
+       "x-createBy": "Ken Rohlfing",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+                 "name": {
+                    "title": "Name",
+              "description": "Key name",
+                     "type": "string",
+                  "choices": [
+                            ["shipMethod", "Method by which card is being shipped" ],
+                            ["careOfLine", "Card vendor provided Care of Line" ],
+                            ["shipAddr", "Information from card vendor on where card is being shipped" ],
+                            ["returnAddr", "Return address information from card vendor" ]
+                     ]
+            },
+          "description": {
+                    "title": "Description",
+              "description": "Description of the key's value",
+                     "type": "string"
+            }
+      },
+         "required": ["name", "description" ],
+    "x-dbInterface": {
+           "primaryKey": ["name" ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

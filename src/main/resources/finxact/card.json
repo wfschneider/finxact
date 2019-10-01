@@ -1,0 +1,221 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/card.json",
+            "title": "Card",
+      "description": "Generic Card",
+       "x-createDt": "12/03/2018",
+       "x-createBy": "Ken Rohlfing",
+       "x-updateDt": "06/13/2019",
+       "x-updateBy": "Ken Rohlfing",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Card Id",
+              "description": "The unique card identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "token": {
+                    "title": "External Card Identifier",
+              "description": "Unique External Card identifier",
+                     "type": "string"
+            },
+              "partyId": {
+                    "title": "Party Id",
+              "description": "Party Identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Card description",
+                     "type": "string"
+            },
+             "startDtm": {
+                    "title": "Card Start Date",
+              "description": "Datetime the card is valid from",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "endDtm": {
+                    "title": "Card End Date",
+              "description": "Datetime from which the card is no longer valid",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "issueDtm": {
+                    "title": "Card Issuance Date",
+              "description": "Datetime at which the card was issued",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "expireDtm": {
+                    "title": "Card Expiration Date",
+              "description": "Datetime at which the card expires",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "lastFour": {
+                    "title": "Last Four",
+              "description": "Last four digits of the card number",
+                     "type": "string"
+            },
+          "linkedPosns": {
+                    "title": "Linked Positions",
+              "description": "Positions associated with this card",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                           "posnId": {
+                                "title": "Position Id",
+                          "description": "The position Id",
+                                 "type": "string",
+                               "format": "tguid"
+                              },
+                         "acctType": {
+                                "title": "Account Type",
+                          "description": "Account type code",
+                                 "type": "integer",
+                              "choices": [
+                                        [0, "Unknown" ],
+                                        [10, "Savings account" ],
+                                        [20, "Checking account" ],
+                                        [254, "Other" ]
+                                    ],
+                              "minimum": 0,
+                              "maximum": 255
+                              },
+                     "acctPriority": {
+                                "title": "Account Priority",
+                          "description": "Priority for a given account type.",
+                                 "type": "integer",
+                              "choices": [
+                                        [0, "Unknown" ],
+                                        [1, "Primary" ],
+                                        [2, "Secondary" ],
+                                        [3, "Tertiary" ],
+                                        [254, "Other" ]
+                                    ],
+                              "minimum": 0,
+                              "maximum": 255
+                              }
+                        }
+                  },
+                 "minItems": 1,
+            "x-dbInterface": {
+                   "primaryKey": ["posnId" ],
+                  "foreignKeys": [
+                                    {
+                                 "name": "posnId",
+                           "foreignKey": ["posnId" ],
+                      "referenceEntity": "posn.json",
+                         "referenceKey": ["_Id" ]
+                                    }
+                      ]
+                  }
+            },
+          "isReordered": {
+                    "title": "Is Reordered",
+              "description": "Has this card been successfully reordered",
+                     "type": "boolean",
+                  "default": false
+            },
+               "status": {
+                    "title": "The card status",
+              "description": "The card status (active, unactivated, suspended, etc)",
+                     "type": "string",
+                  "choices": [
+                            ["UNACTIVATED", "Card is issued but not yet activated" ],
+                            ["ACTIVE", "Card is issued and activated" ],
+                            ["SUSPENDED", "Card cannot receive debits but may receive reversals" ],
+                            ["TERMINATED", "Card is closed" ]
+                     ]
+            },
+            "prodToken": {
+                    "title": "Product Token",
+              "description": "Token to the product in a vendor system",
+                     "type": "string"
+            },
+               "reason": {
+                    "title": "Status Reason",
+              "description": "Reason associated with card status.",
+                     "type": "string"
+            },
+              "network": {
+                    "title": "Network",
+              "description": "Network card was created on.",
+                     "type": "string"
+            },
+                "orgId": {
+                    "title": "Organization Id",
+              "description": "Organization identifier of which this card is associated",
+                     "type": "string",
+                   "format": "tguid"
+            },
+    "fulfillmentStatus": {
+                    "title": "Fulfillment Status",
+              "description": "Fulfillment process state",
+                     "type": "string"
+            },
+    "fulfillmentReason": {
+                    "title": "Fulfillment Reason",
+              "description": "Reason associated with latest fulfillment status update",
+                     "type": "string"
+            },
+      "otherProperties": {
+                    "title": "Other Properties",
+              "description": "Additional properties of trnEntry",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "string",
+                        "title": "Value",
+                  "description": "Value of the additional property"
+                  }
+            }
+      },
+         "required": ["_Id" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "cardParty",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "network",
+                   "foreignKey": ["network" ],
+              "referenceEntity": "network.json",
+                 "referenceKey": ["network" ]
+                            },
+                            {
+                         "name": "cardOrg",
+                   "foreignKey": ["orgId" ],
+              "referenceEntity": "party_org.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+              "indexes": [
+                            {
+                         "name": "cardPartyId",
+                     "indexKey": ["partyId", "_Id" ]
+                            },
+                            {
+                         "name": "networkToken",
+                     "indexKey": ["network", "token" ],
+                     "isUnique": true
+                            }
+                ],
+            "serialize": [
+                            {
+                         "name": "otherProperties",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

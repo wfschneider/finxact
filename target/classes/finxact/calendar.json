@@ -1,0 +1,159 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/calendar.json",
+            "title": "Calendar",
+      "description": "Defines business days, hours and holidays",
+       "x-createDt": "03/05/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+         "calendarName": {
+                    "title": "Calendar name",
+              "description": "Calendar name",
+                     "type": "string",
+                "maxLength": 30
+            },
+           "tmZoneCode": {
+                    "title": "Calendar time zone",
+              "description": "Time zone for daily and holiday hours",
+                     "type": "string",
+                "maxLength": 64
+            },
+          "refCalendar": {
+                    "title": "Referenced calendars",
+              "description": "Calendars that compose this calendar",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                  "refCalendarName": {
+                                "title": "Referenced Calendar name",
+                          "description": "Referenced Calendar name",
+                                 "type": "string",
+                            "maxLength": 30
+                              }
+                        }
+                  }
+            },
+         "businessDays": {
+                    "title": "Standard business days / times",
+              "description": "Standard business days and times of operation",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/stdDay"
+                  }
+            },
+             "holidays": {
+                    "title": "Holidays",
+              "description": "Recognized holidays and hours of operation",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/holiday"
+                  }
+            }
+      },
+      "definitions": {
+              "dayData": {
+                    "title": "Day Defintion",
+              "description": "Shared definition of a day",
+                     "type": "object",
+               "properties": {
+                     "isAllDay": {
+                            "title": "All day",
+                      "description": "Open all day",
+                             "type": "boolean"
+                        },
+                       "openTm": {
+                            "title": "Open time",
+                      "description": "Open of business",
+                             "type": "string",
+                           "format": "time"
+                        },
+                      "closeTm": {
+                            "title": "Close time",
+                      "description": "Close of business",
+                             "type": "string",
+                           "format": "time"
+                        }
+                  }
+            },
+               "stdDay": {
+                    "title": "Day Defintion",
+              "description": "Shared definition of a day",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "#/definitions/dayData"
+                                }
+                       ],
+               "properties": {
+                      "dayOfWk": {
+                            "title": "Week day",
+                      "description": "Day of week",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Sunday" ],
+                                    [1, "Monday" ],
+                                    [2, "Tuesday" ],
+                                    [3, "Wednesday" ],
+                                    [4, "Thursday" ],
+                                    [5, "Friday" ],
+                                    [6, "Saturday" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        }
+                  }
+            },
+              "holiday": {
+                    "title": "Day Defintion",
+              "description": "Shared definition of a day",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "#/definitions/dayData"
+                                }
+                       ],
+               "properties": {
+                         "date": {
+                            "title": "Date",
+                      "description": "Holiday Date",
+                             "type": "string",
+                           "format": "date"
+                        }
+                  }
+            }
+      },
+         "required": ["tmZoneCode" ],
+    "x-dbInterface": {
+           "primaryKey": ["calendarName" ],
+          "foreignKeys": [
+                            {
+                         "name": "tmZoneCode",
+                   "foreignKey": ["tmZoneCode" ],
+              "referenceEntity": "tmZone.json",
+                 "referenceKey": ["tmZoneCode" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "holidays",
+                       "format": "json"
+                            },
+                            {
+                         "name": "refCalendar",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

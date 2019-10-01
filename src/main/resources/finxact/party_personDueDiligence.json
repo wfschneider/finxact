@@ -1,0 +1,89 @@
+{
+          "$schema": "http://json-schema.org/draft-01/schema#",
+               "id": "http://finxact.com/product/schemas/party_personDueDiligence.json",
+            "title": "Person Due Diligence Information",
+      "description": "Due Diligence Information for Party_Person",
+       "x-createDt": "03/14/2019",
+       "x-createBy": "Diana Griffith",
+       "x-updateDt": "08/20/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "idVerify": {
+                    "title": "Identification Verification",
+              "description": "Information pertaining to the verification of the party",
+                     "type": "object",
+                     "$ref": "partyIdVerify.json"
+            },
+         "frgnSrPolFig": {
+                    "title": "Foreign senior political figure",
+              "description": "Foreign senior political figure indicator",
+                     "type": "boolean",
+                  "default": false
+            },
+                "cntry": {
+                    "title": "Foreign senior political country",
+              "description": "Foreign senior political country location",
+                     "type": "string",
+                "maxLength": 2
+            },
+    "assocFrgnSrPolFig": {
+                    "title": "Association with foreign senior political figure",
+              "description": "Legal form of organization",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "No" ],
+                            [2, "Family Member" ],
+                            [3, "Close Associate" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+      "otherProperties": {
+                    "title": "Other Properties",
+              "description": "Additional properties of party_personDueDiligence",
+                     "type": "object",
+     "additionalProperties": {
+            "x-map-description": "Key is a generic key value (string), used in this context to capture due diligence questions not supported by core schema.  Value is a generic value (string) used in this context to supply the answer to the question.",
+                         "type": "string",
+                        "title": "Value",
+                  "description": "Value of the additional property",
+                    "maxLength": 100
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "extends": "party_person.json",
+          "foreignKeys": [
+                            {
+                         "name": "cntry",
+                   "foreignKey": ["cntry" ],
+              "referenceEntity": "cntry.json",
+                 "referenceKey": ["cntry" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "otherProperties",
+                       "format": "json"
+                            },
+                            {
+                         "name": "idVerify",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,43 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/lstSeq.json",
+            "title": "Last sequence number",
+      "description": "Last sequence number generated within sequence type",
+       "x-createDt": "08/14/2018",
+       "x-createBy": "Keval Shah",
+       "x-updateDt": "06/07/2019",
+       "x-updateBy": "Jason Hunter",
+             "type": "object",
+       "properties": {
+               "lstNbr": {
+              "description": "Last sequence number generated",
+                  "minimum": 0,
+                    "title": "LstNbr",
+                     "type": "integer"
+            },
+               "seqKey": {
+              "description": "Sequence Key code",
+                  "maximum": 65535,
+                  "minimum": 0,
+                    "title": "Sequence Key",
+                     "type": "integer"
+            },
+              "seqType": {
+              "description": "Sequence Type code",
+                   "format": "text-area",
+                    "title": "Sequence Type",
+                     "type": "string"
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "A description of what the lstSeq is being used for",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["seqType", "seqKey" ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

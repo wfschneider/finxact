@@ -1,0 +1,516 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/network.json",
+            "title": "Network",
+      "description": "Transaction network",
+       "x-createDt": "03/22/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+              "network": {
+                    "title": "Network name",
+              "description": "The name of the network",
+                     "type": "string",
+                  "choices": [
+                            ["ACH", "US Automated Clearing House" ],
+                            ["AFT", "Canadian Automated Funds Transfer" ],
+                            ["CORE", "Finxact Core Funds Transfer" ],
+                            ["FEDWIRE", "Wire Transfer" ],
+                            ["SEPA", "SEPA Transfer" ],
+                            ["SWIFT", "Electronic SWIFT Interface" ],
+                            ["CHECK", "Check" ],
+                            ["EFT", "Electronic Funds Transfer" ],
+                            ["P2P", "Peer to Peer transfer" ]
+                     ],
+                "maxLength": 20
+            },
+                 "desc": {
+                    "title": "Network description",
+              "description": "The network description",
+                     "type": "string"
+            },
+             "calendar": {
+                    "title": "Network calendar",
+              "description": "Business calendar for the network",
+                     "type": "string",
+                "maxLength": 30
+            },
+             "userRole": {
+                    "title": "Authorization role",
+              "description": "Authorization role for override decisioning",
+                     "type": "string",
+                "maxLength": 20
+            },
+              "partyId": {
+                    "title": "Network party Id",
+              "description": "Network institutional party Id",
+                     "type": "string",
+                   "format": "tguid"
+            },
+          "destination": {
+                    "title": "Destination institution demographic information",
+              "description": "Information about the destination financial institution",
+                     "type": "string",
+                   "format": "tguid"
+            },
+          "origCompany": {
+                    "title": "Originating company",
+              "description": "Alternate originating company",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "contacts": {
+                    "title": "Network contacts",
+              "description": "Network contacts",
+                     "type": "array",
+                    "items": {
+                        "title": "contact",
+                         "type": "object",
+                   "properties": {
+                      "contactType": {
+                                "title": "Contact type",
+                          "description": "Contact type",
+                                 "type": "integer",
+                              "choices": [
+                                        [0, "Unknown" ],
+                                        [1, "Executive" ],
+                                        [2, "Manager" ],
+                                        [3, "Billing" ],
+                                        [4, "Operations" ],
+                                        [5, "Settlement" ],
+                                        [254, "Other" ],
+                                        [255, "N/A" ]
+                                    ],
+                              "default": 0,
+                              "minimum": 0,
+                              "maximum": 255
+                              },
+                          "partyId": {
+                                "title": "Contact party",
+                          "description": "Contact party Id",
+                                 "type": "integer"
+                              }
+                        }
+                  }
+            },
+              "trnCode": {
+                    "title": "Posting process trancodes",
+              "description": "Network posting processes linked tranCodes",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "networkTrnCode.json"
+                  }
+            },
+            "retryFreq": {
+                    "title": "Retry frequency",
+              "description": "Frequency to retry processing of outgoing items on account with NSF balance",
+                     "type": "string",
+                   "format": "frequency"
+            },
+             "maxRetry": {
+                    "title": "Maximum times to retry",
+              "description": "Maximum number of times to try to process an outgoing payment",
+                     "type": "integer",
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+        "isInteractive": {
+                    "title": "Is interactive",
+              "description": "Is an interactive (on-line) network",
+                     "type": "boolean"
+            },
+       "isStoreForward": {
+                    "title": "Is store and forward",
+              "description": "Supports store and forward processing",
+                     "type": "boolean"
+            },
+            "inputPath": {
+                    "title": "Input path",
+              "description": "Input location for batch files",
+                     "type": "string",
+                   "format": "uri"
+            },
+           "outputPath": {
+                    "title": "Output path",
+              "description": "Output location for batch files",
+                     "type": "string",
+                   "format": "uri"
+            },
+              "imgPath": {
+                    "title": "Image path",
+              "description": "Output location for received images",
+                     "type": "string",
+                   "format": "uri"
+            },
+       "returnDecideTm": {
+                    "title": "Return item cutoff",
+              "description": "The latest time of day a decision can be made to pay or return an item",
+                     "type": "string",
+                   "format": "time"
+            },
+             "submitTm": {
+                    "title": "Return item submission",
+              "description": "The scheduled time for submitting return items to the network",
+                     "type": "string",
+                   "format": "time"
+            },
+            "postOrder": {
+                    "title": "Batch posting order",
+              "description": "Indicates the posting order of batch transactions within a position",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Chronological" ],
+                            [2, "Check number" ],
+                            [3, "Amount low to high" ],
+                            [4, "Amount high to low" ],
+                            [5, "Date issued" ],
+                            [6, "Credits then debits (low to high)" ],
+                            [7, "Credits then debits (high to low)" ],
+                            [8, "Debits (low to high) then credits" ],
+                            [9, "Debits (high to low) then credits" ],
+                            [10, "Custom" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "paging": {
+                    "title": "Batch paging rule",
+              "description": "Defines how batch transactions will be grouped for posting",
+                     "type": "integer",
+                  "choices": [
+                            [1, "None" ],
+                            [2, "By account" ],
+                            [3, "By transaction count" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+           "pageTrnCnt": {
+                    "title": "Page transaction count",
+              "description": "Maximum transactions on a page",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+             "chkParam": {
+                    "title": "Check parameters",
+              "description": "Control parameters for checking network interfaces",
+                     "type": "object",
+               "properties": {
+                     "isChkNbr": {
+                            "title": "Require check number",
+                       "desciption": "Indicates whether or not a check number must be present as part of the transaction message",
+                             "type": "boolean"
+                        },
+                   "isChkValid": {
+                            "title": "Validate check number",
+                      "description": "Validate check number is issued to party and available",
+                             "type": "boolean"
+                        },
+                       "chkGen": {
+                            "title": "Check generation",
+                      "description": "Properties that control check generation",
+                             "type": "object",
+                             "$ref": "chkGen.json"
+                        }
+                  }
+            },
+           "extDrAccts": {
+                    "title": "External DR accounts",
+              "description": "External account debit transaction status",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Restrictions do not apply" ],
+                            [2, "All active accounts" ],
+                            [3, "Validated active accounts" ],
+                            [4, "Not Allowed" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+           "extCrAccts": {
+                    "title": "External CR accounts",
+              "description": "External account credit transaction status",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Restrictions do not apply" ],
+                            [2, "All active accounts" ],
+                            [3, "Validated active accounts" ],
+                            [4, "Not allowed" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+          "claimPeriod": {
+                    "title": "Claim period",
+              "description": "Length of time before a P2P order will expire",
+                     "type": "string",
+                   "format": "duration"
+            },
+    "isOrderVerifyReqd": {
+                    "title": "Order Verified Required",
+              "description": "Order needs to be verified",
+                     "type": "boolean"
+            },
+           "isFraudChk": {
+                    "title": "Fraud analysis",
+              "description": "Evaluate transactions from this network against fraud rules",
+                     "type": "boolean"
+            },
+             "isAmlChk": {
+                    "title": "AML analysis",
+              "description": "Evaluate transactions from this network against AML rules",
+                     "type": "boolean"
+            },
+         "isAutoReturn": {
+                    "title": "Auto return item file",
+              "description": "Automatically create the return item file at the expiration of the return item cutoff if review is not complete",
+                     "type": "boolean"
+            },
+             "isPosPay": {
+                    "title": "Positive pay",
+              "description": "Transactions may be subject to positive pay",
+                     "type": "boolean"
+            },
+             "isNegPay": {
+                    "title": "Negative pay",
+              "description": "Transactions may be subject to negative pay (pay or hold)",
+                     "type": "boolean"
+            },
+         "isDrBalGrace": {
+                    "title": "Debit balance grace",
+              "description": "Indicates whether or not debit balance grace period is applied to NSF items for this network",
+                     "type": "boolean"
+            },
+           "isNsfOptIn": {
+                    "title": "NSF opt in",
+              "description": "Indicates whether or not the accounts opt-in designation applies for this network",
+                     "type": "boolean"
+            },
+     "isReturnFundsAvl": {
+                    "title": "Returnable funds available",
+              "description": "Indicates whether or not a returnable item's funds are available to pay an item presented that isn't returnable",
+                     "type": "boolean"
+            },
+           "exceptPost": {
+                    "title": "Exception posting option",
+              "description": "Indicates how transactions should be handled when exceptions occur",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Reject" ],
+                            [2, "Pay and queue for decision" ],
+                            [3, "Pay, reverse, and queue for decision" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "nsfFee": {
+                    "title": "NSF fee",
+              "description": "Fee charged for non-sufficient funds",
+                     "type": "string",
+                "maxLength": 20
+            },
+            "returnFee": {
+                    "title": "Return item fee",
+              "description": "Fee charged for each returned item",
+                     "type": "string",
+                "maxLength": 20
+            },
+    "suspenseAcctGroup": {
+                    "title": "Suspense account group",
+              "description": "Account Group code used for suspense transactions",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+  "suspensePosnAcctNbr": {
+                    "title": "Suspense position account number",
+              "description": "The unique position reference within an acctGroup for suspense transactions",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+              "odSweep": {
+                    "title": "Invoke overdraft sweep",
+              "description": "Indicates when overdraft sweep should occur if sufficient funds are not available",
+                     "type": "integer",
+                  "choices": [
+                            [1, "At transaction posting" ],
+                            [2, "At debit balance grace period expiration" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "interface": {
+                    "title": "Interface format",
+              "description": "Interface format",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Finxact Transaction JSON" ],
+                            [1, "ISO 8583 U.S. POS/ATM" ],
+                            [2, "ISO 20022 Payments" ],
+                            [3, "NACHA" ],
+                            [4, "X9" ]
+                     ],
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "plugin": {
+                    "title": "Plugin configuration",
+              "description": "Plugin configuration for core services",
+                     "type": "object",
+               "properties": {
+                         "name": {
+                            "title": "Plugin Name",
+                      "description": "Plugin Name",
+                             "type": "string",
+                          "choices": [
+                                    ["marqeta", "Marqeta Card Vendor" ]
+                               ]
+                        },
+                       "config": {
+                            "title": "Plugin Configuration",
+                      "description": "Plugin configuration map",
+                             "type": "object",
+             "additionalProperties": {
+                                 "type": "string"
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "config",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            },
+        "riskScoreMgmt": {
+                    "title": "Risk Score Management",
+              "description": "External networks risk score threshold configuration",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                       "trnNetwork": {
+                                "title": "Transaction network",
+                          "description": "The network the transaction originated from",
+                                 "type": "string"
+                              },
+                      "declineThld": {
+                                "title": "Decline Threshold",
+                          "description": "Risk score at or above a transaction will be declined",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 65535
+                              },
+                        "alertThld": {
+                                "title": "Alert Threshold",
+                          "description": "Risk score at or above a transaction alert will be issued",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 65535
+                              }
+                        }
+                  },
+                 "minItems": 1,
+            "x-dbInterface": {
+                   "primaryKey": ["trnNetwork" ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["network" ],
+          "foreignKeys": [
+                            {
+                         "name": "partyId",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "origCompany",
+                   "foreignKey": ["origCompany" ],
+              "referenceEntity": "party_org_fininst.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "destination",
+                   "foreignKey": ["destination" ],
+              "referenceEntity": "party_org_fininst.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "suspAcctGroup",
+                   "foreignKey": ["suspenseAcctGroup" ],
+              "referenceEntity": "acctGroup.json",
+                 "referenceKey": ["acctGroup" ]
+                            },
+                            {
+                         "name": "nsfFee",
+                   "foreignKey": ["nsfFee" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            },
+                            {
+                         "name": "returnFee",
+                   "foreignKey": ["returnFee" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            },
+                            {
+                         "name": "userRole",
+                   "foreignKey": ["userRole" ],
+              "referenceEntity": "role.json",
+                 "referenceKey": ["userRole" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "trnCode",
+                       "format": "json"
+                            },
+                            {
+                         "name": "contacts",
+                       "format": "json"
+                            },
+                            {
+                         "name": "chkParam",
+                       "format": "json"
+                            },
+                            {
+                         "name": "posPay",
+                       "format": "json"
+                            },
+                            {
+                         "name": "revPosPay",
+                       "format": "json"
+                            },
+                            {
+                         "name": "plugin",
+                       "format": "json"
+                            },
+                            {
+                         "name": "riskScoreMgmt",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,151 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/party_depInsur.json",
+            "title": "Deposit Insurance Schema",
+      "description": "Deposit Insurance Calculation Schema",
+       "x-createDt": "04/10/2019",
+       "x-createBy": "Amanda Mathis",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+            "acctGroup": {
+                    "title": "Account group",
+              "description": "Account group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "acctNbr": {
+                    "title": "Account number",
+              "description": "The unique account identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+              "partyId": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier is FK to posn PK",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "isPending": {
+                    "title": "Pending Indicator",
+              "description": "Pending indicator to determine if this insurance record is under review",
+                     "type": "boolean"
+            },
+     "depRightCapacity": {
+                    "title": "Deposit Right Capacity",
+              "description": "The unique code the FDIC uses to identify ownership",
+                     "type": "string",
+                  "choices": [
+                                {
+                             "$ref": "_choices/depRightCapacity.choices"
+                                }
+                     ]
+            },
+           "depProdCat": {
+                    "title": "Deposit Product Category",
+              "description": "Product Category the FDIC uses to classify the account",
+                     "type": "string",
+                "maxLength": 30
+            },
+          "depAllocAmt": {
+                    "title": "Allocated Balance Amount",
+              "description": "The position balance adjusted by the ownership percentage",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "depAccrInt": {
+                    "title": "Allocated Accrued Interest Amount",
+              "description": "The position accrued interest adjusted by the ownership percentage",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "depBal": {
+                    "title": "Deposit Insurance position balance",
+              "description": "The position balance as of the time of the insurance calculation",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "depTotAmt": {
+                    "title": "Total Principal and Interest",
+              "description": "The total amount of the position allocated amount and allocated accrued interest",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "depHoldAmt": {
+                    "title": "Hold Amount",
+              "description": "The balance subject to hold",
+                     "type": "number",
+                   "format": "currency"
+            },
+          "depInsurAmt": {
+                    "title": "The insured amount of the account",
+              "description": "The insured amount of the account",
+                     "type": "number",
+                   "format": "currency"
+            },
+        "depUninsurAmt": {
+                    "title": "The uninsured amount of the account",
+              "description": "The uninsured amount of the account",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "isDepPrepaid": {
+                    "title": "Is prepaid covered account",
+              "description": "Indicates whether a prepaid account is covered by the instituion",
+                     "type": "boolean",
+                  "default": false
+            },
+              "isDepPt": {
+                    "title": "Is pass-through covered account",
+              "description": "Indicates whether a pass-through is covered by the instituion",
+                     "type": "boolean",
+                  "default": false
+            },
+          "isDepPtTran": {
+                    "title": "Is subaccounts transactional",
+              "description": "Indicates whether the fiduciary has subaccounts that have transactional features",
+                     "type": "boolean",
+                  "default": false
+            },
+           "depCalcDtm": {
+                    "title": "Deposit insurance calculation date",
+              "description": "The date-time that this information was compiled",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["partyId", "depRightCapacity", "posnId" ],
+              "indexes": [
+                            {
+                         "name": "prodCatDepInsur",
+                     "indexKey": ["depProdCat", "depBal", "partyId", "depRightCapacity", "posnId" ]
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "acctGroupAcctNbr",
+                   "foreignKey": ["acctGroup", "acctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

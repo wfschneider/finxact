@@ -1,0 +1,69 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posnGlSum.json",
+            "title": "Position activity",
+      "description": "Position daily GL activity summary",
+       "x-createDt": "01/10/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "glDate": {
+                    "title": "GL journal date",
+              "description": "GL journal date transaction is posted on",
+                     "type": "string",
+                   "format": "date"
+            },
+             "totCntDr": {
+                    "title": "Total Debits",
+              "description": "Total Debit count to date",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+             "totCntCr": {
+                    "title": "Total Credits",
+              "description": "Total Credit count to date",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+             "totAmtDr": {
+                    "title": "Total Debit amount",
+              "description": "Total Debit amount to date",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "totAmtCr": {
+                    "title": "Total Credit amount",
+              "description": "Total Credit amount to date",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "accumToDtm": {
+                    "title": "Accumulated to",
+              "description": "Statistics accumulated to high-water",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                "glBal": {
+                    "title": "Position gl balance",
+              "description": "Current balance or quantity of the position by gl journal date",
+                     "type": "number",
+                   "format": "currency"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["posnId", "glDate" ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

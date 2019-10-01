@@ -1,0 +1,63 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/cntrySubdivision.json",
+            "title": "Subdivision",
+      "description": "ISO 3166 region codes",
+       "x-createDt": "09/18/2017",
+       "x-createBy": "Frank Sanchez",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+                "cntry": {
+                    "title": "ISO Alpha-2 Code",
+              "description": "ISO Alpha-2 Code",
+                     "type": "string",
+                "maxLength": 2
+            },
+           "subdivcode": {
+                    "title": "ISO Subdivision Code",
+              "description": "ISO Subdivision Code",
+                     "type": "string",
+                "maxLength": 6
+            },
+           "stateWthRt": {
+                    "title": "State withholding rate",
+              "description": "State withholding rate applied to interest income",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "decimal": 5
+            },
+           "subdivname": {
+                    "title": "ISO Subdivision Name",
+              "description": "Subdivision Name",
+                     "type": "string",
+                "maxLength": 60
+            },
+           "subdivtype": {
+                    "title": "Subdivision Type",
+              "description": "Subdivision Type (i.e. state, province, region, territory, etc.",
+                     "type": "string",
+                "maxLength": 60
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["cntry", "subdivcode" ],
+          "foreignKeys": [
+                            {
+                         "name": "cntry",
+                   "foreignKey": ["cntry" ],
+              "referenceEntity": "cntry.json",
+                 "referenceKey": ["cntry" ]
+                            }
+            ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

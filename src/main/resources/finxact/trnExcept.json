@@ -1,0 +1,101 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnExcept.json",
+            "title": "Exception Transaction Queue",
+      "description": "Transaction exception details and decision",
+       "x-createDt": "10/12/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "7/12/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "trnExceptDecision.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Exception Identifier",
+              "description": "Identifies an exception item that needs to be paid or returned",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "network": {
+                    "title": "Network name",
+              "description": "The name of the network",
+                     "type": "string",
+                "maxLength": 20
+            },
+           "suspenseId": {
+                    "title": "Suspense Entry Identifier",
+              "description": "Transaction Identifier of the suspense transaction entry",
+                     "type": "string",
+                   "format": "tguid"
+            },
+         "exceptStatus": {
+                    "title": "Exception Transaction Status",
+              "description": "Status of the exception transaction",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Unposted" ],
+                            [2, "Posted" ],
+                            [3, "Reversed" ]
+                     ]
+            },
+                  "trn": {
+                    "title": "Exception transaction",
+              "description": "Batch transaction that encountered exceptions",
+                     "type": "object",
+                     "$ref": "trn.json",
+                 "required": []
+                  },
+            "trnErrors": {
+                    "title": "Exception transaction errors",
+              "description": "Errors that occurred during transaction processing",
+                     "type": "array",
+                  "minItem": 1,
+                    "items": {
+                         "type": "object",
+                        "allOf": [
+                                    {
+                                 "$ref": "domainErr.json"
+                                    }
+                            ]
+                  }
+            },
+               "isMemo": {
+                    "title": "Is memo",
+              "description": "Is a non-financial, information-only exception",
+                     "type": "boolean",
+                  "default": false
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "network",
+                   "foreignKey": ["network" ],
+              "referenceEntity": "network.json",
+                 "referenceKey": ["network" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "trn",
+                       "format": "json"
+                            },
+                            {
+                         "name": "trnErrors",
+                       "format": "json"
+                            },
+                            {
+                         "name": "payInstr",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

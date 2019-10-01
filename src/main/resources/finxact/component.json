@@ -1,0 +1,32 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/component.json",
+            "title": "Product and position component",
+      "description": "Identifies components used by a product or position",
+       "x-createDt": "02/02/2018",
+       "x-createBy": "Jim Joyce",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+       "componentClass": {
+                     "type": "string",
+                    "title": "Component class",
+              "description": "Component class name",
+                "maxLength": 30
+            },
+        "componentName": {
+                     "type": "string",
+                    "title": "Component name",
+              "description": "Component name",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "version",
+              "description": "Component version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            }
+      }
+}

@@ -1,0 +1,45 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/feeCalendar.json",
+            "title": "Position fee calendar",
+      "description": "Position calendar event information for scheduled fees",
+       "x-createDt": "04/18/2019",
+       "x-createBy": "Jason Hunter",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Event identifier",
+              "description": "Unique position calendar identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "feeName": {
+                    "title": "Fee name",
+              "description": "Fee name",
+                     "type": "string",
+                "maxLength": 20
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "eventId",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posnCalendar.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "feeName",
+                   "foreignKey": ["feeName" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,109 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/addr.json",
+            "title": "Address",
+      "description": "Physical address",
+       "x-createDt": "08/11/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "05/31/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Address Id",
+              "description": "The unique address identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "street": {
+                    "title": "Address street",
+              "description": "Street number, PO box or RD and street name",
+                     "type": "string",
+                   "format": "text-area"
+            },
+                 "city": {
+                    "title": "City",
+              "description": "Address city",
+                     "type": "string",
+                "maxLength": 40
+            },
+               "region": {
+                    "title": "Region",
+              "description": "State, Province, County or Land",
+                     "type": "string",
+                "maxLength": 6
+            },
+                "cntry": {
+                    "title": "Country",
+              "description": "Address country",
+                     "type": "string",
+                "maxLength": 2
+            },
+             "postCode": {
+                    "title": "Postal code",
+              "description": "The address postal code",
+                     "type": "string",
+                "maxLength": 9
+            },
+              "premise": {
+                    "title": "Premise",
+              "description": "Name location or building name",
+                     "type": "string",
+                "maxLength": 30
+            },
+               "geoLoc": {
+                    "title": "Geo location",
+              "description": "Fixed geographic location of address",
+                     "type": "object",
+               "properties": {
+                          "lat": {
+                            "title": "Latitude",
+                             "type": "number",
+                          "maximum": 999.999999
+                        },
+                          "lon": {
+                            "title": "Longitude",
+                             "type": "number",
+                          "maximum": 999.999999
+                        },
+                          "alt": {
+                            "title": "Altitude",
+                             "type": "number",
+                          "maximum": 9999.99
+                        },
+                     "geoplace": {
+                            "title": "Google Place Id",
+                      "description": "Unique Google place Id",
+                             "type": "string",
+                        "maxLength": 255
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "cntry",
+                   "foreignKey": ["cntry" ],
+              "referenceEntity": "cntry.json",
+                 "referenceKey": ["cntry" ]
+                            },
+                            {
+                         "name": "region",
+                   "foreignKey": ["cntry", "region" ],
+              "referenceEntity": "cntrySubdivision.json",
+                 "referenceKey": ["cntry", "subdivcode" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "geoLoc",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

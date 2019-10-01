@@ -1,0 +1,102 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depNsf.json",
+            "title": "Bank account position NSF",
+      "description": "Bank account position NSF detail",
+       "x-createDt": "11/03/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "07/03/2019",
+       "x-updateBy": "Adam Schwartz",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "nsfCnt": {
+                    "title": "NSF total count",
+              "description": "Number of times the position has been overdrawn",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+            "nsfFeeCnt": {
+                    "title": "NSF fee total count",
+              "description": "Number of times a NSF fee has been charged",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+            "nsfFeeAmt": {
+                    "title": "NSF fee total amount",
+              "description": "Cumulative NSF fee amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+             "negLimit": {
+                    "title": "Negative Limit",
+              "description": "Negative balance limit allowed before return",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0,
+                  "default": 0
+            },
+              "isOptIn": {
+                    "title": "OptIn overdraft",
+              "description": "Flag whether to overdraft and pay",
+                     "type": "boolean",
+                  "default": false
+            },
+            "returnCnt": {
+                    "title": "Return total count",
+              "description": "Number of times an item has been returned",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+            "returnAmt": {
+                    "title": "Returned total amount",
+              "description": "Cumulative amount of items returned",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+         "returnFeeCnt": {
+                    "title": "Return fee total count",
+              "description": "Number of times a return fee has been charged",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+         "returnFeeAmt": {
+                    "title": "Return fee total amount",
+              "description": "Cumulative return fee amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            }
+      },
+         "required": ["_Id", "isOptIn" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "extends": "posn_dep.json",
+          "foreignKeys": [
+                            {
+                         "name": "posn_dep",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn_dep.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+             "temporal": {
+                "tableName": "posn_dep_Nsf_hist",
+                   "option": 4
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

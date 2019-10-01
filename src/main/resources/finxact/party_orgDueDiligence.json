@@ -1,0 +1,438 @@
+{
+          "$schema": "http://json-schema.org/draft-01/schema#",
+               "id": "http://finxact.com/product/schemas/party_orgDueDiligence.json",
+            "title": "Business Due Diligence Information",
+      "description": "Due Diligence Information for Organizations",
+       "x-createDt": "03/14/2019",
+       "x-createBy": "Diana Griffith",
+       "x-updateDt": "08/20/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Business due diligence Id",
+              "description": "The unique business due diligence identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "idVerify": {
+                    "title": "Identification Verification",
+              "description": "Information pertaining to the verification of the party",
+                     "type": "object",
+                     "$ref": "partyIdVerify.json"
+            },
+            "structure": {
+                    "title": "Business structure",
+              "description": "Business structure of organization",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Corporation" ],
+                            [2, "Partnership" ],
+                            [3, "LLC" ],
+                            [4, "LLP" ],
+                            [5, "Non-Profit" ],
+                            [6, "Custodial" ],
+                            [7, "Financial Institution" ],
+                            [8, "Public Funds" ],
+                            [9, "NUS Government" ],
+                            [10, "Trust" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+          "hdqtrsCntry": {
+                    "title": "Business headquarters country",
+              "description": "Business headquarters country location",
+                     "type": "string",
+                "maxLength": 2
+            },
+         "operCntry": {
+                    "title": "Countries of operations",
+              "description": "Business operations countries",
+                     "type": "array",
+                    "items": {
+                        "title": "Country code",
+                         "type": "string",
+                    "maxLength": 2
+                  },
+                 "minItems": 0
+            },
+          "acctPurpose": {
+                    "title": "Account purpose",
+              "description": "The purpose of the account",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "General Operating Funds" ],
+                            [2, "Payroll" ],
+                            [3, "Savings" ],
+                            [4, "Credit Card Processing" ],
+                            [5, "Lottery" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "industry": {
+                    "title": "Industry sectors",
+              "description": "The industry sector associated with organization",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [11, "Agriculature, Forestry, Fishing and Hunting" ],
+                            [21, "Mining" ],
+                            [22, "Utilities" ],
+                            [23, "Construction" ],
+                            [31, "Manufacturing" ],
+                            [42, "Wholesale Trade" ],
+                            [44, "Retail Trade" ],
+                            [48, "Transportation and Warehousing" ],
+                            [51, "Information" ],
+                            [52, "Finance and Insurance" ],
+                            [53, "Real Estate Rental and Leasing" ],
+                            [54, "Professional, Scientific, and Technical Services" ],
+                            [55, "Management of Companies and Enterprises" ],
+                            [56, "Administrative and Support and Waste Management and Remediation Services" ],
+                            [61, "Educational Services" ],
+                            [62, "Health Care and Social Assistance" ],
+                            [71, "Arts, Entertainment and Recreation" ],
+                            [72, "Accommodation and Food Services" ],
+                            [81, "Other Services (except Public Administration)" ],
+                            [92, "Public Administration" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+           "intrmySvcs": {
+                    "title": "Intermediary services",
+              "description": "The intermediary/nonbank financial institution services provided",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Accounting" ],
+                            [2, "Funds Management" ],
+                            [3, "Insurance" ],
+                            [4, "Investment Advisory" ],
+                            [5, "Legal" ],
+                            [6, "Medical" ],
+                            [7, "Notary" ],
+                            [8, "Real Estate Closing and Settlement" ],
+                            [9, "Tax Preparation" ],
+                            [10, "Trust Management" ],
+                            [21, "Casinos, Card Clubs or gambling" ],
+                            [22, "Securities, futures commissions or commodity trading" ],
+                            [23, "Loan Finance" ],
+                            [24, "Pawn Brokerage" ],
+                            [25, "Travel Agency" ],
+                            [26, "Vehicle Sales (Automobiles, Planes, Boats" ],
+                            [27, "Foreign Currency Exchange" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "chkGrtrThsnd": {
+                    "title": "Cash checks greater than $1,000.00 for one person",
+              "description": "Cash checks for customers in amounts greater than $1,000.00 for any one person in any one day",
+                     "type": "boolean",
+                  "default": false
+            },
+    "mnyOrderGrtrThsnd": {
+                    "title": "Money orders greater than $1,000.00 for one person",
+              "description": "Issue or sell money orders in amounts greater than $1,000.00 to any one person in any one day",
+                     "type": "boolean",
+                  "default": false
+            },
+           "tfrForCust": {
+                    "title": "Transfer money on behalf of Customer",
+              "description": "Transfer money on your customers behalf electronically from one location to another",
+                     "type": "boolean",
+                  "default": false
+            },
+           "virtualCcy": {
+                    "title": "Administer or exchange virtual currency",
+              "description": "Administer or exchange virtual currency",
+                     "type": "boolean",
+                  "default": false
+            },
+  "internetGamblingInc": {
+                    "title": "Business income from internet gambling",
+              "description": "Indicates a portion of the business income comes from internet gambling",
+                     "type": "boolean",
+                  "default": false
+            },
+  "isMarijuanaBusiness": {
+                    "title": "Marijuana related business",
+              "description": "Indicates organization is a marijuana related business",
+                     "type": "boolean",
+                  "default": false
+            },
+            "isCharity": {
+                    "title": "Is dependant on charity",
+              "description": "Indicates whether the organization depends on charity donations or voluntary services",
+                     "type": "boolean"
+            },
+  "isThirdPartyBenefit": {
+                    "title": "Process transactions on behalf of 3rd party",
+              "description": "Indicates whether the organization processes transactions that benefit a third party",
+                     "type": "boolean"
+            },
+            "isAtmOper": {
+                    "title": "ATM operator owner",
+              "description": "Indicates whether the organization owns, operates or replenishes ATMs",
+                     "type": "boolean"
+            },
+  "estmtdAnnualRevenue": {
+                    "title": "Estimated annual revenue",
+              "description": "Describes the organization's estimated annual revenue",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Under 1 Million" ],
+                            [2, "1 to 10 Million" ],
+                            [3, "10 - 100 Million" ],
+                            [4, "Over 100 Million" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+     "yearsOwnBusiness": {
+                    "title": "Years owned/managed business",
+              "description": "The years the organization has owned/managed their business",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "1 Year" ],
+                            [2, "2 Years" ],
+                            [3, "3 Years" ],
+                            [4, "4 or More Years" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+    "pctRevenueMnySvcs": {
+                    "title": "Percent of gross revenue derived from money services",
+              "description": "The percentage of gross revenue the organization derives from money services",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "0 to 25 Percent" ],
+                            [2, "26 to 50 Percent" ],
+                            [3, "51 to 75 Percent" ],
+                            [4, "75 to 100 Percent" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "nbrLoc": {
+                    "title": "Number of locations",
+              "description": "The number of locations organization owns",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "1 to 10 Locations" ],
+                            [2, "10 to 50 Locations" ],
+                            [3, "50 to 100 Locations" ],
+                            [4, "More than 100 Locations" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "acceptRccPmt": {
+                    "title": "Accepts RCC payment indicator",
+              "description": "Indicates whether the organization accepts remotely created checks as payment for any goods or services",
+                     "type": "boolean"
+            },
+    "nonCashActivities": {
+                    "title": "Currently or planning to conduct non cash financial activities",
+              "description": "Indicates whether the organization currently or plans to conduct any of the following financial services (Ex: check cashing, money transmitting, and/or selling travelers checks, money orders, phone cards, gift cards, etc.)",
+                     "type": "boolean"
+            },
+           "cntWiresMo": {
+                    "title": "Number of wire transactions per month",
+              "description": "The number of wire transactions the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "1 to 100 Wires" ],
+                            [2, "101 to 1000 Wire" ],
+                            [3, "1001 to 10000 Wires" ],
+                            [4, "More than 10000 Wires" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+           "amtWiresMo": {
+                    "title": "Transaction amount of wire transactions per month",
+              "description": "The transaction amount of wires the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Up to $100,000.00" ],
+                            [2, "$100,000.01 to $1,000,000.00" ],
+                            [3, "More than $1,000,000.00" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+       "cntMobileDepMo": {
+                    "title": "Number of mobile deposits per month",
+              "description": "The number of mobile deposits the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "1 to 100 Mobile Deposits" ],
+                            [2, "101 to 1000 Mobile Deposits" ],
+                            [3, "1001 to 10000 Mobile Deposits" ],
+                            [4, "More than 10000 Mobile Deposits" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+       "amtMobileDepMo": {
+                    "title": "Transaction amount of mobile deposits per month",
+              "description": "The transaction amount of mobile deposits the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Up to $100,000.00" ],
+                            [2, "$100,000.01 to $1,000,000.00" ],
+                            [3, "More than $1,000,000.00" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+       "cntRemoteDepMo": {
+                    "title": "Number of remote deposits per month",
+              "description": "The number of remote deposits the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "1 to 100 Remote Deposits" ],
+                            [2, "101 to 1000 Remote Deposits" ],
+                            [3, "1001 to 10000 Remote Deposits" ],
+                            [4, "More than 10000 Remote Deposits" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+       "amtRemoteDepMo": {
+                    "title": "Transaction amount of remote deposits per month",
+              "description": "The transaction amount of remote deposits the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Up to $100,000.00" ],
+                            [2, "$100,000.01 to $1,000,000.00" ],
+                            [3, "More than $1,000,000.00" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "cntACHMo": {
+                    "title": "Number of ACH originations per month",
+              "description": "The number of ACH originations the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "1 to 100 ACH Originations" ],
+                            [2, "101 to 1000 ACH Originations" ],
+                            [3, "1001 to 10000 ACH Originations" ],
+                            [4, "More than 10000 ACH Originations" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "amtACHMo": {
+                    "title": "Transaction amount of ACH originations per month",
+              "description": "The transaction amount of ACH originations the organization is expecting each month",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Up to $100,000.00" ],
+                            [2, "$100,000.01 to $1,000,000.00" ],
+                            [3, "More than $1,000,000.00" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+      "otherProperties": {
+                    "title": "Other Properties",
+              "description": "Additional properties of party_orgDueDiligence",
+                     "type": "object",
+     "additionalProperties": {
+            "x-map-description": "Key is a generic key value (string), used in this context to capture due diligence questions not supported by core schema.  Value is a generic value (string) used in this context to supply the answer to the question.",
+                         "type": "string",
+                        "title": "Value",
+                  "description": "Value of the additional property",
+                    "maxLength": 100
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "extends": "party_org.json",
+          "foreignKeys": [
+                            {
+                         "name": "hdqtrsCntry",
+                   "foreignKey": ["hdqtrsCntry" ],
+              "referenceEntity": "cntry.json",
+                 "referenceKey": ["cntry" ]
+                            },
+                            {
+                         "name": "party_org",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "party_org.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "otherProperties",
+                       "format": "json"
+                            },
+                            {
+                         "name": "idVerify",
+                       "format": "json"
+                            },
+                            {
+                         "name": "operCntry",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

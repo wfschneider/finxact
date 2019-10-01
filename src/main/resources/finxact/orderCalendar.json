@@ -1,0 +1,52 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/orderCalendar.json",
+            "title": "Position order calendar",
+      "description": "Position calendar event information for scheduled orders",
+       "x-createDt": "03/02/2018",
+       "x-createBy": "Mike O'Toole",
+       "x-updateDt": "01/07/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Event identifier",
+              "description": "Unique position calendar identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "orderId": {
+                    "title": "Unique order identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            }
+      
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "eventId",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posnCalendar.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "orderId",
+                   "foreignKey": ["orderId" ],
+              "referenceEntity": "order.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+              "indexes": [
+                            {
+                         "name": "eventByOrder",
+                     "indexKey": ["orderId", "_Id" ],
+                     "isUnique": true
+                            }
+                ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

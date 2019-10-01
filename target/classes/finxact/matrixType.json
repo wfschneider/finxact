@@ -1,0 +1,130 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/matrixType.json",
+            "title": "Indexes and tables",
+      "description": "Indices and rate schedules that return values used in calculations",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+           "matrixName": {
+                    "title": "Matrix name",
+              "description": "Name of the index or matrix",
+                     "type": "string",
+                "maxLength": 20
+            },
+                 "desc": {
+                    "title": "Matrix description",
+              "description": "Description of the index or matrix",
+                     "type": "string"
+            },
+            "isBlended": {
+                    "title": "Blended rate",
+              "description": "Indicates whether tiered rate is incremental or blended",
+                     "type": "boolean"
+            },
+           "dimensions": {
+                    "title": "Matrix dimensions",
+              "description": "Hierarchical properties of a matrix with one or more dimensions",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                         "propName": {
+                                "title": "Property name",
+                          "description": "The name of the property at this dimension",
+                                 "type": "string",
+                            "maxLength": 20
+                              },
+                        "propLabel": {
+                                "title": "Property label",
+                          "description": "The UI label for this property",
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                         "propType": {
+                                "title": "Property type",
+                          "description": "The JSON scalar type of the property at this dimension",
+                                 "type": "string",
+                              "choices": [
+                                        ["boolean", "Boolean data type" ],
+                                        ["integer", "Integer data type" ],
+                                        ["number", "Numeric data type" ],
+                                        ["string", "String data type" ]
+                                    ]
+                              },
+                          "propFmt": {
+                                "title": "Property format",
+                          "description": "The JSON format of the property at this dimension",
+                                 "type": "string",
+                              "choices": [
+                                        ["currency", "Currency format" ],
+                                        ["date", "Date format" ],
+                                        ["date-time", "Date-time format" ],
+                                        ["duration", "Duration format" ],
+                                        ["rate", "Rate format" ],
+                                        ["frequency", "Frequency format" ],
+                                        ["term", "Term format" ],
+                                        ["text", "Text format" ]
+                                    ]
+                              },
+                         "whenBtwn": {
+                                "title": "Between bands option",
+                          "description": "Identifies how to determine which band to return if value falls between",
+                                 "type": "integer",
+                              "choices": [
+                                        [1, "Lower value of band" ],
+                                        [2, "Upper value of band" ],
+                                        [3, "Exact value match only" ]
+                                    ]
+                              }
+                        }
+                  }
+            },
+              "valType": {
+                    "title": "Value type",
+              "description": "The serialized JSON type of the value assigned to key",
+                     "type": "string",
+                  "choices": [
+                            ["array", "Array data type" ],
+                            ["boolean", "Boolean data type" ],
+                            ["integer", "Integer data type" ],
+                            ["object", "Object data type" ],
+                            ["number", "Numeric data type" ],
+                            ["string", "String data type" ]
+                     ]
+            },
+               "valFmt": {
+                    "title": "Property format",
+              "description": "The JSON format of the value",
+                     "type": "string",
+                  "choices": [
+                            ["currency", "Currency format" ],
+                            ["date", "Date format" ],
+                            ["date-time", "Date-time format" ],
+                            ["duration", "Duration format" ],
+                            ["rate", "Rate format" ],
+                            ["frequency", "Frequency format" ],
+                            ["term", "Term format" ],
+                            ["text", "Text format" ]
+                     ]
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["matrixName" ],
+            "serialize": [
+                            {
+                         "name": "dimensions",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,156 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depInt.json",
+            "title": "Position deposit interest",
+      "description": "Position deposit interest component",
+       "x-createDt": "06/15/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "01/29/2019",
+       "x-updateBy": "Jason Hunter",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "componentInt.json"
+                        },
+                        {
+                     "$ref": "posn_bkInt.json"
+                        }
+             ],
+       "properties": {
+        "negAccrIntBal": {
+                    "title": "Negative Accrued interest",
+              "description": "Negative Accrued interest this period",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+               "multipleOf": 0.00001
+            },
+       "intDisbmtInstr": {
+                    "title": "Interest disbursement instructions",
+              "description": "Customer instructions for interest payments not capitalized",
+                     "type": "object",
+                     "$ref": "order.json"
+            },
+             "isWthFed": {
+                    "title": "Federal Withholding",
+              "description": "Is subject to federal withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+             "isWthNra": {
+                    "title": "Is NRA Withholding",
+              "description": "Indicates whether or not position owner is a Non-Resident Alien subject to withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+         "is1099Exempt": {
+                    "title": "1099 interest exempt",
+              "description": "If exempt do not create a 1099-Int for the position",
+                     "type": "boolean",
+                  "default": false
+            },
+           "isWthState": {
+                    "title": "State Withholding",
+              "description": "Is subject to state withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+          "lastPostDtm": {
+                    "title": "Date last posted",
+              "description": "Date interest was last posted",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "daysLstPost": {
+                    "title": "Days since interest last posted",
+              "description": "Calendar days since interest was last posted",
+                     "type": "integer"
+            },
+          "nextPostDtm": {
+                    "title": "Date next posted",
+              "description": "Date interest next posted",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "daysNxtPost": {
+                    "title": "Days until interest next posted",
+              "description": "Calendar days until interest is next posted",
+                     "type": "integer"
+            },
+                  "apy": {
+                    "title": "Annual percentage yield",
+              "description": "Annualized rate that reflects the relationship between the amount of interest that would be earned by a position for the position term and the principal amount used to calculate that interest, as specified by Reg DD",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+               "multipleOf": 0.00001
+            },
+                 "apye": {
+                    "title": "Annual percentage yield earned",
+              "description": "Annualized rate that reflects the relationship between the amount of interest actually earned on a position and the position average daily balance, as specified by Reg DD",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+               "multipleOf": 0.00001
+            },
+             "sumIntPd": {
+                    "title": "Sum interest paid",
+              "description": "Sum of interest paid on position",
+                     "type": "number",
+                   "format": "currency"
+            }
+      },
+         "required": ["isWthFed", "isWthNra", "isWthState", "nextPostDtm"],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+      "extends": "posn_dep.json",
+          "foreignKeys": [
+                            {
+                         "name": "posn_dep",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn_dep.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "intDisbmtInstr",
+                       "format": "json"
+                            }
+              ],
+             "temporal": {
+                "tableName": "posn_depintDtlhist",
+                   "option": 4,
+           "baseProperties": ["accumToDtm", "lastPostDtm", "nomRate", "promoExpDtm", "nextPostDtm", "sumIntPd"]
+            },
+            "computeds": [
+                            {
+                         "name": "accrIntBal",
+                           "ex": "=PosnAcrAccumDtRange(ctx,posn_bkInt.Id, pons_bkInt.LastPostDtm, ctx.GetContextTime())"
+                            },
+                            {
+                         "name": "negAccrIntBal",
+                           "ex": "=PosnNegAcrAccumDtRange(ctx,posn_bkInt.Id, pons_bkInt.LastPostDtm, ctx.GetContextTime())"
+                            },
+                            {
+                         "name": "daysLstPost",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "daysNxtPost",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "apy",
+                           "ex": "=PosnApy(ctx, posn_bkInt.Id)"
+                            },
+                            {
+                         "name": "apye",
+                           "ex": "Enter expression / function to implement this"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

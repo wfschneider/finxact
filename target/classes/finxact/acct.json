@@ -1,0 +1,91 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/acct.json",
+            "title": "Account",
+      "description": "Generic account",
+       "x-createDt": "08/23/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/21/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+            "acctGroup": {
+                    "title": "Account Group",
+              "description": "Account Group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "acctNbr": {
+                    "title": "Account number",
+              "description": "The unique account identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+            "acctTitle": {
+                    "title": "Account title",
+              "description": "The account title",
+                     "type": "string",
+                   "format": "text"
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Account description",
+                     "type": "string"
+            },
+              "openDtm": {
+                    "title": "Opened date",
+              "description": "Date the account was opened",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "closeDtm": {
+                    "title": "Close date",
+              "description": "Date the account was closed",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "closeReason": {
+                    "title": "Close reason code",
+              "description": "Reason the account was closed",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/closeReason.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+           "localeData": {
+                    "title": "Locale Data",
+              "description": "Information pertaining to an account's locale such as region, branch code, etc.",
+                     "type": "object",
+     "additionalProperties": {
+            "x-map-description": "Key is a generic key value (string), used in this context to identify locale datapoints not supported by core schema.  Value is a generic value (string) used in this context to supply locale data values.",
+                         "type": "string"
+                  }
+            }
+      },
+         "required": ["acctNbr", "acctGroup", "acctTitle" ],
+    "x-dbInterface": {
+           "primaryKey": ["acctGroup", "acctNbr" ],
+          "foreignKeys": [
+                            {
+                         "name": "acctGroup",
+                   "foreignKey": ["acctGroup" ],
+              "referenceEntity": "acctGroup.json",
+                 "referenceKey": ["acctGroup" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "localeData",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

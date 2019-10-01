@@ -1,0 +1,92 @@
+raw.open:2016-09-23T13:29:07.295787Z,info,mq_handler,sent,000000008EK02,414D5120303030303030303038454B307338AA57B214FB22,<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:tch" xmlns:ar="urn:iso:std:iso:20022:tech:xsd:remt.001.001.02" xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+	<AppHdr>
+		<head:Fr>
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>000000008EK</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:Fr>
+		<head:To>
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>990000001S1</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:To>
+		<head:BizMsgIdr>B2016092300000000HAA6898217</head:BizMsgIdr>
+		<head:MsgDefIdr>remt.001.001.02</head:MsgDefIdr>
+		<head:CreDt>2016-09-23T09:29:07</head:CreDt>
+		<head:Sgntr>
+			<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+				<SignedInfo>
+					<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+					<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+					<Reference URI="">
+						<Transforms>
+							<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+							<Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11"/>
+						</Transforms>
+						<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+						<DigestValue>M5I31ldK7XoxLz06SYqvJzf10NisTn2ue1g2KlQV6+8=</DigestValue>
+					</Reference>
+				</SignedInfo>
+				<SignatureValue>qtXze8jHJXipk1n4fQlyc6gJPY8=</SignatureValue>
+				<KeyInfo>
+					<X509Data>
+						<X509SubjectName>CN=rsa0,OU=ips,O=vocalink,L=rickmansworth,ST=Unknown,C=uk</X509SubjectName>
+						<X509IssuerSerial>
+							<X509IssuerName>CN=sign0, OU=ips, O=vocalink, L=rickmansworth, ST=Unknown, C=uk</X509IssuerName>
+							<X509SerialNumber>1328092436</X509SerialNumber>
+						</X509IssuerSerial>
+					</X509Data>
+				</KeyInfo>
+			</Signature>
+		</head:Sgntr>
+	</AppHdr>
+	<StandaloneRemittance>
+		<ar:RmtAdvc>
+			<ar:GrpHdr>
+				<ar:MsgId>M20160923000000008BFF5559130862</ar:MsgId>
+				<ar:CreDtTm>2016-09-23T13:29:07</ar:CreDtTm>
+				<ar:InitgPty>
+					<ar:Id>
+						<ar:OrgId>
+							<ar:Othr>
+								<ar:Id>000000008</ar:Id>
+							</ar:Othr>
+						</ar:OrgId>
+					</ar:Id>
+				</ar:InitgPty>
+				<ar:MsgRcpt>
+					<ar:Id>
+						<ar:OrgId>
+							<ar:Othr>
+								<ar:Id>000000007</ar:Id>
+							</ar:Othr>
+						</ar:OrgId>
+					</ar:Id>
+				</ar:MsgRcpt>
+			</ar:GrpHdr>
+			<ar:RmtInf>
+				<ar:RmtId>undefined</ar:RmtId>
+				<ar:OrgnlPmtInf>
+					<ar:Refs>
+						<ar:PmtInfId>undefined</ar:PmtInfId>
+						<ar:InstrId>20160923000000008BTCH7529471319</ar:InstrId>
+						<ar:EndToEndId>string</ar:EndToEndId>
+						<ar:TxId>20160923000000008BTCH7529471319</ar:TxId>
+					</ar:Refs>
+					<ar:Amt>
+						<ar:InstdAmt Ccy="USD">100.00</ar:InstdAmt>
+					</ar:Amt>
+				</ar:OrgnlPmtInf>
+			</ar:RmtInf>
+		</ar:RmtAdvc>
+	</StandaloneRemittance>
+</Message>

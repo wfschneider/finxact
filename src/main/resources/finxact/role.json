@@ -1,0 +1,30 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/role.json",
+            "title": "Role",
+      "description": "Job function or title which defines an authority level",
+       "x-createDt": "11/11/2017",
+       "x-createBy": "Jim Joyce",
+       "x-updateDt": "08/28/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "userRole": {
+                    "title": "User Role",
+              "description": "User Role Name",
+                     "type": "string",
+                "maxLength": 20
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "User Role Description",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["userRole" ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/prodType.json",
+            "title": "Product type",
+      "description": "Product parameters (level 1) ",
+       "x-createDt": "10/25/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/28/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "prodType": {
+                    "title": "Product type",
+              "description": "First level product type roll up",
+                     "type": "string",
+                "maxLength": 10
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Product type description",
+                     "type": "string",
+                "maxLength": 20
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["prodType" ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

@@ -1,0 +1,298 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/checkRegister.json",
+            "title": "Checks register",
+      "description": "Checks assigned to position that have been used",
+       "x-createDt": "12/21/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/21/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "chkNbr": {
+                    "title": "Check number",
+              "description": "Unique check number for a position",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+              "orderId": {
+                    "title": "Order number",
+              "description": "Order Id that assigned the check number to the position",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "chkAmt": {
+                    "title": "Check amount",
+              "description": "Check amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "presentCnt": {
+                    "title": "Presentment count",
+              "description": "Number of times item was presented for payment",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+         "replaceByNbr": {
+                    "title": "Replaced by check number",
+              "description": "Check number that replaced this check",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+        "replaceForNbr": {
+                    "title": "Replacement for check number",
+              "description": "Check number this check replaced",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "chkDate": {
+                    "title": "Check date",
+              "description": "Date on check",
+                     "type": "string",
+                   "format": "date"
+            },
+          "writtenDate": {
+                    "title": "Date check written",
+              "description": "Date check was written or produced",
+                     "type": "string",
+                   "format": "date"
+            },
+             "signedBy": {
+                    "title": "Signed by",
+              "description": "Party who signed the check",
+                     "type": "string",
+                "maxLength": 40
+            },
+            "payeeInfo": {
+                    "title": "Payee information",
+              "description": "Payee information",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "#/definitions/partyDtl"
+                                }
+                       ],
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "name",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "finInst",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            },
+                 "memo": {
+                    "title": "Memo",
+              "description": "Memo text on check",
+                     "type": "string",
+                "maxLength": 40
+            },
+                  "msg": {
+                    "title": "Message",
+              "description": "Message",
+                     "type": "string",
+                   "format": "text-area"
+            },
+             "imgFront": {
+                    "title": "Image Front",
+              "description": "Front of check image",
+                     "type": "object",
+                     "$ref": "attach.json"
+            },
+              "imgBack": {
+                    "title": "Image Back",
+              "description": "Back of check image",
+                     "type": "object",
+                     "$ref": "attach.json"
+            },
+               "attach": {
+                    "title": "Attachment",
+              "description": "Document included with check",
+                     "type": "object",
+                     "$ref": "attach.json"
+            },
+            "chkStatus": {
+                    "title": "Check status",
+              "description": "Current status of the check",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                           "status": {
+                                "title": "Status",
+                          "description": "Check's current status",
+                                 "type": "integer",
+                              "choices": [
+                                        [1, "Assigned" ],
+                                        [2, "Unprinted" ],
+                                        [3, "Printed" ],
+                                        [4, "Issued" ],
+                                        [5, "Cancelled" ],
+                                        [6, "Replaced" ],
+                                        [7, "In Review" ],
+                                        [8, "Returned" ],
+                                        [9, "Paid" ]
+                                    ],
+                              "minimum": 0,
+                              "maximum": 255
+                              },
+                        "statusDtm": {
+                                "title": "Check status datetime",
+                          "description": "Datetime check was assigned its current status",
+                                 "type": "string",
+                               "format": "date-time"
+                              }
+                        }
+                  },
+                 "required": ["status", "statusDtm" ]
+            },
+            "isStopped": {
+                    "title": "Check stopped",
+              "description": "Indicates the check is stopped",
+                     "type": "boolean"
+            },
+         "returnReason": {
+                    "title": "Negative pay return reason",
+              "description": "Reason for declining to pay the item",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "drawnOn": {
+                    "title": "Drawn on position",
+              "description": "Position to debit upon presentment",
+                     "type": "object",
+               "properties": {
+                    "acctGroup": {
+                            "title": "Account Group",
+                      "description": "Account Group code",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 65535
+                        },
+                  "posnAcctNbr": {
+                            "title": "Position Account Number",
+                      "description": "The unique position identifier within an acctGroup",
+                             "type": ["string", "integer" ],
+                        "maxLength": 30
+                        },
+                  "drawnPosnId": {
+                            "title": "Position identifier",
+                      "description": "Unique position identifier",
+                             "type": "string",
+                           "format": "tguid"
+                        },
+                     "acctgSeg": {
+                            "title": "Accounting Segments",
+                      "description": "Map of accounting segments",
+                             "type": "object",
+             "additionalProperties": {
+                                 "type": "string"
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "acctgSeg",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            },
+       "chkDeliveryDtl": {
+                    "title": "Delivery details",
+              "description": "Information about check delivery",
+                     "type": "object",
+                     "$ref": "deliveryDtl.json"
+            },
+            "expireDtm": {
+                    "title": "Check expiration datetime",
+              "description": "Datetime check expires at",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+      "definitions": {
+             "partyDtl": {
+                    "title": "Party details",
+              "description": "Check payee details",
+                     "type": "object",
+               "properties": {
+                         "name": {
+                            "title": "Party name",
+                      "description": "Party name",
+                             "type": "object",
+                             "$ref": "party.json"
+                        },
+                      "finInst": {
+                            "title": "Party financial institution",
+                      "description": "Party financial institution",
+                             "type": "object",
+                             "$ref": "party_org_fininst.json"
+                        }
+                  }
+            }
+      },
+         "required": ["chkNbr", "posnId" ],
+    "x-dbInterface": {
+           "primaryKey": ["posnId", "chkNbr" ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+              "indexes": [
+                            {
+                         "name": "expireDtm",
+                     "indexKey": ["expireDtm", "posnId", "chkNbr" ],
+                     "isUnique": true
+                            }
+                ],
+            "serialize": [
+                            {
+                         "name": "chkStatus",
+                       "format": "json"
+                            },
+                            {
+                         "name": "payeeInfo",
+                       "format": "json"
+                            },
+                            {
+                         "name": "drawnOn",
+                       "format": "json"
+                            },
+                            {
+                         "name": "attach",
+                       "format": "json"
+                            },
+                            {
+                         "name": "imgFront",
+                       "format": "json"
+                            },
+                            {
+                         "name": "imgBack",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

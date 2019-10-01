@@ -1,0 +1,293 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/exceptRule.json",
+            "title": "Exception application and overrides",
+      "description": "Affected products, processes, transaction codes, and overrides for exceptions",
+       "x-createDt": "03/16/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+                 "code": {
+                    "title": "Exception code",
+              "description": "Name of a defined set of rules for recognizing and handling exceptions",
+                     "type": "string",
+                "maxLength": 40
+            },
+                 "desc": {
+                    "title": "Exception reason",
+              "description": "Exception reason description",
+                     "type": "string",
+                "maxlength": 30
+            },
+          "isSysExcept": {
+                    "title": "Is system exception",
+              "description": "Indicates if the exception is a system exception or a user-defined exception",
+                     "type": "boolean",
+                  "default": false
+            },
+             "isNoPost": {
+                    "title": "Is no post",
+              "description": "Indicates a rejected transaction should not be force posted and reversed for exceptPost options 2 and 3",
+                     "type": "boolean",
+                  "default": false
+            },
+         "prodTypeIncl": {
+                    "title": "Valid product types",
+              "description": "List of applicable product types",
+                     "type": "array",
+                    "items": {
+                        "title": "Product type",
+                  "description": "Name of applicable product type",
+                         "type": "string",
+                    "maxLength": 10
+                  },
+                 "minItems": 0
+            },
+      "prodSubTypeIncl": {
+                    "title": "Applicable product sub-types",
+              "description": "List of applicable product sub-types",
+                     "type": "array",
+                    "items": {
+                        "title": "Product sub-type",
+                  "description": "Name of applicable product sub-type",
+                         "type": "string",
+                    "maxLength": 10
+                  },
+                 "minItems": 0
+            },
+        "prodGroupIncl": {
+                    "title": "Applicable product groups",
+              "description": "List of applicable product groups",
+                     "type": "array",
+                    "items": {
+                        "title": "Product group",
+                  "description": "Name of applicable product group",
+                         "type": "string",
+                    "maxLength": 10
+                  },
+                 "minItems": 0
+            },
+           "prodBkIncl": {
+                    "title": "Applicable products",
+              "description": "List of applicable products",
+                     "type": "array",
+                    "items": {
+                        "title": "Products",
+                  "description": "Name of applicable products",
+                         "type": "string",
+                    "maxLength": 10
+                  },
+                 "minItems": 0
+            },
+         "operRoleIncl": {
+                    "title": "Operation include roles",
+              "description": "List of user roles explicitly authorized to override exception encountered by operations",
+                     "type": "array",
+                    "items": {
+                        "title": "User role",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+         "operRoleExcl": {
+                    "title": "Operation exclude roles",
+              "description": "List of user roles explicitly not authorized to override exception encountered by operations",
+                     "type": "array",
+                    "items": {
+                        "title": "User role",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+             "operIncl": {
+                    "title": "Operations included",
+              "description": "APIs, operations or functions to which exception applies",
+                     "type": "array",
+                    "items": {
+                        "title": "Operation name",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+             "operExcl": {
+                    "title": "Operations excluded",
+              "description": "APIs, operations or functions to which exception does not apply",
+                     "type": "array",
+                    "items": {
+                        "title": "Operation name",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+          "trnRoleIncl": {
+                    "title": "Transaction include roles",
+              "description": "List of user roles explicitly authorized to override exception encountered by transactions",
+                     "type": "array",
+                    "items": {
+                        "title": "User role",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+          "trnRoleExcl": {
+                    "title": "Transaction exclude roles",
+              "description": "List of user roles explicitly not authorized to override exception encountered by transactions",
+                     "type": "array",
+                    "items": {
+                        "title": "User role",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+          "trnCodeIncl": {
+                    "title": "Transaction codes included",
+              "description": "Transaction codes to which exception applies",
+                     "type": "array",
+                    "items": {
+                        "title": "Transaction code",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+          "trnCodeExcl": {
+                    "title": "Transaction codes excluded",
+              "description": "Transaction codes to which exception does not apply",
+                     "type": "array",
+                    "items": {
+                        "title": "Transaction code",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+   "networkReturnCodes": {
+                    "title": "Network return codes",
+              "description": "Return codes by network for transactions with this exception",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "object",
+                   "properties": {
+                       "returnCode": {
+                                "title": "Return code",
+                          "description": "The code defined by the network used when returning this type of exception",
+                                 "type": "string",
+                            "maxLength": 20
+                              },
+                             "desc": {
+                                "title": "Return code description",
+                          "description": "Text describing the network return code",
+                                 "type": "string",
+                            "maxLength": 20
+                              }
+                        }
+                  }
+            },
+        "validEntities": {
+                    "title": "Valid entities",
+              "description": "List of entities, i.e., party, account, position, to which the reason applies",
+                     "type": "array",
+                    "items": {
+                         "type": "integer",
+                      "choices": [
+                                [1, "Party" ],
+                                [2, "Account" ],
+                                [3, "Position" ]
+                          ],
+                      "minimum": 1,
+                      "maximum": 255
+                  },
+                 "minItems": 1
+            },
+         "violationAct": {
+                    "title": "Violation action",
+              "description": "Action to be taken when an exceptRule is triggered",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Allow transaction with override" ],
+                            [1, "Allow transaction; log exception" ],
+                            [2, "Prohibit debits" ],
+                            [3, "Prohibit credits" ],
+                            [4, "Prohibit debits and credits" ]
+                     ],
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["code" ],
+            "serialize": [
+                            {
+                         "name": "prodGroupIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "prodSubTypeIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "prodTypeIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "prodBkIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "operIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "operExcl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "operRoleIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "operRoleExcl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "trnCodeIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "trnCodeExcl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "trnRoleIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "trnRoleExcl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "networkReturnCodes",
+                       "format": "json"
+                            },
+                            {
+                         "name": "validEntities",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,131 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/eventDefn.json",
+            "title": "Event definition",
+      "description": "Defines events that affect a customer/position/account and how they are handled",
+       "x-createDt": "03/14/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "03/15/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                 "code": {
+                    "title": "Event code",
+              "description": "Identifies an event",
+                     "type": "string",
+                "maxLength": 40
+            },
+                 "desc": {
+                    "title": "Event description",
+              "description": "Description of the event",
+                     "type": "string",
+                   "format": "text-area"
+            },
+              "purpose": {
+                    "title": "Event purpose",
+              "description": "Describes purpose of event and how it is used",
+                     "type": "string",
+                   "format": "text-area"
+            },
+         "externalDesc": {
+                    "title": "External event description",
+              "description": "Text provided as part of externally presented message",
+                     "type": "string",
+                   "format": "text-area"
+            },
+                 "type": {
+                    "title": "Event type",
+              "description": "Event type",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Position calendar" ],
+                            [2, "Accumulated transaction violation" ],
+                            [3, "Per transaction violation" ],
+                            [4, "Transaction posted" ],
+                            [5, "Position modification" ],
+                            [6, "Account modification" ],
+                            [7, "Customer modification" ],
+                            [8, "Position restriction" ],
+                            [9, "Account restriction" ],
+                            [10, "Customer restriction" ],
+                            [11, "Party restriction" ],
+                            [12, "Stopped item" ]
+                     ]
+            },
+          "exceptRules": {
+                    "title": "Event rules",
+              "description": "When to check for an event and who can override the event",
+                     "type": "string",
+                "maxLength": 40
+            },
+          "eventAction": {
+                    "title": "Event action",
+              "description": "Actions to be taken for an event",
+                     "type": "integer",
+                  "choices": [
+                            [0, "No action" ],
+                            [1, "Allow transaction; log exception" ],
+                            [2, "Allow transaction with override" ],
+                            [3, "Prohibit debits" ],
+                            [4, "Prohibit credits" ],
+                            [5, "Prohibit debits and credits" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "alertTrigger": {
+                    "title": "Trigger on",
+              "description": "Determines at what time to send alert",
+                     "type": "integer",
+                  "choices": [
+                            [1, "At occurrence" ],
+                            [2, "At alert offset before occurence" ],
+                            [3, "At occurrence and at alert offset before occurrence" ]
+                     ]
+            },
+          "alertOffset": {
+                    "title": "Alert offset",
+              "description": "Duration prior to event to send alert",
+                     "type": "string",
+                   "format": "duration"
+            },
+             "alertQue": {
+                    "title": "Alert queues",
+              "description": "List of queues to notify of event",
+                     "type": "array",
+                    "items": {
+                        "title": "Alert queue",
+                  "description": "Queue to notify of event",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+                  "fee": {
+                    "title": "Event fee",
+              "description": "Fee triggered by occurrence of event",
+                     "type": "string",
+                "maxLength": 20
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["code" ],
+          "foreignKeys": [
+                            {
+                         "name": "exceptRules",
+                   "foreignKey": ["exceptRules" ],
+              "referenceEntity": "exceptRule.json",
+                 "referenceKey": ["code" ]
+                            },
+                            {
+                         "name": "fee",
+                   "foreignKey": ["fee" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

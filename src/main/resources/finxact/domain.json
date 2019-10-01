@@ -1,0 +1,73 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/domain.json",
+            "title": "User domain",
+      "description": "Defines parameters associated with a user domain",
+       "x-createDt": "04/17/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Domain Id",
+              "description": "Domain unique identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+                 "name": {
+                    "title": "Domain name",
+              "description": "Domain unique name",
+                     "type": "string",
+                "maxLength": 60
+            },
+                 "desc": {
+                    "title": "Domain description",
+              "description": "Domain description",
+                     "type": "string",
+                "maxLength": 255
+            },
+            "createDtm": {
+                    "title": "Created date",
+              "description": "Domain created on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "startDtm": {
+                    "title": "Start date",
+              "description": "Domain valid from date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "expDtm": {
+                    "title": "Expire date",
+              "description": "Domain expires on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "loginUrl": {
+                    "title": "Login URL",
+              "description": "URL of login page",
+                     "type": "string",
+                   "format": "uri"
+            },
+          "isMultiRole": {
+                    "title": "Multi-role user",
+              "description": "A user can have multiple roles in this domain",
+                     "type": "boolean"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "domainName",
+                     "indexKey": ["name" ],
+                     "isUnique": true
+                            }
+                ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

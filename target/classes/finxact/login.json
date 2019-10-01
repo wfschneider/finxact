@@ -1,0 +1,224 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/login.json",
+            "title": "User login",
+      "description": "User login definition",
+       "x-createDt": "04/17/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/19/2019",
+       "x-updateBy": "Adam Schwartz",
+             "type": "object",
+       "properties": {
+             "domainId": {
+                    "title": "Domain Id",
+              "description": "Domain unique identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+              "loginId": {
+                    "title": "Login Id",
+              "description": "Unique login within a domain",
+                     "type": "string",
+                "maxLength": 100
+            },
+              "partyId": {
+                    "title": "Party Id",
+              "description": "Party associated with login",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+               "userId": {
+                    "title": "User Id",
+              "description": "User associated with login",
+                     "type": ["integer", "string" ],
+                "maxLength": 40
+            },
+            "createDtm": {
+                    "title": "Created date",
+              "description": "Login created on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "expDtm": {
+                    "title": "Expire date",
+              "description": "Login expires on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "status": {
+                    "title": "Login status",
+              "description": "Login status",
+                  "choices": [
+                            [0, "Active" ],
+                            [1, "Suspended" ],
+                            [2, "Closed" ]
+                     ]
+            },
+             "isNotify": {
+                    "title": "Login notify",
+              "description": "Login triggers notify event",
+                     "type": "boolean"
+            },
+              "secrets": {
+                    "title": "KBA secrets",
+              "description": "KBA authentication secrets",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                        "title": "secret",
+                  "description": "KBA authentication secret",
+                   "properties": {
+                         "isOneUse": {
+                                "title": "Single use",
+                          "description": "Single use only",
+                                 "type": "boolean"
+                              },
+                            "isExp": {
+                                "title": "Is expired",
+                          "description": "Secret is expired",
+                                 "type": "boolean"
+                              },
+                           "expDtm": {
+                                "title": "Expire date",
+                          "description": "Secret expires on date",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                          "chngDtm": {
+                                "title": "Last changed date",
+                          "description": "Secret last changed on date",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                       "secretType": {
+                                "title": "Secret option",
+                          "description": "Secret option",
+                                 "type": "integer",
+                              "choices": [
+                                        [1, "Password" ],
+                                        [2, "Passphrase" ],
+                                        [3, "PIN" ],
+                                        [4, "Token" ]
+                                    ],
+                              "minimum": 0,
+                              "maximum": 255
+                              },
+                              "val": {
+                                "title": "Encrypted value",
+                          "description": "Encrypted value",
+                                 "type": ["integer", "string" ]
+                              }
+                        },
+                     "minItems": 1
+                  }
+            },
+           "biometrics": {
+                    "title": "Biometric factors",
+              "description": "Biometric factors",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                        "title": "Factor",
+                  "description": "Authentication factor",
+                   "properties": {
+                           "option": {
+                                "title": "Biometric option",
+                          "description": "Biometric option",
+                                 "type": "integer",
+                              "choices": [
+                                        [1, "Face" ],
+                                        [2, "Iris" ],
+                                        [3, "Finger" ],
+                                        [4, "Voice" ]
+                                    ],
+                              "minimum": 0,
+                              "maximum": 255
+                              },
+                              "val": {
+                                "title": "Biometric value",
+                          "description": "Biometric value",
+                                 "type": "string"
+                              },
+                        "createDtm": {
+                                "title": "Created date",
+                          "description": "Created on date",
+                                 "type": "string",
+                               "format": "date-time"
+                              }
+                        }
+                  }
+            },
+           "kbaStatics": {
+                    "title": "KBA static factors",
+              "description": "KBA static factors",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                        "title": "KBA Factor",
+                  "description": "KBA static factor",
+                   "properties": {
+                       "questionId": {
+                                "title": "Question Id",
+                          "description": "Question Id in table",
+                                 "type": ["integer", "string" ]
+                              },
+                     "questionText": {
+                                "title": "Question text",
+                          "description": "Question text",
+                                 "type": "string"
+                              },
+                           "answer": {
+                                "title": "Answer",
+                          "description": "Answer",
+                                 "type": "string"
+                              },
+                        "createDtm": {
+                                "title": "Created date",
+                          "description": "Created on date",
+                                 "type": "string",
+                               "format": "date-time"
+                              }
+                        }
+                  }
+            }
+      },
+         "required": ["domainId", "loginId", "partyId", "userId", "createDtm" ],
+    "x-dbInterface": {
+           "primaryKey": ["domainId", "loginId" ],
+              "indexes": [
+                            {
+                         "name": "partyUser",
+                     "indexKey": ["partyId", "userId" ],
+                     "isUnique": true
+                            },
+                            {
+                         "name": "userParty",
+                     "indexKey": ["userId", "partyId" ],
+                     "isUnique": true
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "loginDomain",
+                   "foreignKey": ["domainId" ],
+              "referenceEntity": "domain.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "loginParty",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "loginUser",
+                   "foreignKey": ["domainId", "userId" ],
+              "referenceEntity": "user.json",
+                 "referenceKey": ["domainId", "userId" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

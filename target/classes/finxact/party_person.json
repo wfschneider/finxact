@@ -1,0 +1,496 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/party_person.json",
+            "title": "Party person",
+      "description": "Natural person is a descendant of party",
+       "x-createDt": "09/09/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/26/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "party.json"
+                        },
+                        {
+                     "$ref": "#/definitions/person"
+                        }
+             ],
+      "definitions": {
+               "person": {
+                    "title": "Person properties",
+              "description": "Person child properties",
+                     "type": "object",
+               "properties": {
+                       "prefix": {
+                            "title": "Prefix",
+                      "description": "Honorific prefix",
+                             "type": "string",
+                        "maxLength": 20
+                        },
+                    "firstName": {
+                            "title": "First name",
+                      "description": "The person’s first name",
+                             "type": "string",
+                        "maxLength": 60
+                        },
+                   "middleName": {
+                            "title": "Middle name",
+                      "description": "The person’s middle name",
+                             "type": "string",
+                        "maxLength": 60
+                        },
+                     "lastName": {
+                            "title": "Last name",
+                      "description": "The person’s last name",
+                             "type": "string",
+                        "maxLength": 60
+                        },
+                       "suffix": {
+                            "title": "Suffix",
+                      "description": "Honorific suffix (e.g., MD, DDS, II)",
+                             "type": "string",
+                        "maxLength": 20
+                        },
+                 "familiarName": {
+                            "title": "Familiar name",
+                      "description": "Familiar name for the person",
+                             "type": "string",
+                        "maxLength": 60
+                        },
+                      "aliases": {
+                            "title": "Alias names",
+                      "description": "List of alias names",
+                             "type": "array",
+                            "items": {
+                                "title": "Alias name",
+                                 "type": "string",
+                            "maxLength": 60
+                              }
+                        },
+                    "birthDate": {
+                            "title": "Date of birth",
+                      "description": "The Person’s date of birth",
+                             "type": "string",
+                           "format": "date"
+                        },
+                   "ageBracket": {
+                            "title": "Age Bracket Code",
+                      "description": "A group of people having approximately the same age (range)",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Less than 21" ],
+                                    [2, "21 - 30" ],
+                                    [3, "31 - 40" ],
+                                    [4, "41 - 50" ],
+                                    [5, "51 - 60" ],
+                                    [6, "61 - 70" ],
+                                    [7, "71 - 80" ],
+                                    [8, "81 or greater" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                    "deathDate": {
+                            "title": "Date of death",
+                      "description": "The Person’s date of death",
+                             "type": "string",
+                           "format": "date"
+                        },
+                       "gender": {
+                            "title": "Gender",
+                      "description": "The Person’s gender",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Male" ],
+                                    [2, "Female" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                      "govtIds": {
+                            "title": "Items of identification",
+                      "description": "Government issued identification documents",
+                             "type": "array",
+                            "items": {
+                                "title": "govtIdDoc",
+                                 "type": "object",
+                                 "$ref": "#/definitions/govtIdDoc"
+                              }
+                        },
+                    "education": {
+                            "title": "Education level",
+                      "description": "The highest education level achieved",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Less than high school" ],
+                                    [2, "High school or GED" ],
+                                    [3, "Some college" ],
+                                    [4, "Associate degree" ],
+                                    [5, "Bachelor's degree" ],
+                                    [6, "Master's degree" ],
+                                    [7, "Professional degree" ],
+                                    [8, "Doctorate degree" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+             "employmentStatus": {
+                            "title": "Employemnt status ",
+                      "description": "Employment Status code",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Full-time" ],
+                                    [2, "Part-time" ],
+                                    [3, "Paid Leave" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                   "occupation": {
+                            "title": "Occupation",
+                      "description": "The person’s occupational category code",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [11, "Management" ],
+                                    [13, "Business and Financial Operations" ],
+                                    [15, "Computer and Mathmatical" ],
+                                    [17, "Architecture and Engineering" ],
+                                    [19, "Life, Physical, and Sciences" ],
+                                    [21, "Community and Social Service" ],
+                                    [23, "Legal" ],
+                                    [25, "Education, Training, and Library" ],
+                                    [27, "Arts, Design, Entertainment, Sports, and Media" ],
+                                    [29, "Healthcare Practitioners and Technical" ],
+                                    [31, "Healthcare Support" ],
+                                    [33, "Protective Services" ],
+                                    [35, "Food Preperation and Serving Related" ],
+                                    [37, "Building and Grounds Cleaning and Maintenance" ],
+                                    [39, "Personal Care and Service" ],
+                                    [41, "Sales and Related" ],
+                                    [43, "Office and Adminsitrative Support" ],
+                                    [45, "Farming, Fishing, and Forestry" ],
+                                    [47, "Construction and Extraction" ],
+                                    [49, "Installation, Maintenance, and Repair" ],
+                                    [51, "Production" ],
+                                    [53, "Transportation and Material Moving" ],
+                                    [55, "Military Specific" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+            "primaryEmployerId": {
+                            "title": "Primary Employer Id",
+                      "description": "The Person’s current primary employer",
+                             "type": "string",
+                           "format": "tguid"
+                        },
+                   "incBracket": {
+                            "title": "Income Bracket",
+                      "description": "Income range of person",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "$0 - $10,000" ],
+                                    [2, "$10,001 - $20,000" ],
+                                    [3, "$20,001 - $30,000" ],
+                                    [4, "$30,001 - $40,000" ],
+                                    [5, "$40,001 - $50,000" ],
+                                    [6, "$50,001 - $60,000" ],
+                                    [7, "$60,001 - $70,000" ],
+                                    [8, "$70,001 - $80,000" ],
+                                    [9, "$80,001 - $90,000" ],
+                                    [10, "$90,001 - $100,000" ],
+                                    [11, "$100,001 - $125,000" ],
+                                    [12, "$125,001 - $150,000" ],
+                                    [13, "$150,001 - $175,000" ],
+                                    [14, "$175,001 - $200,000" ],
+                                    [15, "$200,001 - $225,000" ],
+                                    [16, "$225,001 - $250,000" ],
+                                    [17, "$250,001 - $500,000" ],
+                                    [18, "$500,001 - $999,999" ],
+                                    [19, "$1,000,000 or greater" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                   "moGrossInc": {
+                            "title": "Monthly Gross Income",
+                      "description": "The monthly income earned by the person",
+                             "type": "number",
+                           "format": "currency"
+                        },
+                "maritalStatus": {
+                            "title": "Marital Status",
+                      "description": "The person’s marital status",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Single" ],
+                                    [2, "Married" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+               "militaryStatus": {
+                            "title": "Military Status",
+                      "description": "The person’s military status (i.e, active duty, veteran)",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Active" ],
+                                    [2, "Inactive" ],
+                                    [3, "Reserve" ],
+                                    [4, "Retired" ],
+                                    [5, "None" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                   "maidenName": {
+                            "title": "Maiden Name",
+                      "description": "The person’s maiden name if applicable",
+                             "type": "string",
+                        "maxLength": 60
+                        },
+            "mothersMaidenName": {
+                            "title": "Mothers Maiden Name",
+                      "description": "The maiden name of the person’s mother",
+                             "type": "string",
+                        "maxLength": 60,
+                    "x-isEncrypted": true
+                        },
+                       "spouse": {
+                            "title": "Spouse",
+                      "description": "The name of the Person’s spouse if applicable",
+                             "type": "string",
+                        "maxLength": 60
+                        },
+                   "nbrInHhold": {
+                            "title": "Number in Household",
+                      "description": "The number of occupants in the person’s household",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                    "ethnicity": {
+                            "title": "Ethnicity Code",
+                      "description": "The person’s race or ethnic origin",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "White" ],
+                                    [2, "Black or African American" ],
+                                    [3, "Hispanic or Latino" ],
+                                    [4, "Asian" ],
+                                    [5, "Native Hawaiian/ Pacific Islander" ],
+                                    [6, "America Indian/ Alaska Native" ],
+                                    [7, "Mixed" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+              "residencyStatus": {
+                            "title": "Residency Status",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Resident" ],
+                                    [2, "Non-Resident" ],
+                                    [3, "Resident Alien" ],
+                                    [4, "Non Resident Alien" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+            "preferredLanguage": {
+                            "title": "Preferred Language",
+                      "description": "Preferred contact language IETF RFC 5646",
+                             "type": "string",
+                        "maxLength": 20
+                        },
+            "alternateLanguage": {
+                            "title": "Alternate Language",
+                      "description": "Alternate contact language IETF RFC 5646",
+                             "type": "string",
+                        "maxLength": 20
+                        },
+                  "studentType": {
+                            "title": "Student Type",
+                      "description": "Person’s current student status",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Full Time on campus" ],
+                                    [2, "Full time off campus" ],
+                                    [3, "Part time on campus" ],
+                                    [4, "Part time off campus" ],
+                                    [5, "On-Line no campus" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                      "webAddr": {
+                            "title": "Web Address",
+                      "description": "Person’s individual website",
+                             "type": "string",
+                           "format": "uri"
+                        }
+                  },
+            "x-dbInterface": {
+                      "indexes": [
+                                    {
+                                 "name": "lastFirstName",
+                             "indexKey": ["lastName", "firstName" ]
+                                    }
+                          ],
+                  "foreignKeys": [
+                                    {
+                                 "name": "primaryEmployer",
+                           "foreignKey": ["primaryEmployerId" ],
+                      "referenceEntity": "party.json",
+                         "referenceKey": ["_Id" ]
+                                    },
+                                    {
+                                 "name": "preferredLanguage",
+                           "foreignKey": ["preferredLanguage" ],
+                      "referenceEntity": "language.json",
+                         "referenceKey": ["language" ]
+                                    },
+                                    {
+                                 "name": "alternateLanguage",
+                           "foreignKey": ["alternateLanguage" ],
+                      "referenceEntity": "language.json",
+                         "referenceKey": ["language" ]
+                                    }
+                      ],
+                    "serialize": [
+                                    {
+                                 "name": "aliases",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            },
+            "govtIdDoc": {
+                   "title:": "Government Id",
+              "description": "Government Id document",
+                     "type": "object",
+               "properties": {
+                      "docType": {
+                            "title": "Document type",
+                      "description": "The type of identification document",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Birth certificate" ],
+                                    [2, "Social Security" ],
+                                    [3, "State-issued driver license/ID" ],
+                                    [4, "Passport" ],
+                                    [5, "Military" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                        "idNbr": {
+                            "title": "Identification number",
+                      "description": "Document identification number or string",
+                             "type": ["string", "integer" ],
+                        "maxLength": 20
+                        },
+                     "fullName": {
+                            "title": "Full name",
+                      "description": "Full name as it appears on document",
+                             "type": ["string", "integer" ],
+                        "maxLength": 20
+                        },
+                       "region": {
+                            "title": "Region",
+                      "description": "Issuing state, province or region",
+                             "type": "string",
+                        "maxLength": 20
+                        },
+                        "cntry": {
+                            "title": "Country",
+                      "description": "Issuing country, ISO 3166-2",
+                             "type": "string",
+                        "maxLength": 2
+                        },
+                    "issueDate": {
+                            "title": "Issued date",
+                      "description": "The date the identification document was issued",
+                             "type": "string",
+                           "format": "date"
+                        },
+                      "expDate": {
+                            "title": "Expiration date",
+                      "description": "The date the identification document expires",
+                             "type": "string",
+                           "format": "date"
+                        },
+                    "verifyDtm": {
+                            "title": "Identification verified on date",
+                      "description": "The date the identification was verified",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                       "attach": {
+                            "title": "Document source",
+                      "description": "The document source on file",
+                             "type": "object",
+                             "$ref": "attach.json"
+                        }
+                  },
+            "x-dbInterface": {
+                  "foreignKeys": [
+                                    {
+                                 "name": "cntry",
+                           "foreignKey": ["cntry" ],
+                      "referenceEntity": "cntry.json",
+                         "referenceKey": ["cntry" ]
+                                    },
+                                    {
+                                 "name": "region",
+                           "foreignKey": ["cntry", "region" ],
+                      "referenceEntity": "cntrySubdivision.json",
+                         "referenceKey": ["cntry", "subdivcode" ]
+                                    }
+                      ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+        "hasExtents": true
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

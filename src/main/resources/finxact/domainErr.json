@@ -1,0 +1,79 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/domainErr.json",
+            "title": "Domain error",
+      "description": "Processing error template",
+       "x-createDt": "10/14/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "03/14/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                 "code": {
+                    "title": "Error code",
+              "description": "Unique error identifier",
+                     "type": "integer",
+                  "maximum": 65535
+            },
+                  "cat": {
+                    "title": "Error category",
+              "description": "Specifies the category of known errors",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7
+            },
+                 "desc": {
+                    "title": "Error description",
+              "description": "Text describing the error",
+                     "type": "string"
+            },
+               "except": {
+                    "title": "Exception error",
+              "description": "Transaction exception detail for overridable errors",
+                     "type": "object",
+               "properties": {
+                   "exceptCode": {
+                            "title": "Exception code",
+                      "description": "Short name of the exception",
+                             "type": "string"
+                        },
+                         "note": {
+                            "title": "Exception notes",
+                      "description": "Text containing additional detail of the exception error",
+                             "type": "string"
+                        },
+                       "reason": {
+                            "title": "Exception reason",
+                      "description": "Reason for the override",
+                             "type": "string"
+                        },
+                        "isOvr": {
+                            "title": "Exception overridden",
+                      "description": "Indicates if the exception was overridden",
+                             "type": "boolean"
+                        },
+                    "isRoleOvr": {
+                            "title": "Exception overridden by role",
+                      "description": "Indicates if the exception was overridden by the role",
+                             "type": "boolean"
+                        },
+                       "seqNbr": {
+                            "title": "Transaction entry sequence",
+                      "description": "Sequence number of the transaction entry in the transaction",
+                             "type": "integer"
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+            "serialize": [
+                            {
+                         "name": "except",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

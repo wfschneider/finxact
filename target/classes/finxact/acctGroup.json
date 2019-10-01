@@ -1,0 +1,118 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/acctGroup.json",
+            "title": "Account group",
+      "description": "Set of accounts with similar processing parameters and unique numbers",
+       "x-createDt": "04/01/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+            "acctGroup": {
+                    "title": "Account Group",
+              "description": "Account Group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+            "acctClass": {
+                    "title": "Account Class",
+              "description": "Account Class code",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Banking" ],
+                            [2, "General ledger" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Account type description",
+                     "type": "string"
+            },
+            "isChkPosn": {
+                    "title": "Check position",
+              "description": "Flag determines whether to check position balances for sufficient funds",
+                     "type": "boolean"
+            },
+          "isRtPosnUpd": {
+                    "title": "Realtime update",
+              "description": "Flag determines whether position is updated real-time in transaction scope",
+                     "type": "boolean"
+            },
+            "posnDelim": {
+                    "title": "Composite delimited",
+              "description": "Composite delimited position key definition",
+                     "type": "array",
+                    "items": {
+                        "title": "field name",
+                  "description": "The field name (property) at this index",
+                         "type": "string"
+                  }
+            },
+            "posnFixed": {
+                    "title": "Composite fixed",
+              "description": "Composite fixed length position key definition",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                            "field": {
+                          "description": "The field name (property)",
+                                "title": "field name",
+                                 "type": "string"
+                              },
+                           "offset": {
+                          "description": "The offset from the beginning of the record field begins",
+                              "maximum": 255,
+                              "minimum": 0,
+                                "title": "Offset",
+                                 "type": "integer"
+                              },
+                           "prefix": {
+                          "description": "The prefix for the field",
+                              "maximum": 255,
+                              "minimum": 0,
+                                "title": "Prefix",
+                                 "type": "integer"
+                              },
+                             "size": {
+                          "description": "The size of the field in number of bytes",
+                              "maximum": 255,
+                              "minimum": 0,
+                                "title": "Size",
+                                 "type": "integer"
+                              }
+                        }
+                  }
+            },
+             "isNotSOR": {
+                    "title": "Core is not system of record",
+              "description": "Indicates the core is not the sytem of record for the accounts in this group",
+                     "type": "boolean",
+                  "default": false
+            }
+      },
+         "required": ["acctGroup", "acctClass", "desc", "isRtPosnUpd", "isChkPosn" ],
+    "x-dbInterface": {
+           "primaryKey": ["acctGroup" ],
+            "serialize": [
+                            {
+                         "name": "posnDelim",
+                       "format": "json"
+                            },
+                            {
+                         "name": "posnFixed",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

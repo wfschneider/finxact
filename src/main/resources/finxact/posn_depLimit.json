@@ -1,0 +1,45 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depLimit.json",
+            "title": "Transaction limit",
+      "description": "Defines regulatory, bank, and customer limits on balances and transactions",
+       "x-createDt": "01/23/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "01/08/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "componentLimit.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            }
+      },
+         "required": ["_Id"],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+      "extends": "posn_dep.json",
+          "foreignKeys": [
+                            {
+                         "name": "posn_dep",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn_dep.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+             "temporal": {
+                   "option": 4,
+                "tableName": "posn_depLimits_hist",
+           "baseProperties": ["deminimisAmt", "minToOpen", "minPosnBal", "maxPosnBal", "restrictDr", "restrictCrFundExp", "restrictCr"]
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

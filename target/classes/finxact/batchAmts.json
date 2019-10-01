@@ -1,0 +1,39 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/batchAmts.json",
+            "title": "Batch Amounts",
+      "description": "Template definition of batch amounts",
+       "x-createDt": "05/16/2019",
+       "x-createBy": "Jason Hunter",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+                "drAmt": {
+                    "title": "Total debit amount",
+              "description": "The total debit amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+                "crAmt": {
+                    "title": "Total credit amount",
+              "description": "The total credit amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+                "drCnt": {
+                    "title": "Debit count",
+              "description": "The total number of debits",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+                "crCnt": {
+                    "title": "Credit count",
+              "description": "The total number of credits",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            }
+      }
+}

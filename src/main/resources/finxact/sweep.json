@@ -1,0 +1,199 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/sweep.json",
+            "title": "Sweep definition",
+      "description": "Defines a sweep and how it should work",
+       "x-createDt": "09/4/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "05/06/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                 "name": {
+                    "title": "Sweep name",
+              "description": "Sweep name",
+                     "type": "string",
+                "maxLength": 20
+            },
+                 "desc": {
+                    "title": "Sweep description",
+              "description": "Sweep description",
+                     "type": "string"
+            },
+           "isBidirect": {
+                    "title": "Bidirectional",
+              "description": "Indicates if funds are swept both into and out of the primary position",
+                     "type": "boolean"
+            },
+         "sweepTrnCode": {
+                    "title": "Sweep Transaction Code",
+              "description": "Sweep process trancode",
+                     "type": "string"
+            },
+         "primarySweep": {
+                    "title": "Primary sweep parameters",
+              "description": "Primary position sweep parameters",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "#/definitions/sweepParam"
+                                }
+                       ]
+            },
+       "secondarySweep": {
+                    "title": "Secondary sweep parameters",
+              "description": "Secondary position sweep parameters",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                        "allOf": [
+                                    {
+                                 "$ref": "#/definitions/sweepParam"
+                                    }
+                            ]
+                  }
+            }
+      },
+      "definitions": {
+           "sweepParam": {
+                    "title": "Sweep parameters",
+              "description": "Defines parameters for processing a sweep",
+                     "type": "object",
+               "properties": {
+                    "validProd": {
+                            "title": "Valid product",
+                      "description": "List of products that offer this sweep",
+                             "type": "array",
+                            "items": {
+                                "title": "Product",
+                                 "type": "string",
+                            "maxLength": 30
+                              }
+                        },
+                        "event": {
+                            "title": "Sweep trigger",
+                      "description": "Event that triggers the sweep",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Balance less than zero" ],
+                                    [2, "Balance less than minimum" ],
+                                    [3, "Balance less than target balance" ],
+                                    [4, "Balance greater than the minimum" ],
+                                    [5, "Balance greater than zero" ],
+                                    [6, "Balance greater than target balance" ],
+                                    [7, "Scheduled date / time" ]
+                               ],
+                          "minimum": 1,
+                          "maximum": 255
+                        },
+                    "targetBal": {
+                            "title": "Target balance",
+                      "description": "Defines balance to be maintained on position",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Zero balance" ],
+                                    [2, "Minimum required balance" ],
+                                    [3, "Target amount" ]
+                               ]
+                        },
+                    "targetAmt": {
+                            "title": "Target amount",
+                      "description": "Desired position balance when target balance is a target amount",
+                             "type": "number",
+                           "format": "currency"
+                        },
+                      "balType": {
+                            "title": "Sweep balance type",
+                      "description": "Position balance used to determine sweep amount",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Ledger" ],
+                                    [2, "Available" ],
+                                    [3, "Collected" ],
+                                    [4, "General ledger balance" ],
+                                    [5, "Ledger less reserve requirement" ],
+                                    [6, "Available less reserve requirement" ],
+                                    [7, "Collected less reserve requirement" ]
+                               ],
+                          "default": 1,
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                   "targetRule": {
+                            "title": "Target rule",
+                      "description": "Determines, in conjunction with the target balance, the amount to transfer",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Greater than" ],
+                                    [2, "Less than" ],
+                                    [3, "Eqaul to" ],
+                                    [4, "Not equal to" ],
+                                    [5, "Business rule" ]
+                               ],
+                          "default": 1,
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                      "sweepTm": {
+                            "title": "Time to sweep",
+                      "description": "How often and when the sweep should process",
+                             "type": "string",
+                           "format": "frequency"
+                        },
+                     "sweepFee": {
+                            "title": "Sweep fee",
+                      "description": "Fee charged for each sweep",
+                             "type": "string",
+                        "maxLength": 20
+                        },
+                 "tfrAmtLimits": {
+                            "title": "Transfer amount limits",
+                      "description": "Minimum, maximum, and incremental sweep amounts",
+                             "type": "array",
+                            "items": {
+                                 "type": "object",
+                                 "$ref": "trnLimit.json"
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                  "foreignKeys": [
+                                    {
+                                 "name": "sweepFee",
+                           "foreignKey": ["sweepFee" ],
+                      "referenceEntity": "feeCalcDtl.json",
+                         "referenceKey": ["name" ]
+                                    }
+                      ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["name" ],
+          "foreignKeys": [
+                            {
+                         "name": "sweepTrnCode",
+                   "foreignKey": ["sweepTrnCode" ],
+              "referenceEntity": "trnCode.json",
+                 "referenceKey": ["trnCode" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "primarySweep",
+                       "format": "json"
+                            },
+                            {
+                         "name": "secondarySweep",
+                       "format": "json"
+                            },
+                            {
+                         "name": "validProd",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,73 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnEntryAdd.json",
+            "title": "Transaction appended",
+      "description": "Financial transaction appended after update",
+       "x-createDt": "02/02/2019",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/13/2019",
+       "x-updateBy": "Adam Schwartz",
+             "type": "object",
+       "properties": {
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "trnId": {
+                    "title": "Transaction identifier",
+              "description": "Unique transaction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+           "trnEntryIx": {
+                    "title": "Transaction entry",
+              "description": "Transaction entry sequence",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483647
+            },
+          "attachments": {
+                    "title": "Attached items",
+              "description": "Attached comments, files and images",
+                     "type": "array",
+                    "items": {
+                        "title": "attachment",
+                         "type": "object",
+                         "$ref": "attach.json"
+                  }
+            },
+                 "tags": {
+                    "title": "Transaction tags",
+              "description": "Transaction reference tags",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "string"
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["posnId", "trnId", "trnEntryIx" ],
+          "foreignKeys": [
+                            {
+                         "name": "posnId",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "trnId",
+                   "foreignKey": ["trnId" ],
+              "referenceEntity": "trn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "tags",
+                       "format": "json"
+                            }
+              ]
+      }
+}

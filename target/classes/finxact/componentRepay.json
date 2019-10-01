@@ -1,0 +1,293 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/componentRepay.json",
+            "title": "Loan payment attributes",
+      "description": "Processing attributes for loan repayment",
+       "x-createDt": "08/27/2018",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+        "componentName": {
+                    "title": "Component name",
+              "description": "Repayment component name",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "Component version",
+              "description": "Repayment component version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+               "pmtDur": {
+                    "title": "Payment duration",
+              "description": "Payment duration, to determine maturity date",
+                     "type": "string",
+                   "format": "duration"
+            },
+          "amortizeDur": {
+                    "title": "Amortization duration",
+              "description": "Amortization duration, for balloon loans",
+                     "type": "string",
+                   "format": "duration"
+            },
+              "pmtFreq": {
+                    "title": "Payment frequency",
+              "description": "Frequency used to calculate the next payment due date",
+                     "type": "string",
+                   "format": "frequency"
+            },
+            "pmtOffset": {
+                    "title": "Payment offset",
+              "description": "Duration prior to the payment due date, to generate receivables",
+                     "type": "string",
+                   "format": "duration"
+            },
+        "oddDaysIntOpt": {
+                    "title": "Odd days interest option",
+              "description": "Method used to resolve odd days interest",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Adjust first receivable" ],
+                            [2, "Straight line amortization over loan duration, adjust payment amount" ],
+                            [3, "Collect in advance, create receivable at opening" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+              "intMthd": {
+                    "title": "Interest method",
+              "description": "Method that defines interest due and its determination point",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Accrued amount at the time of receivable generation" ],
+                            [2, "Anticipated through payment due date, at the time of receivable generation" ],
+                            [3, "Fixed amount" ],
+                            [4, "Accrued amount as of repayment" ],
+                            [5, "Calculated amount as per amortization schedule" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "fixIntAmt": {
+                    "title": "Fixed interest amount",
+              "description": "Fixed interest amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+             "prinMthd": {
+                    "title": "Principal method",
+              "description": "Method used to determine principal due",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Percentage of balance" ],
+                            [2, "Fixed payment amount less interest" ],
+                            [3, "Fixed amount" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+           "fixPrinAmt": {
+                    "title": "Fixed principal amount",
+              "description": "Fixed principal amount per receivable",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+           "prinBalPct": {
+                    "title": "Balance percentage",
+              "description": "Percentage of balance to calculate principal due",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "decimal": 5
+            },
+          "prinBalBase": {
+                    "title": "Balance base",
+              "description": "Balance base used in percentage balance computation",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Credit limit" ],
+                            [2, "Ledger balance" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+          "roundingOpt": {
+                    "title": "Rounding option",
+              "description": "Payment rounding option, adjust principal payment amount",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Round up" ],
+                            [2, "Round down" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+        "roundingIncre": {
+                    "title": "Rounding increment",
+                     "type": "number",
+                  "minimum": 0,
+               "multipleOf": 0.001
+            },
+               "minPmt": {
+                    "title": "Minimum payment option",
+              "description": "Minimum payment option",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Minimum amount" ],
+                            [2, "Payoff amount" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "minPmtAmt": {
+                    "title": "Minimum payment amount",
+              "description": "Minimum amount to pay",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+         "toleranceAmt": {
+                    "title": "Payment tolerance amount",
+              "description": "Payment tolerance amount, to advance due date",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0,
+                  "default": 0
+            },
+         "tolerancePct": {
+                    "title": "Payment tolerance percentage",
+              "description": "Payment tolerance percentage, to advance due date",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "decimal": 5
+            },
+          "isRevolving": {
+                    "title": "Is revolving",
+              "description": "Is this a revolving credit loan",
+                     "type": "boolean",
+                  "default": false
+            },
+        "isFixAmortize": {
+                    "title": "Is fixed amortization",
+              "description": "Fixed amortization where payments not made exactly on the due date do not affect the amount applied to interest of principal for a payment or the overall amortization of the loan, e.g., typical U.S. residential or commercial mortgage",
+                     "type": "boolean",
+                  "default": false
+            },
+          "gracePeriod": {
+                    "title": "Payment grace period",
+              "description": "Payment grace period",
+                     "type": "string",
+                   "format": "duration"
+            },
+        "payApplMatrix": {
+                    "title": "Payment application matrix",
+              "description": "Matrix used to determine payment application rules",
+                     "type": "string"
+            },
+          "pmtApplMthd": {
+                    "title": "Payment application method",
+              "description": "Payment application method corresponding to receivable due status",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "object",
+                   "properties": {
+                        "direction": {
+                                "title": "Direction",
+                          "description": "Payment direction to apply payment for given receivableDueStatus",
+                                 "type": "string",
+                              "choices": [
+                                        ["Vertical", "Vertical" ],
+                                        ["Horizontal", "Horizontal" ]
+                                    ]
+                              },
+                     "dueItemOrder": {
+                                "title": "Order",
+                          "description": "List of receivable dueItems in the order in which to apply the payment for given receivableDueStatus and direction",
+                                 "type": "array",
+                                "items": {
+                                    "title": "Receivable due item",
+                              "description": "Receivable due item itemName / itemType",
+                                     "type": "string"
+                                    },
+                             "minItems": 1
+                              }
+                        }
+                  }
+            },
+       "pmtApplAdvance": {
+                    "title": "Advance payment application method",
+              "description": "Method to apply advance payments, in excess of due amounts",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Principal prepayment" ],
+                            [2, "Generate and pay advance receivable" ]
+                     ],
+                  "minimum": 1,
+                  "maximum": 255
+            },
+              "pastDue": {
+                    "title": "Past due tracking",
+              "description": "Past due information attributes",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                      "pastDueTerm": {
+                                "title": "Past due term",
+                          "description": "Duration to track",
+                                 "type": "string",
+                               "format": "duration"
+                              }
+                        }
+                  }
+            },
+         "payoffVarianceAmt": {
+                    "title": "Payoff variance amount",
+              "description": "Allow payoff if payoff amount is short but within variance amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0,
+                  "default": 0
+            }
+      },
+     "dependencies": {
+          "pmtRounding": ["roundingIncre" ],
+        "roundingIncre": ["pmtRounding" ]
+      },
+    "x-dbInterface": {
+           "primaryKey": ["componentName", "version" ],
+          "foreignKeys": [
+                            {
+                         "name": "payApplMatrix",
+                   "foreignKey": ["payApplMatrix" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "pastDue",
+                       "format": "json"
+                            },
+                            {
+                         "name": "pmtApplMthd",
+                       "format": "json"
+                            }
+              ],
+              "x-cached": {
+                "expiry": "24h"
+              }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

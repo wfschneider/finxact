@@ -1,0 +1,337 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/acct_bk.json",
+            "title": "Banking account",
+      "description": "Generic banking account",
+       "x-createDt": "08/23/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/14/2019",
+       "x-updateBy": "Keval Shah",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "acct.json"
+                        }
+             ],
+       "properties": {
+             "acctType": {
+                    "title": "Account type",
+              "description": "Account ownership type",
+                     "type": "string"
+            },
+           "tmZoneCode": {
+                    "title": "Account time zone",
+              "description": "Time zone assigned to account for daily processing window",
+                     "type": "string",
+                "maxLength": 64
+            },
+              "baseCcy": {
+                    "title": "Account base currency",
+              "description": "Reporting currency of account",
+                     "type": "string",
+                "minLength": 3,
+                "maxLength": 3,
+                  "default": "USD"
+            },
+             "isWthFed": {
+                    "title": "Is Federal Withholding",
+              "description": "Indicates whether or not account is subject to Federal backup withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+             "isWthNra": {
+                    "title": "Is NRA Withholding",
+              "description": "Indicates whether or not account is a Non-Resident Alien subject to backup withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+           "isWthState": {
+                    "title": "Is State Withholding",
+              "description": "Indicates whether or not account is subject to State withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+             "stmtFreq": {
+                    "title": "Statement frequency",
+              "description": "Default frequency to create a statement",
+                     "type": "string",
+                   "format": "frequency"
+            },
+          "nextStmtDtm": {
+                    "title": "Statement next date",
+              "description": "Next statement creation date-time",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "lastStmtDtm": {
+                    "title": "Statement last date",
+              "description": "Last statement creation date-time",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "folderId": {
+                    "title": "Account folder",
+              "description": "Documents and attachments folder Id",
+                     "type": "string",
+                   "format": "tguid"
+            },
+           "isBrokered": {
+                    "title": "Brokered deposit",
+              "description": "Indicates whether or not the account was originated by a broker",
+                     "type": "boolean"
+            },
+               "broker": {
+                    "title": "Originating broker",
+              "description": "Broker originating the account",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+            "aggBalCDA": {
+                    "title": "CDA aggregate balance",
+              "description": "Sum of ledger balances for CDA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalDDA": {
+                    "title": "DDA aggregate balance",
+              "description": "Sum of ledger balances for DDA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalSDA": {
+                    "title": "SDA aggregate balance",
+              "description": "Sum of ledger balances for SDA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalMMA": {
+                    "title": "MMA aggregate balance",
+              "description": "Sum of ledger balances for MMA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalCMA": {
+                    "title": "CMA aggregate balance",
+              "description": "Sum of ledger balances for CMA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalCCA": {
+                    "title": "CCA aggregate balance",
+              "description": "Sum of ledger balances for CCA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalEQU": {
+                    "title": "EQU aggregate balance",
+              "description": "Sum of ledger balances for EQU positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalILA": {
+                    "title": "ILA aggregate balance",
+              "description": "Sum of ledger balances for ILA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalCLA": {
+                    "title": "CLA aggregate balance",
+              "description": "Sum of ledger balances for CLA positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "aggBalLOC": {
+                    "title": "LOC aggregate balance",
+              "description": "Sum of ledger balances for LOC positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+          "aggBalAsset": {
+                    "title": "Asset aggregate balance",
+              "description": "Sum of ledger balances for asset positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+      "aggBalLiability": {
+                    "title": "Liability aggregate balance",
+              "description": "Sum of ledger balances for liability positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+     "isElectronicStmt": {
+                    "title": "Electronic statement",
+              "description": "Account receives an electronic statement",
+                     "type": "boolean",
+                  "default": true
+            },
+          "isPaperStmt": {
+                    "title": "Paper statement",
+              "description": "Account receives a paper statement",
+                     "type": "boolean",
+                  "default": false
+            },
+           "signedDocs": {
+                    "title": "Account documents",
+              "description": "Version and date of documents signed by the account owner(s)",
+                     "type": "array",
+                 "minItems": 0,
+                    "items": {
+                         "type": "object",
+                        "title": "Account document detail",
+                   "properties": {
+                          "docType": {
+                                "title": "Document type",
+                          "description": "Type of document",
+                                 "type": "integer",
+                              "choices": [
+                                        [1, "Terms and conditions" ],
+                                        [2, "Electronic statement consent" ]
+                                    ],
+                              "default": 1,
+                              "minimum": 0,
+                              "maximum": 255
+                              },
+                          "version": {
+                                "title": "Terms and conditions version",
+                          "description": "Version of terms and conditioned signed by account owner",
+                                 "type": "string",
+                            "maxLength": 20
+                              },
+                        "signedDtm": {
+                                "title": "Terms and conditions date signed",
+                          "description": "Date terms and conditions signed by owner",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                         "signedBy": {
+                                "title": "Terms and conditions signed by",
+                          "description": "Account owner who signed the terms and conditions",
+                                 "type": "object",
+                                 "$ref": "party_person.json"
+                              },
+                      "recisionDtm": {
+                                "title": "Recision date and time",
+                         "descpription": "Date and time consent was rescinded",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                      "rescindedBy": {
+                                "title": "Rescinded by",
+                          "description": "Account owner who rescinded consent or authorization",
+                                 "type": "object",
+                                 "$ref": "party_person.json"
+                              }
+                        }
+                  },
+                 "required": ["version", "signedDtm", "signedBy" ]
+            },
+               "status": {
+                    "title": "Status",
+              "description": "Activity based account status",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/acctBkStatus.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            }
+      },
+         "required": ["tmZoneCode", "isBrokered", "baseCcy" ],
+    "x-dbInterface": {
+          "foreignKeys": [
+                            {
+                         "name": "folder",
+                   "foreignKey": ["folderId" ],
+              "referenceEntity": "folder.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "tmZoneCode",
+                   "foreignKey": ["tmZoneCode" ],
+              "referenceEntity": "tmZone.json",
+                 "referenceKey": ["tmZoneCode" ]
+                            },
+                            {
+                         "name": "baseCcy",
+                   "foreignKey": ["baseCcy" ],
+              "referenceEntity": "ccyCode.json",
+                 "referenceKey": ["ccyCode" ]
+                            },
+                            {
+                         "name": "acctType",
+                   "foreignKey": ["acctType" ],
+              "referenceEntity": "acctType.json",
+                 "referenceKey": ["acctType" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "broker",
+                       "format": "json"
+                            },
+                            {
+                         "name": "signedDocs",
+                       "format": "json"
+                            }
+              ],
+            "computeds": [
+                            {
+                         "name": "aggBalCDA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"CDA\")"
+                            },
+                            {
+                         "name": "aggBalDDA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"DDA\")"
+                            },
+                            {
+                         "name": "aggBalSDA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"SDA\")"
+                            },
+                            {
+                         "name": "aggBalMMA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"MMA\")"
+                            },
+                            {
+                         "name": "aggBalCMA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"CMA\")"
+                            },
+                            {
+                         "name": "aggBalCCA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"CCA\")"
+                            },
+                            {
+                         "name": "aggBalEQU",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"EQU\")"
+                            },
+                            {
+                         "name": "aggBalILA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"ILA\")"
+                            },
+                            {
+                         "name": "aggBalCLA",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"CLA\")"
+                            },
+                            {
+                         "name": "aggBalLOC",
+                           "ex": "=GetAggBalIfxType(ctx, this, \"LOC\")"
+                            },
+                            {
+                         "name": "aggBalAsset",
+                           "ex": "=GetAggBalGlCat(ctx, this, 1)"
+                            },
+                            {
+                         "name": "aggBalLiability",
+                           "ex": "=GetAggBalGlCat(ctx, this, 2)"
+                            },
+                            {
+                         "name": "status",
+                           "ex": "=GetStatus(ctx)"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

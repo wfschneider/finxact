@@ -1,0 +1,193 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/fileFmtRec.json",
+            "title": "Extract Record Format",
+      "description": "Individual file record formating details",
+       "x-createDt": "03/12/2019",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "07/12/2019",
+       "x-updateBy": "Vince Arpa",
+             "type": "object",
+       "properties": {
+              "fmtName": {
+                    "title": "File format name",
+              "description": "A unique name for this file layout",
+                     "type": "string",
+                "maxLength": 30
+            },
+           "fmtRecName": {
+                    "title": "File format record name",
+              "description": "A unique name for this specific record in the file layout",
+                     "type": "string",
+                "maxLength": 30
+            },
+           "fmtRecType": {
+                    "title": "File format record type",
+              "description": "The type of format record",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "File Header" ],
+                            [2, "Batch Header" ],
+                            [3, "Detail Record" ],
+                            [4, "Batch Trailer" ],
+                            [5, "File Trailer" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+              "fileRec": {
+                    "title": "File Record",
+              "description": "Record definition for this format",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/fieldDef"
+                  },
+                 "minItems": 0
+            },
+   "inclFieldTitleLine": {
+                    "title": "Include field title line",
+              "description": "Include a title line for this record type",
+                     "type": "boolean",
+                  "default": false
+            }
+      },
+      "definitions": {
+             "fieldDef": {
+                    "title": "Field definition",
+              "description": "The defintion of a field in this record",
+                     "type": "object",
+               "properties": {
+                    "fieldName": {
+                            "title": "Field Name",
+                      "description": "Field name",
+                             "type": "string"
+                        },
+                    "fieldSize": {
+                            "title": "Field Size",
+                      "description": "The size of the field if this is a fixed length format ",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                "justification": {
+                            "title": "Field justification",
+                      "description": "Left or right justify for fixed length fields",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Left Justify" ],
+                                    [2, "Right Justify" ],
+                                    [3, "Right Justify zero fill" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                    "fieldType": {
+                            "title": "Field Type",
+                      "description": "The type of field beign displayed",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Literal string" ],
+                                    [2, "Table.column reference" ],
+                                    [3, "System Date" ],
+                                    [4, "Sum of table.column" ],
+                                    [5, "Total" ],
+                                    [6, "Counter" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                 "fieldLiteral": {
+                            "title": "Field Literal",
+                      "description": "If populated, this represents a literal string value to appear in the field layout",
+                             "type": "string"
+                        },
+                     "fieldRef": {
+                            "title": "Field reference",
+                      "description": "A table.column reference for the field being used",
+                             "type": "string"
+                        },
+                "skipRecOnNull": {
+                            "title": "Skip record on null value",
+                      "description": "If this field contains a null value, the record will not be written to the extract",
+                             "type": "boolean"
+                        },
+                  "omitDecimal": {
+                            "title": "Omit decimal",
+                      "description": "Flag to indicate that a numeric value should display without a decimal",
+                             "type": "boolean"
+                        },
+                      "dateFmt": {
+                            "title": "Date format",
+                      "description": "The date format used if this is a date field",
+                             "type": "string"
+                        },
+                 "specialInstr": {
+                            "title": "Special Instruction",
+                      "description": "A specific instruction for the field",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Negate value if credit" ],
+                                    [2, "Negate value if debit" ],
+                                    [3, "Detail Record Counter" ],
+                                    [4, "Total of detail records" ],
+                                    [5, "Total of all records" ],
+                                    [6, "Include following field, skip delimiter" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+            "valReplacementMap": {
+                            "title": "Value replacement pairs",
+                      "description": "A map of replacement values for the field in the extract",
+                             "type": "object",
+             "additionalProperties": {
+                                "title": "value",
+                          "description": "Replacement value associated with key",
+                                 "type": "string"
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "valReplacementMap",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["fmtName", "fmtRecType", "fmtRecName" ],
+            "serialize": [
+                            {
+                         "name": "fileRec",
+                       "format": "json"
+                            }
+              ],
+          "foreignKeys": [
+                            {
+                         "name": "fileFmt",
+                   "foreignKey": ["fmtName" ],
+              "referenceEntity": "fileFmt.json",
+                 "referenceKey": ["fmtName" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

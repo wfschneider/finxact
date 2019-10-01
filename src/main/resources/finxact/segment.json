@@ -1,0 +1,41 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/Segment.json",
+            "title": "Segment",
+      "description": "Segment details",
+       "x-createDt": "",
+       "x-createBy": "",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "ledgerId": {
+                    "title": "Ledger Id",
+              "description": "Balancing ledger",
+                     "type": "integer"
+            },
+                "orgId": {
+                    "title": "Organization Id",
+              "description": "Balancing organization ",
+                     "type": "integer"
+            },
+               "deptId": {
+                    "title": "Department",
+              "description": "Balancing department or cost center",
+                     "type": "integer"
+            },
+             "regionId": {
+                    "title": "Region Id",
+              "description": "Balancing region",
+                     "type": "integer"
+            },
+            "subAcctId": {
+                    "title": "Sub account",
+              "description": "Sub account",
+                     "type": "integer"
+            }
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

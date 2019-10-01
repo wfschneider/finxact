@@ -1,0 +1,146 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/restrict.json",
+            "title": "Restriction",
+      "description": "Items limiting processing on an account",
+       "x-createDt": "08/22/2017",
+       "x-createBy": "Amanda Mathis",
+       "x-updateDt": "03/29/2019",
+       "x-updateBy": "Adam Schwartz",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Restriction identifier",
+              "description": "Unique Restriction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "level": {
+                    "title": "Restriction Level",
+              "description": "The level at which the restriction being placed",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Party" ],
+                            [2, "Account" ],
+                            [3, "Position" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "restrictCode": {
+                    "title": "Restriction type code",
+              "description": "The Restriction type code",
+                     "type": "string",
+                "maxLength": 40
+            },
+                 "note": {
+                    "title": "Restriction note",
+              "description": "Free form accompanying note",
+                     "type": "string",
+                   "format": "text-area"
+            },
+            "acctGroup": {
+                    "title": "Account Group",
+              "description": "Account Group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "partyId": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "acctNbr": {
+                    "title": "Account number",
+              "description": "The unique account identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+               "posnId": {
+                    "title": "Restriction position",
+              "description": "Restriction placed on position",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "startDtm": {
+                    "title": "Restriction start",
+              "description": "Date and time Restriction will start, default immediately",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "endDtm": {
+                    "title": "Restriction expiration",
+              "description": "Date and time Restriction will expire, default 10/15/2114-23:59",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "cancelDtm": {
+                    "title": "Restriction cancellation",
+              "description": "Date and time Restriction was cancelled",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                  "doc": {
+                    "title": "Supporting Documents",
+              "description": "Documents to support the restriction placement",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                          "docType": {
+                                "title": "Identification document type",
+                          "description": "The type of identification",
+                                 "type": "string"
+                              },
+                            "idUrl": {
+                                "title": "Identification image URL",
+                          "description": "The URL of the doc image on file",
+                                 "type": "string",
+                               "format": "uri"
+                              }
+                        }
+                  }
+            }
+      },
+         "required": ["level" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "restrictCode",
+                   "foreignKey": ["restrictCode" ],
+              "referenceEntity": "exceptRule.json",
+                 "referenceKey": ["code" ]
+                            },
+                            {
+                         "name": "acctGroupAcctNbr",
+                   "foreignKey": ["acctGroup", "acctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            },
+                            {
+                         "name": "posnId",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "partyId",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "doc",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

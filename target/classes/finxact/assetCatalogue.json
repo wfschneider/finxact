@@ -1,0 +1,42 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/assetCatalogue",
+            "title": "Asset catalogue",
+      "description": "Asset catalogue identifies position content",
+       "x-createDt": "08/11/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/28/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+           "assetClass": {
+                    "title": "Asset class",
+              "description": "The asset class of the position",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Cash ISO 4217" ],
+                            [2, "ISIN ISO 6166" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255,
+                  "default": 1
+            },
+              "assetId": {
+                    "title": "Asset identifier",
+              "description": "Asset identifier within the asset class",
+                     "type": "string",
+                "maxLength": 12
+            },
+                 "desc": {
+                    "title": "Asset description",
+              "description": "Asset description",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["assetClass", "assetId" ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

@@ -1,0 +1,47 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/networkTranCode.json",
+            "title": "Network transaction code",
+      "description": "Transaction network transaction codes",
+       "x-createDt": "04/12/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "procName": {
+                    "title": "Process Name",
+              "description": "Name of the network process",
+                     "type": "string"
+            },
+             "procType": {
+                    "title": "Process Type",
+              "description": "Transactional process type",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Customer Debit to Customer Credit" ],
+                            [1, "Customer Debit to GL Credit" ],
+                            [2, "Customer Credit to GL Debit" ],
+                            [3, "GL Debit to GL Credit" ]
+                     ],
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+              "trnCode": {
+                    "title": "Transaction Code",
+              "description": "Process trancode",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+          "foreignKeys": [
+                            {
+                         "name": "trnCode",
+                   "foreignKey": ["trnCode" ],
+              "referenceEntity": "trnCode.json",
+                 "referenceKey": ["trnCode" ]
+                            }
+            ]
+      }
+}

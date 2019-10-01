@@ -1,0 +1,390 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/party.json",
+            "title": "Party",
+      "description": "Person or organization party record",
+       "x-createDt": "09/15/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "04/24/2019",
+       "x-updateBy": "Keval Shah",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+       "lstContactDate": {
+                    "title": "Last contact date",
+              "description": "Last contact date",
+                     "type": "string",
+                   "format": "date"
+            },
+                 "name": {
+                    "title": "Party name",
+                     "type": "string",
+              "description": "Formatted full name of party",
+                "maxLength": 80
+            },
+         "taxAddressId": {
+                    "title": "Tax address",
+              "description": "Current tax reporting address Id",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "cntry": {
+                    "title": "Country",
+              "description": "Country of residence or registration ISO 3166-2",
+                     "type": "string",
+                "maxLength": 2
+            },
+          "contactPref": {
+                    "title": "Contact preference",
+              "description": "The method of contact preference",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Phone-Text" ],
+                            [2, "Phone-Voice" ],
+                            [3, "Email" ],
+                            [4, "Text and email" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+                  "tin": {
+                    "title": "Tax Id number",
+              "description": "SSN, EIN or ITIN tax identification number",
+                     "type": "string",
+                "maxLength": 11
+            },
+              "tinType": {
+                    "title": "Tax Id type",
+              "description": "Type of tax Id stored in tin",
+                     "type": "integer",
+                  "choices": [
+                            [0, "SSN" ],
+                            [1, "EIN" ],
+                            [2, "ITIN" ],
+                            [3, "SIN" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+                "addrs": {
+                    "title": "Party addresses",
+              "description": "Addresses associated with this party",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/partyAddr"
+                  },
+                 "minItems": 1
+            },
+               "emails": {
+                    "title": "Party emails",
+              "description": "Email addresses associated with this party",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/partyEmail"
+                  },
+                 "minItems": 1
+            },
+               "phones": {
+                    "title": "Party phones",
+              "description": "Phone numbers associated with this party",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/partyPhone"
+                  },
+                 "minItems": 1
+            },
+               "extRef": {
+                    "title": "External references",
+              "description": "External Party | Customer linked references",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "object",
+                   "properties": {
+                             "name": {
+                                "title": "Interface name",
+                          "description": "Name of the interface",
+                                 "type": "string"
+                              },
+                              "ref": {
+                                "title": "Interface reference",
+                          "description": "Reference, or key, token, pointer",
+                                 "type": "string"
+                              },
+                             "path": {
+                                "title": "Reference path",
+                          "description": "Optional Resource path for API",
+                                 "type": "string",
+                               "format": "URL"
+                              }
+                        }
+                  }
+            }
+      },
+      "definitions": {
+            "partyAddr": {
+                    "title": "Party to address",
+              "description": "Party to address links",
+                     "type": "object",
+               "properties": {
+                     "addrType": {
+                            "title": "Address type",
+                      "description": "The type of address",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Mailing only/PO" ],
+                                    [2, "Residence" ],
+                                    [3, "Prior residence" ],
+                                    [4, "Work/Office" ],
+                                    [5, "Vacation" ],
+                                    [6, "Shipping" ],
+                                    [7, "Billing" ],
+                                    [8, "Headquarter" ],
+                                    [9, "Branch/Store" ],
+                                    [10, "Non-resident property" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                        "label": {
+                            "title": "Address label",
+                      "description": "The label of this address",
+                             "type": "string",
+                        "maxLength": 30
+                        },
+                     "priority": {
+                            "title": "Sort priority",
+                      "description": "Listing sort priority",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                 "validFromDtm": {
+                            "title": "Valid from",
+                      "description": "Address is valid from date",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                   "validToDtm": {
+                            "title": "Valid to",
+                      "description": "Address is valid to date",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                    "verifyDtm": {
+                            "title": "Verified on",
+                      "description": "Date address was last verified",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                       "addrId": {
+                            "title": "Address Id",
+                      "description": "The address Id",
+                             "type": "string",
+                           "format": "tguid"
+                        },
+                      "yrsAddr": {
+                            "title": "Years at Address",
+                      "description": "The years at this addess",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "1 Year" ],
+                                    [2, "2 Years" ],
+                                    [3, "3 Years" ],
+                                    [4, "4 or More Years" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        }
+                  },
+                 "required": ["addrType", "addrId" ],
+            "x-dbInterface": {
+                      "indexes": [
+                                    {
+                                 "name": "addrType",
+                             "indexKey": ["addrType" ]
+                                    }
+                          ],
+                  "foreignKeys": [
+                                    {
+                                 "name": "addr",
+                           "foreignKey": ["addrId" ],
+                      "referenceEntity": "addr.json",
+                         "referenceKey": ["_Id" ]
+                                    }
+                      ]
+                  }
+            },
+           "partyEmail": {
+                    "title": "Party email",
+              "description": "Party email",
+                     "type": "object",
+               "properties": {
+                    "emailType": {
+                            "title": "Email type",
+                      "description": "Email type",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Personal" ],
+                                    [2, "Work" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                        "label": {
+                            "title": "Label",
+                      "description": "Label",
+                             "type": "string",
+                        "maxLength": 30
+                        },
+                         "data": {
+                            "title": "Data",
+                      "description": "The email address",
+                             "type": "string"
+                        },
+                  "isPreferred": {
+                            "title": "Is preferred",
+                      "description": "Identifies the party's preferred email address",
+                             "type": "boolean"
+                        },
+                 "validFromDtm": {
+                            "title": "Valid from",
+                      "description": "Email is valid from date",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                   "validToDtm": {
+                            "title": "Valid to",
+                      "description": "Email is valid to date",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                    "verifyDtm": {
+                            "title": "Verified on",
+                      "description": "Date email was last verified",
+                             "type": "string",
+                           "format": "date-time"
+                        }
+                  },
+                 "required": ["emailType", "data" ],
+            "x-dbInterface": {
+                      "indexes": [
+                                    {
+                                 "name": "email",
+                             "indexKey": ["data" ]
+                                    }
+                          ]
+                  }
+            },
+           "partyPhone": {
+                    "title": "Party phone",
+              "description": "Party phone",
+                     "type": "object",
+               "properties": {
+                    "phoneType": {
+                            "title": "Phone type",
+                      "description": "Phone type",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "Home" ],
+                                    [2, "Mobile" ],
+                                    [3, "Work" ],
+                                    [4, "Fax" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                        "label": {
+                            "title": "Label",
+                      "description": "Label",
+                             "type": "string",
+                        "maxLength": 30
+                        },
+                         "data": {
+                            "title": "Data",
+                      "description": "Phone number",
+                             "type": "string",
+                        "maxLength": 20
+                        },
+                  "isPreferred": {
+                            "title": "Is preferred",
+                      "description": "Identifies the party's preferred phone number",
+                             "type": "boolean"
+                        },
+                 "validFromDtm": {
+                            "title": "Valid from",
+                      "description": "Phone is valid from date",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                   "validToDtm": {
+                            "title": "Valid to",
+                      "description": "Phone is valid to date",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                    "verifyDtm": {
+                            "title": "Verified on",
+                      "description": "Date phone was last verified",
+                             "type": "string",
+                           "format": "date-time"
+                        }
+                  },
+                 "required": ["phoneType", "data" ],
+            "x-dbInterface": {
+                      "indexes": [
+                                    {
+                                 "name": "phoneNbr",
+                             "indexKey": ["data" ]
+                                    }
+                          ]
+                  }
+            }
+      },
+         "required": ["_Id", "name" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+        "hasExtents": true,
+          "foreignKeys": [
+                            {
+                         "name": "cntry",
+                   "foreignKey": ["cntry" ],
+              "referenceEntity": "cntry.json",
+                 "referenceKey": ["cntry" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "extRef",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

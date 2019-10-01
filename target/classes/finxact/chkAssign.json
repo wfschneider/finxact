@@ -1,0 +1,247 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/componentCheckAssign.json",
+            "title": "Check assignment",
+      "description": "Checks assigned to an account / position for use",
+       "x-createDt": "12/21/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "03/14/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Check assignment",
+              "description": "Unique check assignment identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+          "chkOrderNbr": {
+                    "title": "Order number",
+              "description": "Number assigned to the check order by the third party check provider",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+             "orderDtm": {
+                    "title": "Order date",
+              "description": "Date and time checks were ordered",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "priorEndNbr": {
+                    "title": "Prior order ending number",
+              "description": "Ending number in last check order",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+             "startNbr": {
+                    "title": "Beginning number",
+              "description": "Beginning number of checks in order",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+                  "qty": {
+                    "title": "Quantity ordered",
+              "description": "Number of checks ordered",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+               "endNbr": {
+                    "title": "Ending number",
+              "description": "Last number of checks in order",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+          "lastUsedNbr": {
+                    "title": "Last number used",
+              "description": "Last number used from this order",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+            "isStopped": {
+                    "title": "Order stop",
+              "description": "Indicates all checks for this order are stopped",
+                     "type": "boolean"
+            },
+       "alterPartyInfo": {
+                    "title": "Alternate customer information",
+              "description": "Alternate customer information used for checks",
+                     "type": "object",
+               "properties": {
+                   "alterName1": {
+                            "title": "Alternate name line 1",
+                      "description": "Alternate name to print on line 1",
+                             "type": "string",
+                        "maxLength": 40
+                        },
+                   "alterName2": {
+                            "title": "Alternate name line 2",
+                      "description": "Alternate name to print on line 2",
+                             "type": "string",
+                        "maxLength": 40
+                        },
+                   "alterName3": {
+                            "title": "Alternate name line 3",
+                      "description": "Alternate check name line 3",
+                             "type": "string",
+                        "maxLength": 40
+                        },
+                    "alterAddr": {
+                            "title": "Alternate address",
+                      "description": "Alternate check address",
+                             "type": "object",
+                             "$ref": "addr.json"
+                        },
+                   "alterPhone": {
+                            "title": "Alternate phone",
+                      "description": "Alternate phone number",
+                             "type": "string",
+                        "maxLength": 20
+                        }
+                  }
+            },
+                "style": {
+                    "title": "Style information",
+              "description": "Style information",
+                     "type": "object",
+               "properties": {
+                         "chks": {
+                            "title": "Check style",
+                      "description": "Style of check",
+                             "type": "string",
+                        "maxLength": 30
+                        },
+                      "chkbook": {
+                            "title": "Checkbook style",
+                      "description": "Style of checkbook cover",
+                             "type": "string",
+                        "maxLength": 30
+                        },
+                     "depSlips": {
+                            "title": "Deposit slip style",
+                      "description": "Style of deposit slips",
+                             "type": "string",
+                        "maxLength": 30
+                        },
+                         "logo": {
+                            "title": "Logo",
+                      "description": "Logo on check",
+                             "type": "string",
+                           "format": "uri",
+                        "maxLength": 60
+                        },
+                    "chkBottom": {
+                            "title": "Check bottom",
+                      "description": "Text for bottom of check",
+                             "type": "string",
+                           "format": "uri",
+                        "maxLength": 60
+                        }
+                  }
+            },
+          "deliveryDtl": {
+                    "title": "Delivery details",
+              "descripiton": "Information about check order delivery",
+                     "type": "object",
+               "properties": {
+                      "sentDtm": {
+                            "title": "Sent date",
+                      "description": "Date and time checks were sent to recipient",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                 "deliveredDtm": {
+                            "title": "Delivery date",
+                      "description": "Date and time checks were recieved by recipient",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                 "deliveryMthd": {
+                            "title": "Delivery method",
+                      "description": "Method used to deliver checks",
+                             "type": "integer",
+                          "choices": [
+                                    [0, "Unknown" ],
+                                    [1, "USPS standard mail" ],
+                                    [2, "USPS Bulk mail" ],
+                                    [3, "USPS first class mail" ],
+                                    [4, "USPS Airmail" ],
+                                    [5, "UPS" ],
+                                    [6, "Federal express" ],
+                                    [254, "Other" ],
+                                    [255, "N/A" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        }
+                  }
+            },
+          "billingInfo": {
+                    "title": "Billing information",
+              "description": "Check order billing information",
+                     "type": "object",
+               "properties": {
+                       "billTo": {
+                            "title": "Bill to",
+                      "description": "Party paying for check order",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Customer" ],
+                                    [2, "Financial institution" ],
+                                    [3, "Fee waived" ]
+                               ],
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                          "amt": {
+                            "title": "Fee amount",
+                      "description": "Amount charged for the check order",
+                             "type": "number",
+                           "format": "currency"
+                        },
+                     "isWaived": {
+                            "title": "Fee waived",
+                      "description": "Indicates if the fee for the check order was waived",
+                             "type": "boolean"
+                        },
+                     "billPosn": {
+                            "title": "Billing position",
+                      "description": "Account / position to bill",
+                             "type": "string",
+                        "maxLength": 10
+                        }
+                  }
+            }
+      },
+         "required": ["startNbr", "posnId" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "checkOrderByPosnId",
+                     "indexKey": ["posnId", "_Id" ]
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

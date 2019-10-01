@@ -1,0 +1,116 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/prodGroup.json",
+            "title": "Product group",
+      "description": "Product parameters (level 3)",
+       "x-createDt": "10/26/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "03/28/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+       "properties": {
+             "prodType": {
+                    "title": "Product type",
+              "description": "The product class in prodType (e.g., deposits, loans)",
+                     "type": "string",
+                "maxLength": 10
+            },
+          "prodSubType": {
+                    "title": "Product sub-type",
+              "description": "The sub-type classification (level 2) within prodType",
+                     "type": "string",
+                "maxLength": 10
+            },
+            "prodGroup": {
+                    "title": "Product group",
+              "description": "The product group (level 3) within prodType and prodSubType",
+                     "type": "string",
+                "maxLength": 10
+            },
+                 "desc": {
+                    "title": "Product group description",
+              "description": "Product group description",
+                     "type": "string",
+                "maxLength": 30
+            },
+                "glCat": {
+                    "title": "GL catgory",
+              "description": "GL category code",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Asset" ],
+                            [2, "Liability" ],
+                            [3, "Capital" ],
+                            [4, "Revenue" ],
+                            [5, "Expense" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "isRegD": {
+                    "title": "Reg D product",
+              "description": "Indicates whether or not product positions are subject to Regulation D",
+                     "type": "boolean"
+            },
+        "rollGraceRate": {
+                    "title": "Grace debit interest rate",
+              "description": "Matrix used to determine accrual adjustment rate for withdrawals during debit grace period",
+                     "type": "string"
+            },
+            "glSetCode": {
+                    "title": "General ledger set code",
+              "description": "General ledger acccounts used for reporting",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+           "accrCalcTm": {
+              "description": "Time of day used to determine position balance for calculating interest",
+                     "type": "string",
+                   "format": "time"
+            },
+           "drBalGrace": {
+                    "title": "Debit balance grace cutoff",
+              "description": "Time of day the debit balance grace period ends",
+                     "type": "string",
+                   "format": "time"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["prodType", "prodSubType", "prodGroup" ],
+              "indexes": [
+                            {
+                         "name": "prodTypeProdSubType",
+                     "indexKey": ["prodType", "prodSubType" ]
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "prodType",
+                   "foreignKey": ["prodType" ],
+              "referenceEntity": "prodType.json",
+                 "referenceKey": ["prodType" ]
+                            },
+                            {
+                         "name": "prodTypeProdSubType",
+                   "foreignKey": ["prodType", "prodSubType" ],
+              "referenceEntity": "prodSubType.json",
+                 "referenceKey": ["prodType", "prodSubType" ]
+                            },
+                            {
+                         "name": "glSetCode",
+                   "foreignKey": ["glSetCode" ],
+              "referenceEntity": "glSet.json",
+                 "referenceKey": ["glSetCode" ]
+                            },
+                            {
+                         "name": "rollGraceRate",
+                   "foreignKey": ["rollGraceRate" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

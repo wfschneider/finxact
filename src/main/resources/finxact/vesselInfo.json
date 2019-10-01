@@ -1,0 +1,78 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/vesselInfo.json",
+            "title": "Vessel information",
+      "description": "Vessel identification information",
+       "x-createDt": "06/18/2019",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "06/18/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+              "regdNbr": {
+                    "title": "Registration number",
+              "description": "Official number Or state registration number",
+                     "type": "string"
+            },
+            "regdState": {
+                    "title": "Registered state",
+              "description": "Vehicle registered state",
+                     "type": "string"
+            },
+              "hullNbr": {
+                    "title": "Hull number",
+              "description": "Hull number of the vessel",
+                     "type": "string"
+            },
+               "length": {
+                    "title": "Length",
+              "description": "Length of the vessel",
+                     "type": "string"
+            },
+                 "make": {
+                    "title": "Vessel make",
+              "description": "Brand of the vessel",
+                     "type": "string"
+            },
+                "model": {
+                    "title": "Vessel model",
+              "description": "Name of the vessel product",
+                     "type": "string"
+            },
+                 "year": {
+                    "title": "Model year",
+              "description": "Year model was manufactured",
+                     "type": "string"
+            },
+                "color": {
+                    "title": "Vessel color",
+              "description": "Color of the vessel",
+                     "type": "string"
+            },
+           "engineMake": {
+                    "title": "Engine make",
+              "description": "Brand of the engine",
+                     "type": "string"
+            },
+             "engineHP": {
+                    "title": "Engine HP",
+              "description": "Horse power of the engine",
+                     "type": "string"
+            },
+      "engineSerialNbr": {
+                    "title": "Engine serial number",
+              "description": "Serial number of the engine",
+                     "type": "string"
+            },
+           "vesselName": {
+                    "title": "Vessel name",
+              "description": "Name of the vessel",
+                     "type": "string"
+            },
+          "hailingPort": {
+                    "title": "Hailing port",
+              "description": "Hailing port of the vessel",
+                     "type": "string"
+            }
+      }
+}

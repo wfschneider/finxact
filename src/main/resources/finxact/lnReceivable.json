@@ -1,0 +1,150 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/lnReceivable.json",
+            "title": "Loan receivable",
+      "description": "Loan position receivable",
+       "x-createDt": "08/27/2018",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "08/09/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                  "_Id": {
+                    "title": "Receivable identifier",
+              "description": "Unique Receivable identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "createDtm": {
+                    "title": "Create date-time",
+              "description": "Date-time receivable was created",
+                     "type": "string",
+                   "format": "date-time"
+            },
+              "fromDtm": {
+                    "title": "From date-time",
+              "description": "Receivable from date-time",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                "toDtm": {
+                    "title": "To date-time",
+              "description": "Receivable to date-time",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "dueDtm": {
+                    "title": "Payment due date-time",
+              "description": "Date-time payment is due",
+                     "type": "string",
+                   "format": "date-time"
+            },
+         "satisfiedDtm": {
+                    "title": "Satisfied date-time",
+              "description": "Date-time receivable is satisfied and position due date was bumped, used for delinquency counters",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "isMinDue": {
+                    "title": "Minimum due flag",
+              "description": "When set, this receivable adds towards minimum due amount for a given period",
+                     "type": "boolean"
+            },
+             "priority": {
+                    "title": "Priority flag",
+              "description": "When set, this receivable takes precedence in payment application",
+                     "type": "boolean"
+            },
+        "totReceivable": {
+                    "title": "Total receivable",
+              "description": "Total amount receivable",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+         "totUnpaidAmt": {
+                    "title": "Total unpaid amount",
+              "description": "Total unpaid amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+             "dueItems": {
+                    "title": "Items due",
+              "description": "Items due for this period",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                         "itemName": {
+                                "title": "Item name",
+                          "description": "Receivable item name",
+                                 "type": "string",
+                              "choices": [
+                                        ["Prin", "Principal" ],
+                                        ["Int", "Interest" ],
+                                        ["LateChrg", "Late Charge" ],
+                                        ["Fee", "Fee" ]
+                                    ]
+                              },
+                         "itemType": {
+                                "title": "Item type",
+                          "description": "Receivable item type",
+                                 "type": "string"
+                              },
+                          "itemAmt": {
+                                "title": "Item amount",
+                          "description": "Amount receivable",
+                                 "type": "number",
+                               "format": "currency",
+                              "minimum": 0
+                              },
+                        "unpaidAmt": {
+                                "title": "Unpaid amount",
+                          "description": "Unpaid amount",
+                                 "type": "number",
+                               "format": "currency",
+                              "minimum": 0
+                              }
+                        }
+                  }
+            }
+      },
+         "required": ["posnId", "_Id" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "posnID",
+                     "indexKey": ["posnId", "_Id" ]
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn_ln.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "dueItems",
+                       "format": "json"
+                            }
+              ],
+             "temporal": {
+                "tableName": "lnReceivableHist",
+                   "option": 4
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

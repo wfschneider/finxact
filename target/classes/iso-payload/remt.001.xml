@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:tch" xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:ar="urn:iso:std:iso:20022:tech:xsd:remt.001.001.04">
+    <AppHdr>
+        <head:Fr>
+            <head:FIId>
+                <head:FinInstnId>
+                    <head:ClrSysMmbId>
+                        <head:MmbId>BOFASGS5XXX</head:MmbId>
+                    </head:ClrSysMmbId>
+                </head:FinInstnId>
+                <head:BrnchId>
+                    <head:Id>02120020101</head:Id>
+                </head:BrnchId>
+            </head:FIId>
+        </head:Fr>
+        <head:To>
+            <head:FIId>
+                <head:FinInstnId>
+                    <head:ClrSysMmbId>
+                        <head:MmbId>BOFASGS5XXX</head:MmbId>
+                    </head:ClrSysMmbId>
+                </head:FinInstnId>
+            </head:FIId>
+        </head:To>
+        <head:BizMsgIdr>B20160307BOFASGS5HAA0754909</head:BizMsgIdr>
+        <head:MsgDefIdr>remt.001.001.04</head:MsgDefIdr>
+        <head:CreDt>2016-03-07T15:09:31</head:CreDt>
+		<head:Sgntr>
+			<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+				<SignedInfo>
+					<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+					<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1" />
+					<Reference URI="">
+						<Transforms>
+							<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+							<Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11" />
+						</Transforms>
+						<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+						<DigestValue>kg27p4wZF68PGwRMoYhefg9Rwu54QJgtW5i8VIHNmeA=</DigestValue>
+					</Reference>
+				</SignedInfo>
+				<SignatureValue>0aYz9mQLqBF2XChM1Kp9ft3d2BM=</SignatureValue>
+				<KeyInfo>
+					<X509Data>
+						<X509SubjectName>CN=rsa0,OU=ips,O=vocalink,L=rickmansworth,ST=Unknown,C=uk</X509SubjectName>
+						<X509IssuerSerial>
+							<X509IssuerName>CN=sign0, OU=ips, O=vocalink, L=rickmansworth, ST=Unknown, C=uk</X509IssuerName>
+							<X509SerialNumber>1328092436</X509SerialNumber>
+						</X509IssuerSerial>
+					</X509Data>
+				</KeyInfo>
+			</Signature>
+		</head:Sgntr>
+    </AppHdr>
+    <StandaloneRemittance>
+        <ar:RmtAdvc>
+            <ar:GrpHdr>
+                <ar:MsgId>M20151112131000000BRFI000000001</ar:MsgId>
+                <ar:CreDtTm>2015-11-12T10:09:33</ar:CreDtTm>
+                <ar:InitgPty>
+                    <ar:Id>
+                        <ar:OrgId>
+                            <ar:Othr>
+                                <ar:Id>123456789</ar:Id>
+                            </ar:Othr>
+                        </ar:OrgId>
+                    </ar:Id>
+                </ar:InitgPty>
+                <ar:MsgRcpt>
+                    <ar:Id>
+                        <ar:OrgId>
+                            <ar:Othr>
+                                <ar:Id>123456789</ar:Id>
+                            </ar:Othr>
+                        </ar:OrgId>
+                    </ar:Id>
+                </ar:MsgRcpt>
+            </ar:GrpHdr>
+            <ar:RmtInf>
+                <ar:RmtId>20151112INFOABCD</ar:RmtId>
+                <ar:Ustrd>123</ar:Ustrd>
+                <ar:Ustrd>1324</ar:Ustrd>
+                <ar:Ustrd>123456</ar:Ustrd>
+                <ar:Strd>
+                    <ar:CdtrRefInf>
+                        <ar:Tp>
+                            <ar:CdOrPrtry>
+                                <ar:Cd>SCOR</ar:Cd>
+                            </ar:CdOrPrtry>
+                        </ar:Tp>
+                        <ar:Ref>RF18539007547034</ar:Ref>
+                    </ar:CdtrRefInf>
+                </ar:Strd>
+                <ar:Strd>
+                    <ar:RfrdDocInf>
+                        <ar:Tp>
+                            <ar:CdOrPrtry>
+                                <ar:Cd>CINV</ar:Cd>
+                            </ar:CdOrPrtry>
+                            <ar:Issr>Corporation Name</ar:Issr>
+                        </ar:Tp>
+                        <ar:Nb>INVOICENO123456</ar:Nb>
+                        <ar:RltdDt>2017-09-14</ar:RltdDt>
+                    </ar:RfrdDocInf>
+                    <ar:RfrdDocAmt>
+                        <ar:DuePyblAmt Ccy="USD">110500</ar:DuePyblAmt>
+                        <ar:DscntApldAmt>
+                            <ar:Amt Ccy="USD">300</ar:Amt>
+                        </ar:DscntApldAmt>
+                        <ar:CdtNoteAmt Ccy="USD">1000</ar:CdtNoteAmt>
+                        <ar:TaxAmt>
+                            <ar:Amt Ccy="USD">500</ar:Amt>
+                        </ar:TaxAmt>
+                        <ar:AdjstmntAmtAndRsn>
+                            <ar:Amt Ccy="USD">200</ar:Amt>
+                            <ar:CdtDbtInd>DBIT</ar:CdtDbtInd>
+                            <ar:Rsn>03</ar:Rsn>
+                            <ar:AddtlInf>Deducted $200.00 from payment due to pricing change</ar:AddtlInf>
+                        </ar:AdjstmntAmtAndRsn>
+                        <ar:RmtdAmt Ccy="USD">110000</ar:RmtdAmt>
+                    </ar:RfrdDocAmt>
+                    <ar:Invcr>
+                        <ar:Nm>ABC Corporation</ar:Nm>
+                        <ar:PstlAdr>
+                            <ar:StrtNm>Lexington Street</ar:StrtNm>
+                            <ar:BldgNb>123</ar:BldgNb>
+                            <ar:PstCd>19801</ar:PstCd>
+                            <ar:TwnNm>Wilmington</ar:TwnNm>
+                            <ar:CtrySubDvsn>DE</ar:CtrySubDvsn>
+                            <ar:Ctry>US</ar:Ctry>
+                            <ar:AdrLine>Suite 123</ar:AdrLine>
+                        </ar:PstlAdr>
+                        <ar:Id>
+                            <ar:OrgId>
+                                <ar:Othr>
+                                    <ar:Id>033388688</ar:Id>
+                                    <ar:SchmeNm>
+                                        <ar:Cd>DUNS</ar:Cd>
+                                    </ar:SchmeNm>
+                                    <ar:Issr>ABC Corporation</ar:Issr>
+                                </ar:Othr>
+                            </ar:OrgId>
+                        </ar:Id>
+                    </ar:Invcr>
+                    <ar:Invcee>
+                        <ar:Nm>XYZ Corporation</ar:Nm>
+                        <ar:PstlAdr>
+                            <ar:StrtNm>Washington Ave</ar:StrtNm>
+                            <ar:BldgNb>27</ar:BldgNb>
+                            <ar:PstCd>12206</ar:PstCd>
+                            <ar:TwnNm>Albany</ar:TwnNm>
+                            <ar:CtrySubDvsn>NY</ar:CtrySubDvsn>
+                            <ar:Ctry>US</ar:Ctry>
+                        </ar:PstlAdr>
+                        <ar:CtctDtls>
+                            <ar:Nm>John Smith</ar:Nm>
+                            <ar:PhneNb>+001-212-333-1234</ar:PhneNb>
+                            <ar:MobNb>+001-212-55-5678</ar:MobNb>
+                            <ar:EmailAdr>john.smith@xyzcorp.org</ar:EmailAdr>
+                        </ar:CtctDtls>
+                    </ar:Invcee>
+                </ar:Strd>
+                <ar:Strd>
+                    <ar:RfrdDocInf>
+                        <ar:Tp>
+                            <ar:CdOrPrtry>
+                                <ar:Cd>CINV</ar:Cd>
+                            </ar:CdOrPrtry>
+                            <ar:Issr>Corporation Name</ar:Issr>
+                        </ar:Tp>
+                        <ar:Nb>INVOICENO123499</ar:Nb>
+                        <ar:RltdDt>2017-09-14</ar:RltdDt>
+                    </ar:RfrdDocInf>
+                    <ar:RfrdDocAmt>
+                        <ar:DuePyblAmt Ccy="USD">140500</ar:DuePyblAmt>
+                        <ar:DscntApldAmt>
+                            <ar:Amt Ccy="USD">300</ar:Amt>
+                        </ar:DscntApldAmt>
+                        <ar:CdtNoteAmt Ccy="USD">1000</ar:CdtNoteAmt>
+                        <ar:TaxAmt>
+                            <ar:Amt Ccy="USD">500</ar:Amt>
+                        </ar:TaxAmt>
+                        <ar:AdjstmntAmtAndRsn>
+                            <ar:Amt Ccy="USD">200</ar:Amt>
+                            <ar:CdtDbtInd>DBIT</ar:CdtDbtInd>
+                            <ar:Rsn>03</ar:Rsn>
+                            <ar:AddtlInf>Deducted $200.00 from payment due to pricing change</ar:AddtlInf>
+                        </ar:AdjstmntAmtAndRsn>
+                        <ar:RmtdAmt Ccy="USD">140000</ar:RmtdAmt>
+                    </ar:RfrdDocAmt>
+                </ar:Strd>
+                <ar:Strd>
+                    <ar:RfrdDocInf>
+                        <ar:Tp>
+                            <ar:CdOrPrtry>
+                                <ar:Prtry>string</ar:Prtry>
+                            </ar:CdOrPrtry>
+                            <ar:Issr>string</ar:Issr>
+                        </ar:Tp>
+                        <ar:Nb>string</ar:Nb>
+                        <ar:RltdDt>2012-06-12</ar:RltdDt>
+                        <ar:LineDtls>
+                            <ar:Id>
+                                <ar:Tp>
+                                    <ar:CdOrPrtry>
+                                        <ar:Prtry>string</ar:Prtry>
+                                    </ar:CdOrPrtry>
+                                    <ar:Issr>string</ar:Issr>
+                                </ar:Tp>
+                                <ar:Nb>string</ar:Nb>
+                                <ar:RltdDt>0212-06-12</ar:RltdDt>
+                            </ar:Id>
+                            <ar:Desc>string</ar:Desc>
+                            <ar:Amt>
+                                <ar:DuePyblAmt Ccy="USD">1.00</ar:DuePyblAmt>
+                                <ar:DscntApldAmt>
+                                    <ar:Tp>
+                                        <ar:Prtry>string</ar:Prtry>
+                                    </ar:Tp>
+                                    <ar:Amt Ccy="USD">1.00</ar:Amt>
+                                </ar:DscntApldAmt>
+                                <ar:CdtNoteAmt Ccy="USD">1.00</ar:CdtNoteAmt>
+                                <ar:TaxAmt>
+                                    <ar:Tp>
+                                        <ar:Prtry>string</ar:Prtry>
+                                    </ar:Tp>
+                                    <ar:Amt Ccy="USD">1.00</ar:Amt>
+                                </ar:TaxAmt>
+                                <ar:AdjstmntAmtAndRsn>
+                                    <ar:Amt Ccy="USD">1.00</ar:Amt>
+                                    <ar:CdtDbtInd>CRDT</ar:CdtDbtInd>
+                                    <ar:Rsn>1234</ar:Rsn>
+                                    <ar:AddtlInf>text</ar:AddtlInf>
+                                </ar:AdjstmntAmtAndRsn>
+                                <ar:RmtdAmt Ccy="USD">1.00</ar:RmtdAmt>
+                            </ar:Amt>
+                        </ar:LineDtls>
+                    </ar:RfrdDocInf>
+                    <ar:RfrdDocAmt>
+                        <ar:DuePyblAmt Ccy="USD">1.00</ar:DuePyblAmt>
+                        <ar:DscntApldAmt>
+                            <ar:Tp>
+                                <ar:Prtry>string</ar:Prtry>
+                            </ar:Tp>
+                            <ar:Amt Ccy="USD">1.00</ar:Amt>
+                        </ar:DscntApldAmt>
+                        <ar:CdtNoteAmt Ccy="USD">1.00</ar:CdtNoteAmt>
+                        <ar:TaxAmt>
+                            <ar:Tp>
+                                <ar:Prtry>string</ar:Prtry>
+                            </ar:Tp>
+                            <ar:Amt Ccy="USD">1.00</ar:Amt>
+                        </ar:TaxAmt>
+                        <ar:AdjstmntAmtAndRsn>
+                            <ar:Amt Ccy="USD">1.00</ar:Amt>
+                            <ar:CdtDbtInd>CRDT</ar:CdtDbtInd>
+                            <ar:Rsn>1234</ar:Rsn>
+                            <ar:AddtlInf>text</ar:AddtlInf>
+                        </ar:AdjstmntAmtAndRsn>
+                        <ar:RmtdAmt Ccy="USD">1.00</ar:RmtdAmt>
+                    </ar:RfrdDocAmt>
+                    <ar:CdtrRefInf>
+                        <ar:Tp>
+                            <ar:CdOrPrtry>
+                                <ar:Prtry>string</ar:Prtry>
+                            </ar:CdOrPrtry>
+                            <ar:Issr>string</ar:Issr>
+                        </ar:Tp>
+                        <ar:Ref>string</ar:Ref>
+                    </ar:CdtrRefInf>
+                    <ar:Invcr>
+                        <ar:Nm>string</ar:Nm>
+                        <ar:PstlAdr>
+                            <ar:StrtNm>string</ar:StrtNm>
+                            <ar:BldgNb>string</ar:BldgNb>
+                            <ar:PstCd>string</ar:PstCd>
+                            <ar:TwnNm>string</ar:TwnNm>
+                            <ar:CtrySubDvsn>string</ar:CtrySubDvsn>
+                            <ar:Ctry>US</ar:Ctry>
+                            <ar:AdrLine>string</ar:AdrLine>
+                        </ar:PstlAdr>
+                        <ar:Id>
+                            <ar:PrvtId>
+                                <ar:DtAndPlcOfBirth>
+                                    <ar:BirthDt>2012-06-12</ar:BirthDt>
+                                    <ar:CityOfBirth>NY</ar:CityOfBirth>
+                                    <ar:CtryOfBirth>US</ar:CtryOfBirth>
+                                </ar:DtAndPlcOfBirth>
+                                <ar:Othr>
+                                    <ar:Id>string</ar:Id>
+                                    <ar:SchmeNm>
+                                        <ar:Cd>CCPT</ar:Cd>
+                                    </ar:SchmeNm>
+                                    <ar:Issr>string</ar:Issr>
+                                </ar:Othr>
+                            </ar:PrvtId>
+                        </ar:Id>
+                        <ar:CtryOfRes>US</ar:CtryOfRes>
+                        <ar:CtctDtls>
+                            <ar:NmPrfx>DOCT</ar:NmPrfx>
+                            <ar:Nm>string</ar:Nm>
+                            <ar:PhneNb>+123-123456</ar:PhneNb>
+                            <ar:MobNb>+123-123456</ar:MobNb>
+                            <ar:FaxNb>+123-123456</ar:FaxNb>
+                            <ar:EmailAdr>string</ar:EmailAdr>
+                        </ar:CtctDtls>
+                    </ar:Invcr>
+                    <ar:Invcee>
+                        <ar:Nm>string</ar:Nm>
+                        <ar:PstlAdr>
+                            <ar:StrtNm>string</ar:StrtNm>
+                            <ar:BldgNb>string</ar:BldgNb>
+                            <ar:PstCd>string</ar:PstCd>
+                            <ar:TwnNm>string</ar:TwnNm>
+                            <ar:CtrySubDvsn>string</ar:CtrySubDvsn>
+                            <ar:Ctry>US</ar:Ctry>
+                            <ar:AdrLine>string</ar:AdrLine>
+                        </ar:PstlAdr>
+                        <ar:Id>
+                            <ar:PrvtId>
+                                <ar:DtAndPlcOfBirth>
+                                    <ar:BirthDt>2012-06-12</ar:BirthDt>
+                                    <ar:CityOfBirth>NY</ar:CityOfBirth>
+                                    <ar:CtryOfBirth>US</ar:CtryOfBirth>
+                                </ar:DtAndPlcOfBirth>
+                                <ar:Othr>
+                                    <ar:Id>string</ar:Id>
+                                    <ar:SchmeNm>
+                                        <ar:Cd>CCPT</ar:Cd>
+                                    </ar:SchmeNm>
+                                    <ar:Issr>string</ar:Issr>
+                                </ar:Othr>
+                            </ar:PrvtId>
+                        </ar:Id>
+                        <ar:CtryOfRes>US</ar:CtryOfRes>
+                        <ar:CtctDtls>
+                            <ar:NmPrfx>DOCT</ar:NmPrfx>
+                            <ar:Nm>string</ar:Nm>
+                            <ar:PhneNb>+123-123456</ar:PhneNb>
+                            <ar:MobNb>+123-123456</ar:MobNb>
+                            <ar:FaxNb>+123-123456</ar:FaxNb>
+                            <ar:EmailAdr>string</ar:EmailAdr>
+                        </ar:CtctDtls>
+                    </ar:Invcee>
+                    <ar:TaxRmt>
+                        <ar:Cdtr>
+                            <ar:TaxId>string</ar:TaxId>
+                            <ar:RegnId>string</ar:RegnId>
+                            <ar:TaxTp>string</ar:TaxTp>
+                        </ar:Cdtr>
+                        <ar:Dbtr>
+                            <ar:TaxId>string</ar:TaxId>
+                            <ar:RegnId>string</ar:RegnId>
+                            <ar:TaxTp>string</ar:TaxTp>
+                            <ar:Authstn>
+                                <ar:Titl>string</ar:Titl>
+                                <ar:Nm>string</ar:Nm>
+                            </ar:Authstn>
+                        </ar:Dbtr>
+                        <ar:AdmstnZone>string</ar:AdmstnZone>
+                        <ar:RefNb>string</ar:RefNb>
+                        <ar:Mtd>string</ar:Mtd>
+                        <ar:TtlTaxblBaseAmt Ccy="USD">1.00</ar:TtlTaxblBaseAmt>
+                        <ar:TtlTaxAmt Ccy="USD">1.00</ar:TtlTaxAmt>
+                        <ar:Dt>2012-06-12</ar:Dt>
+                        <ar:SeqNb>123</ar:SeqNb>
+                        <ar:Rcrd>
+                            <ar:Tp>string</ar:Tp>
+                            <ar:Ctgy>string</ar:Ctgy>
+                            <ar:CtgyDtls>string</ar:CtgyDtls>
+                            <ar:DbtrSts>string</ar:DbtrSts>
+                            <ar:CertId>string</ar:CertId>
+                            <ar:FrmsCd>string</ar:FrmsCd>
+                            <ar:Prd>
+                                <ar:Yr>2012-06-12</ar:Yr>
+                                <ar:Tp>HLF1</ar:Tp>
+                                <ar:FrToDt>
+                                    <ar:FrDt>2012-06-12</ar:FrDt>
+                                    <ar:ToDt>2012-06-12</ar:ToDt>
+                                </ar:FrToDt>
+                            </ar:Prd>
+                            <ar:TaxAmt>
+                                <ar:Rate>10</ar:Rate>
+                                <ar:TaxblBaseAmt Ccy="USD">1.00</ar:TaxblBaseAmt>
+                                <ar:TtlAmt Ccy="USD">1.00</ar:TtlAmt>
+                                <ar:Dtls>
+                                    <ar:Prd>
+                                        <ar:Yr>2012-06-12</ar:Yr>
+                                        <ar:Tp>HLF1</ar:Tp>
+                                        <ar:FrToDt>
+                                            <ar:FrDt>2012-06-12</ar:FrDt>
+                                            <ar:ToDt>2012-06-12</ar:ToDt>
+                                        </ar:FrToDt>
+                                    </ar:Prd>
+                                    <ar:Amt Ccy="USD">1.00</ar:Amt>
+                                </ar:Dtls>
+                            </ar:TaxAmt>
+                            <ar:AddtlInf>string</ar:AddtlInf>
+                        </ar:Rcrd>
+                    </ar:TaxRmt>
+                    <ar:GrnshmtRmt>
+                        <ar:Tp>
+                            <ar:CdOrPrtry>
+                                <ar:Prtry>string</ar:Prtry>
+                            </ar:CdOrPrtry>
+                            <ar:Issr>string</ar:Issr>
+                        </ar:Tp>
+                        <ar:Grnshee>
+                            <ar:Nm>string</ar:Nm>
+                            <ar:PstlAdr>
+                                <ar:StrtNm>string</ar:StrtNm>
+                                <ar:BldgNb>string</ar:BldgNb>
+                                <ar:PstCd>string</ar:PstCd>
+                                <ar:TwnNm>string</ar:TwnNm>
+                                <ar:CtrySubDvsn>string</ar:CtrySubDvsn>
+                                <ar:Ctry>US</ar:Ctry>
+                                <ar:AdrLine>stirng</ar:AdrLine>
+                            </ar:PstlAdr>
+                            <ar:Id>
+                                <ar:PrvtId>
+                                    <ar:DtAndPlcOfBirth>
+                                        <ar:BirthDt>2012-06-12</ar:BirthDt>
+                                        <ar:CityOfBirth>NY</ar:CityOfBirth>
+                                        <ar:CtryOfBirth>US</ar:CtryOfBirth>
+                                    </ar:DtAndPlcOfBirth>
+                                    <ar:Othr>
+                                        <ar:Id>string</ar:Id>
+                                        <ar:SchmeNm>
+                                            <ar:Prtry>string</ar:Prtry>
+                                        </ar:SchmeNm>
+                                        <ar:Issr>string</ar:Issr>
+                                    </ar:Othr>
+                                </ar:PrvtId>
+                            </ar:Id>
+                            <ar:CtryOfRes>US</ar:CtryOfRes>
+                            <ar:CtctDtls>
+                                <ar:NmPrfx>DOCT</ar:NmPrfx>
+                                <ar:Nm>string</ar:Nm>
+                                <ar:PhneNb>+123-123456</ar:PhneNb>
+                                <ar:MobNb>+123-123456</ar:MobNb>
+                                <ar:FaxNb>+123-123456</ar:FaxNb>
+                                <ar:EmailAdr>string</ar:EmailAdr>
+                            </ar:CtctDtls>
+                        </ar:Grnshee>
+                        <ar:GrnshmtAdmstr>
+                            <ar:Nm>string</ar:Nm>
+                            <ar:PstlAdr>
+                                <ar:StrtNm>string</ar:StrtNm>
+                                <ar:BldgNb>string</ar:BldgNb>
+                                <ar:PstCd>string</ar:PstCd>
+                                <ar:TwnNm>string</ar:TwnNm>
+                                <ar:CtrySubDvsn>string</ar:CtrySubDvsn>
+                                <ar:Ctry>US</ar:Ctry>
+                                <ar:AdrLine>stirng</ar:AdrLine>
+                            </ar:PstlAdr>
+                            <ar:Id>
+                                <ar:PrvtId>
+                                    <ar:DtAndPlcOfBirth>
+                                        <ar:BirthDt>2012-06-12</ar:BirthDt>
+                                        <ar:CityOfBirth>NY</ar:CityOfBirth>
+                                        <ar:CtryOfBirth>US</ar:CtryOfBirth>
+                                    </ar:DtAndPlcOfBirth>
+                                    <ar:Othr>
+                                        <ar:Id>string</ar:Id>
+                                        <ar:SchmeNm>
+                                            <ar:Prtry>string</ar:Prtry>
+                                        </ar:SchmeNm>
+                                        <ar:Issr>string</ar:Issr>
+                                    </ar:Othr>
+                                </ar:PrvtId>
+                            </ar:Id>
+                            <ar:CtryOfRes>US</ar:CtryOfRes>
+                            <ar:CtctDtls>
+                                <ar:NmPrfx>DOCT</ar:NmPrfx>
+                                <ar:Nm>string</ar:Nm>
+                                <ar:PhneNb>+123-123456</ar:PhneNb>
+                                <ar:MobNb>+123-123456</ar:MobNb>
+                                <ar:FaxNb>+123-123456</ar:FaxNb>
+                                <ar:EmailAdr>string</ar:EmailAdr>
+                            </ar:CtctDtls>
+                        </ar:GrnshmtAdmstr>
+                        <ar:RefNb>string</ar:RefNb>
+                        <ar:Dt>2012-06-16</ar:Dt>
+                        <ar:RmtdAmt Ccy="USD">1.00</ar:RmtdAmt>
+                        <ar:FmlyMdclInsrncInd>true</ar:FmlyMdclInsrncInd>
+                        <ar:MplyeeTermntnInd>true</ar:MplyeeTermntnInd>
+                    </ar:GrnshmtRmt>
+                </ar:Strd>
+                <ar:OrgnlPmtInf>
+                    <ar:Refs>
+                        <ar:PmtInfId>string</ar:PmtInfId>
+                        <ar:InstrId>string</ar:InstrId>
+                        <ar:EndToEndId>string</ar:EndToEndId>
+                        <ar:TxId>string</ar:TxId>
+                    </ar:Refs>
+                    <ar:Amt>
+                        <ar:InstdAmt Ccy="USD">100.00</ar:InstdAmt>
+                    </ar:Amt>
+                    <ar:ReqdExctnDt>
+                        <ar:Dt>2012-06-12</ar:Dt>
+                    </ar:ReqdExctnDt>
+                    <ar:Dbtr>
+                        <ar:Nm>string</ar:Nm>
+                    </ar:Dbtr>
+                    <ar:DbtrAcct>
+                        <ar:Id>
+                            <ar:Othr>
+                                <ar:Id>11000179512199000</ar:Id>
+                            </ar:Othr>
+                        </ar:Id>
+                    </ar:DbtrAcct>
+                    <ar:DbtrAgt>
+                        <ar:FinInstnId>
+                            <ar:ClrSysMmbId>
+                                <ar:MmbId>123456789</ar:MmbId>
+                            </ar:ClrSysMmbId>
+                        </ar:FinInstnId>
+                    </ar:DbtrAgt>
+                    <ar:Cdtr>
+                        <ar:Nm>string</ar:Nm>
+                    </ar:Cdtr>
+                    <ar:CdtrAcct>
+                        <ar:Id>
+                            <ar:Othr>
+                                <ar:Id>11000179512199000</ar:Id>
+                            </ar:Othr>
+                        </ar:Id>
+                    </ar:CdtrAcct>
+                    <ar:CdtrAgt>
+                        <ar:FinInstnId>
+                            <ar:ClrSysMmbId>
+                                <ar:MmbId>123456789</ar:MmbId>
+                            </ar:ClrSysMmbId>
+                        </ar:FinInstnId>
+                    </ar:CdtrAgt>
+                </ar:OrgnlPmtInf>
+            </ar:RmtInf>
+        </ar:RmtAdvc>
+    </StandaloneRemittance>
+</Message>
+

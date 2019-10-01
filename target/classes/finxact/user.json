@@ -1,0 +1,99 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/user.json",
+            "title": "Application user",
+      "description": "Application user",
+       "x-createDt": "04/17/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "domainId": {
+                    "title": "Domain Id",
+              "description": "Unique domain identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+               "userId": {
+                    "title": "User Id",
+              "description": "Unique user identifier within a domain",
+                     "type": ["integer", "string" ],
+                "maxLength": 40
+            },
+             "userName": {
+                    "title": "User name",
+              "description": "User name within a domain",
+                     "type": "string",
+                "maxLength": 80
+            },
+             "isSystem": {
+                    "title": "System user",
+              "description": "User is a system process",
+                     "type": "boolean"
+            },
+              "isProxy": {
+                    "title": "Proxy user",
+              "description": "User is proxy user",
+                     "type": "boolean"
+            },
+            "createDtm": {
+                    "title": "Created date",
+              "description": "User created on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "startDtm": {
+                    "title": "Start date",
+              "description": "User valid from date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "expDtm": {
+                    "title": "Expire date",
+              "description": "User expires on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "status": {
+                    "title": "User status",
+              "description": "User status",
+                  "choices": [
+                            [0, "Active" ],
+                            [1, "Suspended" ],
+                            [2, "Closed" ]
+                     ]
+            },
+                "roles": {
+                    "title": "Allowed roles",
+              "description": "Allowed roles for user",
+                     "type": "array",
+                    "items": {
+                        "title": "Role",
+                         "type": ["integer", "string" ],
+                    "maxLength": 20
+                  }
+            }
+      },
+         "required": ["domainId", "userId", "userName", "startDtm" ],
+    "x-dbInterface": {
+           "primaryKey": ["domainId", "userId" ],
+          "foreignKeys": [
+                            {
+                         "name": "userDomain",
+                   "foreignKey": ["domainId" ],
+              "referenceEntity": "domain.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "roles",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

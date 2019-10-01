@@ -1,0 +1,230 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_ln.json",
+            "title": "Loan position",
+      "description": "Bank account loan position",
+       "x-createDt": "08/30/2018",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "08/21/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "posn.json"
+                        },
+                        {
+                     "$ref": "posn_bk.json"
+                        }
+             ],
+       "properties": {
+              "crLimit": {
+                    "title": "Credit Limit",
+              "description": "Authorized credit limit on the loan",
+                     "type": "number",
+                   "format": "currency"
+            },
+       "firstDisbmtDtm": {
+                    "title": "First disbursement date-time",
+              "description": "Date-time position was first disbursed",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "totBal": {
+                    "title": "Total balance",
+              "description": "Total amount due from the borrower",
+                     "type": "number",
+                   "format": "currency"
+            },
+          "scheduleBal": {
+                    "title": "Scheduled balance",
+              "description": "Scheduled loan balance based on the amortization of the loan; calculated as, original loan amount less principal amounts billed less principal prepayments",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "payoff": {
+                    "title": "Payoff attributes",
+              "description": "Loan payoff attributes",
+                     "type": "object",
+               "properties": {
+                    "payoffBal": {
+                            "title": "Final payoff amount",
+                             "type": "number",
+                           "format": "currency"
+                        },
+                    "payoffDtm": {
+                            "title": "Payoff Date-time",
+                      "description": "Date position paid off",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                        "quote": {
+                            "title": "Quote",
+                      "description": "Payoff quote",
+                             "type": "array",
+                            "items": {
+                                 "type": "object",
+                           "properties": {
+                                 "quoteDtm": {
+                                        "title": "QuoteDtm date-time",
+                                  "description": "Date/time borrower requested payoff quote",
+                                         "type": "string",
+                                       "format": "date-time"
+                                          },
+                              "expectedDtm": {
+                                        "title": "Expected date-time",
+                                  "description": "Date/time borrower expects to repay the laon",
+                                         "type": "string",
+                                       "format": "date-time"
+                                          },
+                                "payoffAmt": {
+                                        "title": "Payoff amount",
+                                  "description": "Quoted amount required to payoff the loan as of the expected date/time",
+                                         "type": "number",
+                                       "format": "currency"
+                                          },
+                             "payoffPenAmt": {
+                                        "title": "Payoff penalty amount",
+                                  "description": "Penalty amount included in payoffAmt",
+                                         "type": "number",
+                                       "format": "currency"
+                                          },
+                                   "expDtm": {
+                                        "title": "Expiration date-time",
+                                  "description": "Date/time the quoted amount will not be considered sufficient to payoff the loan",
+                                         "type": "string",
+                                       "format": "date-time"
+                                          },
+                               "dlyAccrAmt": {
+                                        "title": "Daily accrual amount",
+                                  "description": "Daily accrual amount",
+                                         "type": "number",
+                                       "format": "currency"
+                                          }
+                                    }
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "quote",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            },
+          "maturityDtm": {
+                    "title": "Maturity date-time",
+              "description": "Date-time for final payment",
+                     "type": "string",
+                   "format": "date-time"
+            },
+           "riskRating": {
+                    "title": "Risk rating",
+              "description": "Assigned risk rating",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000
+            },
+               "status": {
+                    "title": "Status",
+              "description": "Activity based position status",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/posnLnStatus.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            }
+      },
+         "required": ["crLimit" ],
+    "x-dbInterface": {
+           "hasExtents": true,
+   "observedProperties": [                            {
+                   "properties": ["glSetCode", "acctgSeg" ],
+                 "functionName": "observeGlSetCodeAcctgSeg"
+                            }
+],
+          "foreignKeys": [
+                            {
+                         "name": "glSetCode",
+                   "foreignKey": ["glSetCode" ],
+              "referenceEntity": "glSet.json",
+                 "referenceKey": ["glSetCode" ]
+                            },
+                            {
+                         "name": "prodName",
+                   "foreignKey": ["prodName" ],
+              "referenceEntity": "prod_bk.json",
+                 "referenceKey": ["name" ]
+                            },
+                            {
+                         "name": "ccyCode",
+                   "foreignKey": ["ccyCode" ],
+              "referenceEntity": "ccyCode.json",
+                 "referenceKey": ["ccyCode" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "processFlags",
+                       "format": "json"
+                            },
+                            {
+                         "name": "components",
+                       "format": "json"
+                            },
+                            {
+                         "name": "payoff",
+                       "format": "json"
+                            },
+                            {
+                         "name": "subBals",
+                       "format": "json"
+                            },
+                            {
+                         "name": "localeData",
+                       "format": "json"
+                            },
+                            {
+                         "name": "acctgSeg",
+                       "format": "json"
+                            }
+              ],
+            "computeds": [
+                            {
+                         "name": "availBal",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "authCrAmt",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "authAvailBal",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "totBal",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "scheduleBal",
+                           "ex": "Enter expression / function to implement this, original loan amount less principal amounts billed less principal prepayments"
+                            },
+                            {
+                         "name": "status",
+                           "ex": "=GetStatus(ctx)"
+                            },
+                            {
+                         "name": "glBal",
+                           "ex": "Enter expression / function to implement this"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<Message xmlns="urn:tch">
+	<AppHdr>
+		<head:Fr xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>BOFASGS5XXX</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:Fr>
+		<head:To xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>BOFASGS5XXX</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:To>
+		<head:BizMsgIdr xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">B20160307BOFASGS5HAA0754909</head:BizMsgIdr>
+		<head:MsgDefIdr xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">pain.014.001.07</head:MsgDefIdr>
+		<head:CreDt xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">2016-03-07T15:09:31</head:CreDt>
+	</AppHdr>
+	<ResponsePaymentRequest>
+		<rp:CdtrPmtActvtnReqStsRpt xmlns:rp="urn:iso:std:iso:20022:tech:xsd:pain.014.001.07">
+			<rp:GrpHdr>
+				<rp:MsgId>M20151112131000000BRFI000000981</rp:MsgId>
+				<rp:CreDtTm>2016-03-07T15:09:31</rp:CreDtTm>
+				<rp:InitgPty>
+					<rp:Id>
+						<rp:OrgId>
+							<rp:Othr>
+								<rp:Id>021200201</rp:Id>
+							</rp:Othr>
+						</rp:OrgId>
+					</rp:Id>
+				</rp:InitgPty>
+			</rp:GrpHdr>
+			<rp:OrgnlGrpInfAndSts>
+				<rp:OrgnlMsgId>M20151112021200201BCP0000099056</rp:OrgnlMsgId>
+				<rp:OrgnlMsgNmId>pain.013.001.07</rp:OrgnlMsgNmId>
+				<rp:OrgnlCreDtTm>2015-11-12T10:05:00</rp:OrgnlCreDtTm>
+				<rp:OrgnlNbOfTxs>1</rp:OrgnlNbOfTxs>
+			</rp:OrgnlGrpInfAndSts>
+			<rp:OrgnlPmtInfAndSts>
+				<rp:OrgnlPmtInfId>20151115021200201BCPA0000000001</rp:OrgnlPmtInfId>
+				<rp:TxInfAndSts>
+					<rp:TxSts>RJCT</rp:TxSts>
+					<rp:StsRsnInf>
+						<rp:Rsn>
+							<rp:Cd>AC06</rp:Cd>
+						</rp:Rsn>
+						<rp:AddtlInf>qwertyuiopasdfghjklzxcvbnqwertyuiopasdfghjklzxcvbnqwertyuiopasdfghjklzxcvbnqwertyuiopasdfghjklzxcvbn12345</rp:AddtlInf>
+					</rp:StsRsnInf>
+					<rp:PmtCondSts>
+						<rp:AccptdAmt Ccy="USD">0.00</rp:AccptdAmt>
+						<rp:GrntedPmt>true</rp:GrntedPmt>
+						<rp:EarlyPmt>true</rp:EarlyPmt>
+					</rp:PmtCondSts>
+					<rp:OrgnlTxRef>
+						<rp:Amt>
+							<rp:InstdAmt Ccy="USD">123.45</rp:InstdAmt>
+						</rp:Amt>
+						<rp:ReqdExctnDt>
+							<rp:Dt>2015-11-12</rp:Dt>
+						</rp:ReqdExctnDt>
+						<rp:CdtrAgt>
+							<rp:FinInstnId>
+								<rp:ClrSysMmbId>
+									<rp:MmbId>114002231</rp:MmbId>
+								</rp:ClrSysMmbId>
+							</rp:FinInstnId>
+						</rp:CdtrAgt>
+						<rp:Cdtr>
+							<rp:Nm>qwertyuiopasdfghjklzxcvbnqwertyuiopasdfghjklzxcvbnqwertyuiopasdfghjklzxcvbnqwertyuiopasdfghjklzxcvbnqwertyuiopasdfghjklzxcvbnqwertyuiopasdfg</rp:Nm>
+							<rp:Id>
+								<rp:OrgId>
+									<rp:LEI>Z1Z1Z1Z1Z1Z1Z1Z1Z190</rp:LEI>
+								</rp:OrgId>
+							</rp:Id>
+						</rp:Cdtr>
+					</rp:OrgnlTxRef>
+				</rp:TxInfAndSts>
+			</rp:OrgnlPmtInfAndSts>
+		</rp:CdtrPmtActvtnReqStsRpt>
+	</ResponsePaymentRequest>
+</Message>	

@@ -1,0 +1,117 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnExcept.json",
+            "title": "Exception Transaction Queue",
+      "description": "Transaction exception details and decision",
+       "x-createDt": "06/08/2019",
+       "x-createBy": "Jason Hunter",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+             "decision": {
+                    "title": "Exception Decision",
+              "description": "Return or pay decision",
+                     "type": "string",
+                  "choices": [
+                            ["RET", "Return Item" ],
+                            ["PAY", "Pay Item" ]
+                     ]
+            },
+       "decisionReason": {
+                    "title": "Decision Reason",
+              "description": "Reason for return or pay",
+                     "type": "string",
+                  "choices": [
+                                {
+                             "$ref": "_choices/decisionReason.choices"
+                                }
+                     ]
+            },
+      "decisionComment": {
+                    "title": "Decision Comment",
+              "description": "Text describing the decision reason",
+                     "type": "string",
+                "maxLength": 60
+            },
+       "decisionUserId": {
+                    "title": "Decision User",
+              "description": "User that made the return or pay decision",
+                     "type": ["integer", "string" ],
+                "maxLength": 40
+            },
+         "decisionRole": {
+                    "title": "Decision Role",
+              "description": "Role of the user that made the return or pay decision",
+                     "type": "string",
+                "maxLength": 20
+            },
+    "networkReturnCode": {
+                    "title": "Network return code",
+              "description": "A network-specific code identifying the return reason",
+                     "type": "string",
+                "maxLength": 20
+            }
+      },
+         "payInstr": {
+                "title": "Payment instructions",
+          "description": "Instructions to apply the exception transaction to a different account",
+                 "type": "object",
+           "properties": {
+             "payAcctGroup": {
+                        "title": "Account Group",
+                  "description": "Account Group code",
+                         "type": "integer",
+                      "minimum": 0,
+                      "maximum": 65535
+                  },
+               "payAcctNbr": {
+                        "title": "Position Account Number",
+                  "description": "The unique position identifier within an acctGroup",
+                         "type": ["string", "integer" ],
+                    "maxLength": 30
+                  },
+                "payPosnId": {
+                        "title": "Position identifier",
+                  "description": "Unique position identifier",
+                         "type": "string",
+                       "format": "tguid"
+                  },
+           "payPosnAcctNbr": {
+                        "title": "Position Account Number",
+                  "description": "The unique position identifier within an acctGroup",
+                         "type": ["string", "integer" ],
+                    "maxLength": 30
+                  },
+               "payTrnCode": {
+                        "title": "Transaction Code",
+                  "description": "An alternate transaction code used to pay the item",
+                         "type": "string",
+                    "maxLength": 20
+                  }
+            },
+          "foreignKeys": [
+                            {
+                         "name": "acctGroupAcctNbr",
+                   "foreignKey": ["payAcctGroup", "payAcctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            },
+                            {
+                         "name": "payTrnCode",
+                   "foreignKey": ["payTrnCode" ],
+              "referenceEntity": "trnCode.json",
+                 "referenceKey": ["trnCode" ]
+                            },
+                            {
+                         "name": "payPosnId",
+                   "foreignKey": ["payPosnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

@@ -1,0 +1,35 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/checkGen.json",
+            "title": "Check payment generation",
+      "description": "Check payment creation and distribution parameters",
+       "x-createDt": "12/21/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "12/31/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+               "chkFee": {
+                    "title": "Fee",
+              "description": "Fee assessed for check generation",
+                     "type": "string",
+                "maxLength": 20
+            },
+        "presentPeriod": {
+                    "title": "Presentment period",
+              "description": "Elapsed time from date of issuance of an unpaid check before funds are refunded",
+                     "type": "string",
+                   "format": "duration"
+            }
+      },
+    "x-dbInterface": {
+          "foreignKeys": [
+                            {
+                         "name": "chkFee",
+                   "foreignKey": ["chkFee" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            }
+            ]
+      }
+}

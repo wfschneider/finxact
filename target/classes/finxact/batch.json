@@ -1,0 +1,170 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/batch.json",
+            "title": "Batch",
+      "description": "Batch and scheduled process detail",
+       "x-createDt": "09/14/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "05/16/2019",
+       "x-updateBy": "Jason Hunter",
+             "type": "object",
+       "properties": {
+              "batchId": {
+                    "title": "Unique batch identifier",
+              "description": "Unique batch identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "network": {
+                    "title": "Batch network name",
+              "description": "Batch network source name",
+                     "type": "string",
+                "maxLength": 20
+            },
+                 "note": {
+                    "title": "Batch note",
+              "description": "Free form notes",
+                     "type": "string",
+                   "format": "text-area"
+            },
+             "resource": {
+                    "title": "Name and path of source of input to or output from batch posting",
+                     "type": "string",
+                   "format": "uri"
+            },
+             "schedDtm": {
+                    "title": "Scheduled date",
+              "description": "Datetime batch scheduled to start",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "effectDtm": {
+                    "title": "Effective date",
+              "description": "Effective date of batch",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "startDtm": {
+                    "title": "Batch start",
+              "description": "Datetime batch started or opened",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "endDtm": {
+                    "title": "Batch end",
+              "description": "Datetime batch ended or closed",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "createDtm": {
+                    "title": "Created on date",
+              "description": "Batch created on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "createBy": {
+                    "title": "Created by",
+              "description": "Batch created by",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+          "confirmedBy": {
+                    "title": "Confirmed by",
+              "description": "Batch confirmed by",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+        "batchPostAmts": {
+                    "title": "Batch posted amounts",
+              "description": "The posted amounts for the batch",
+                     "type": "object",
+                     "$ref": "batchAmts.json"
+            },
+         "batchTotAmts": {
+                    "title": "Batch total amounts",
+              "description": "The expected total amounts for the batch",
+                     "type": "object",
+                     "$ref": "batchAmts.json"
+            },
+          "batchFileId": {
+                    "title": "Batch file identifier",
+              "description": "Unique batch file identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+           "parameters": {
+                    "title": "Network parameters",
+              "description": "Snapshot network configuration parameters",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                             "name": {
+                                "title": "Parameter name",
+                          "description": "Network parameter name",
+                                 "type": "string"
+                              },
+                              "val": {
+                                "title": "Parameter value",
+                          "description": "Parameter value as string",
+                                 "type": "string"
+                              }
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["batchId" ],
+              "indexes": [
+                            {
+                         "name": "networkResource",
+                     "indexKey": ["network", "resource" ],
+                     "isUnique": true
+                            },
+                            {
+                         "name": "batchFileIdBatchId",
+                     "indexKey": ["batchFileId", "batchId" ],
+                     "isUnique": true
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "network",
+                   "foreignKey": ["network" ],
+              "referenceEntity": "network.json",
+                 "referenceKey": ["network" ]
+                            },
+                            {
+                         "name": "batchFileId",
+                   "foreignKey": ["batchFileId" ],
+              "referenceEntity": "batchFile.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "createBy",
+                       "format": "json"
+                            },
+                            {
+                         "name": "confirmedBy",
+                       "format": "json"
+                            },
+                            {
+                         "name": "parameters",
+                       "format": "json"
+                            },
+                            {
+                         "name": "batchPostAmts",
+                       "format": "json"
+                            },
+                            {
+                         "name": "batchTotAmts",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

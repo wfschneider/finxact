@@ -1,0 +1,161 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/batchDtl.json",
+            "title": "Batch detail",
+      "description": "Batch transaction detail entries for database batch sources",
+       "x-createDt": "01/05/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "02/07/2019",
+       "x-updateBy": "Jason Hunter",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "trnHdr.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Transaction identifier",
+              "description": "Unique Transaction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "entries": {
+                    "title": "Transaction entries",
+              "description": "Individual debit and credit transaction items",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/entry"
+                  },
+                 "minItems": 2
+            },
+  "x-reportDbInterface": {
+                  "journal": false,
+                  "indexes": [
+                                {
+                             "name": "trnEntries_Id_Ix",
+                         "indexKey": ["posnId", "_Id", "_Ix" ],
+                         "isUnique": true
+                                }
+                     ]
+            }
+      },
+      "definitions": {
+                "entry": {
+                    "title": "Debit or credit item",
+              "description": "Individual transaction entry detail template",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "trnEntry.json"
+                                }
+                       ],
+               "properties": {
+                      "addHold": {
+                            "title": "Add hold",
+                      "description": "Add a hold record",
+                             "type": "object",
+                             "$ref": "hold.json"
+                        },
+                   "removeHold": {
+                            "title": "Remove Hold",
+                      "description": "Remove a hold record",
+                             "type": "object",
+                             "$ref": "hold.json"
+                        },
+                         "auth": {
+                            "title": "Authorization",
+                      "description": "Transaction entry exceptions and authorization",
+                             "type": "object",
+                             "$ref": "trnEntryAuth.json"
+                        }
+                  },
+                 "required": [],
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "auth",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "chkDtl",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "exceptions",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "exch",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "subBalAmts",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "passbook",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "addHold",
+                               "format": "json"
+                                    },
+                                    {
+                                 "name": "removeHold",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["batchId", "_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "batchId",
+                   "foreignKey": ["batchId" ],
+              "referenceEntity": "batch.json",
+                 "referenceKey": ["batchId" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "attachments",
+                       "format": "json"
+                            },
+                            {
+                         "name": "workItem",
+                       "format": "json"
+                            },
+                            {
+                         "name": "eft",
+                       "format": "json"
+                            },
+                            {
+                         "name": "order",
+                       "format": "json"
+                            },
+                            {
+                         "name": "otherProperties",
+                       "format": "json"
+                            },
+                            {
+                         "name": "terminal",
+                       "format": "json"
+                            },
+                            {
+                         "name": "tags",
+                       "format": "json"
+                            },
+                            {
+                         "name": "bill",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

@@ -1,0 +1,77 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depReward.json",
+            "title": "Reward program attributes",
+      "description": "Defines processing attributes for reward program",
+       "x-createDt": "02/14/2019",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "componentReward.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+           "goalExpDtm": {
+                    "title": "Goal expiration",
+              "description": "Goal expiration date and time",
+                     "type": "string",
+                   "format": "date-time"
+            },
+       "intervalEndDtm": {
+                    "title": "Interval end",
+              "description": "Expiration date and time of the current inveteral",
+                     "type": "string",
+                   "format": "date-time"
+            },
+      "goalDisbmtInstr": {
+                    "title": "Goal disbursement instructions",
+              "description": "Customer instructions for payment of principal when a position closes due to achieving a goal milestone",
+                     "type": "object",
+                     "$ref": "order.json"
+            },
+               "seqNbr": {
+                    "title": "Sequence number",
+              "description": "Transaction sequence number in position",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            }
+      },
+         "required": ["_Id" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+      "extends": "posn_dep.json",
+            "serialize": [
+                            {
+                         "name": "goalDisbmtInstr",
+                       "format": "json"
+                            }
+              ],
+          "foreignKeys": [
+                            {
+                         "name": "posn_dep",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn_dep.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+             "temporal": {
+                "tableName": "posn_dep_rewardDtl_hist",
+                   "option": 4,
+           "baseProperties": ["goalExpDtm", "internalEndDtm" ],
+           "isIncludeTran": true
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

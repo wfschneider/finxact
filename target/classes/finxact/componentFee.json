@@ -1,0 +1,136 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/componentFee.json",
+            "title": "Fee schedule",
+      "description": "Fee schedule",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+        "componentName": {
+                    "title": "Component name",
+              "description": "Fees component name",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "Component version",
+              "description": "Fees component version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+          "svcChrgFreq": {
+                    "title": "Periodic service charge frequency",
+              "description": "Defines the service charge period and posting date for cycled and accumulated fees",
+                     "type": "string",
+                   "format": "frequency"
+            },
+               "feeMin": {
+                    "title": "Minimum periodic service charge",
+              "description": "Minimum fee amount assessed for the periodic service charge",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "feeMax": {
+                    "title": "Maximum periodic service charge",
+              "description": "Maximum fee amount that may be assessed for the periodic service charge",
+                     "type": "number",
+                   "format": "currency"
+            },
+        "feeMaxTrnCode": {
+                    "title": "Maximum fee adjustment transaction code",
+              "description": "The transaction code used to adjust the fee amount assessed to meet the fee maximum",
+                     "type": "string",
+                "maxLength": 20
+            },
+        "feeMinTrnCode": {
+                    "title": "Minimum fee adjustment transaction code",
+              "description": "The transaction code used to adjust the fee amount assessed to meet the fee minimum",
+                     "type": "string",
+                "maxLength": 20
+            },
+             "feeItems": {
+                    "title": "Fee items",
+              "description": "Individual fee items associated with the schedule",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                          "feeName": {
+                                "title": "Fee detail",
+                                 "type": "string",
+                            "maxLength": 20
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                  "foreignKeys": [
+                                    {
+                                 "name": "feeName",
+                           "foreignKey": ["feeName" ],
+                      "referenceEntity": "feeCalcDtl.json",
+                         "referenceKey": ["name" ]
+                                    }
+                      ]
+                  }
+            },
+     "earningsAnalysis": {
+                    "title": "Earnings analysis option",
+              "description": "Earnings analysis usage option",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Carry forward excess" ],
+                            [2, "Forfeit and track excess" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+              "trnFees": {
+                    "title": "Transaction based fees",
+              "description": "Fees for individual transactions",
+                     "type": "object",
+     "additionalProperties": {
+                        "title": "Transaction fee name",
+                  "description": "The fee name charged with this transaction code",
+                         "type": "string",
+                    "maxLength": 20
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["componentName", "version" ],
+            "serialize": [
+                            {
+                         "name": "feeItems",
+                       "format": "json"
+                            },
+                            {
+                         "name": "trnFees",
+                       "format": "json"
+                            }
+              ],
+          "foreignKeys": [
+                            {
+                         "name": "feeMaxTrnCode",
+                   "foreignKey": ["feeMaxTrnCode" ],
+              "referenceEntity": "trnCode.json",
+                 "referenceKey": ["trnCode" ]
+                            },
+                            {
+                         "name": "feeMinTrnCode",
+                   "foreignKey": ["feeMinTrnCode" ],
+              "referenceEntity": "trnCode.json",
+                 "referenceKey": ["trnCode" ]
+                            }
+            ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

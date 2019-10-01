@@ -1,0 +1,85 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/deliveryDtl.json",
+            "title": "Delivery detail",
+      "description": "Details for an item delivered by the bank to a party",
+       "x-createDt": "12/21/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "03/14/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+       "properties": {
+              "sentDtm": {
+                    "title": "Sent date",
+              "description": "Date and time sent to party",
+                     "type": "string",
+                   "format": "date-time"
+            },
+         "deliveredDtm": {
+                    "title": "Delivery date",
+              "description": "Date and time recieved by party",
+                     "type": "string",
+                   "format": "date-time"
+            },
+  "expectedDeliveryDtm": {
+                    "title": "Expected delivery date",
+              "description": "Expected delivery date and time",
+                     "type": "string",
+                   "format": "date-time"
+            },
+         "deliveryMthd": {
+                    "title": "Delivery method",
+              "description": "Method used to deliver item to party",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "USPS standard mail" ],
+                            [2, "USPS Bulk mail" ],
+                            [3, "USPS first class mail" ],
+                            [4, "USPS Airmail" ],
+                            [5, "UPS" ],
+                            [6, "Federal express" ],
+                            [7, "Email" ],
+                            [8, "Third party" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+          "trackingNbr": {
+                    "title": "Tracking number",
+              "description": "Number assigned by carrier to item being delivered",
+                     "type": "string",
+                "maxLength": 40
+            },
+        "deliveryEvent": {
+                    "title": "Delivery event",
+              "descripiton": "Delivery event",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                             "name": {
+                                "title": "Name",
+                          "description": "Name of event, e.g., Processed for delivery",
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                              "loc": {
+                                "title": "Location",
+                          "description": "Location of event, e.g., Jacksonville, FL",
+                                 "type": "string",
+                            "maxLength": 40
+                              },
+                         "eventDtm": {
+                                "title": "Time",
+                          "description": "Time of event",
+                                 "type": "string",
+                               "format": "date-time"
+                              }
+                        }
+                  }
+            }
+      }
+}

@@ -1,0 +1,393 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/order.json",
+            "title": "Order detail",
+      "description": "Payment, collection and transfer order detail",
+       "x-createDt": "10/01/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "05/22/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Unique order identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+               "posnId": {
+                    "title": "Position Id",
+              "description": "Related Position Id",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+            "orderType": {
+                    "title": "Order type",
+              "description": "The type of order",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Book transfer" ],
+                            [2, "Payment order" ],
+                            [3, "Collection order" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "orderSrc": {
+                    "title": "Order source",
+              "description": "The source that originated the order",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Customer direct" ],
+                            [2, "Customer indirect" ],
+                            [3, "Third party servicer" ],
+                            [4, "Bank operations" ],
+                            [5, "Automatic disbursement" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "originSrc": {
+                    "title": "Origination Source",
+              "description": "The origination source by which the order is placed (e.g. web or telephone)",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Internet/mobile" ],
+                            [2, "Prearranged" ],
+                            [3, "Telephone" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+          "orderStatus": {
+                    "title": "Order Status",
+              "description": "The status of the order",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Incomplete" ],
+                            [1, "Entered" ],
+                            [2, "Verified" ],
+                            [3, "In Process" ],
+                            [4, "Completed" ],
+                            [5, "Canceled" ],
+                            [6, "Returned" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "createDtm": {
+                    "title": "Created on date",
+              "description": "Order created on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "createBy": {
+                    "title": "Created by",
+              "description": "Order created by (i.e., maker)",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+            "checkedBy": {
+                    "title": "Checked by",
+              "description": "Order verified by (i.e., checker)",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+             "orderDtm": {
+                    "title": "Order date",
+              "description": "Order scheduled to be processed on datetime",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "verifyDtm": {
+                    "title": "Verified Date",
+              "description": "Order verified on datetime",
+                     "type": "string",
+                   "format": "date-time"
+            },
+              "procDtm": {
+                    "title": "Processed date",
+              "description": "Order actually processed on datetime",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "claimExpDtm": {
+                    "title": "Claim expiration date",
+              "description": "Order expired on datetime and can no longer be claimed",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "cancelDtm": {
+                    "title": "Cancel Date",
+              "description": "Order canceled on datetime",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "cancelBy": {
+                    "title": "Canceled By",
+              "description": "Order canceled by",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+         "cancelReason": {
+                    "title": "Cancellation Reason",
+              "description": "Reason the order was canceled",
+                     "type": "string"
+            },
+             "orderAmt": {
+                    "title": "Order amount",
+              "description": "The amount of the order, net to transfer to receiver",
+                     "type": "number",
+                   "format": "currency"
+            },
+        "threshholdAmt": {
+                    "title": "Threshhold amount",
+              "description": "Amount used to determine balance for threshold transfer",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "orderInfo": {
+                    "title": "Originator Info",
+              "description": "Originator to beneficiary information",
+                     "type": "string",
+                   "format": "text-area"
+            },
+          "orderTotAmt": {
+                    "title": "Order total amount",
+              "description": "Ordering customer total settled amount, order amount plus fees",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "beneNetAmt": {
+                    "title": "Beneficiary total amount",
+              "description": "Beneficiary customer total settled amount (sent amount - receiver fees)",
+                     "type": "number",
+                   "format": "currency"
+            },
+              "network": {
+                    "title": "Payment network",
+              "description": "Payment network type",
+                     "type": "string",
+                "maxLength": 12
+            },
+           "originator": {
+                    "title": "Ordering party",
+              "description": "The party that originated the order",
+                     "type": "object",
+                     "$ref": "counterparty.json"
+            },
+               "notify": {
+                    "title": "Notify list",
+              "description": "List of parties to notify when order is executed",
+                     "type": "array",
+                    "items": {
+                        "title": "Party",
+                         "type": "object",
+                         "$ref": "party.json"
+                  }
+            },
+            "senderFee": {
+                    "title": "Sender's fees",
+              "description": "Total fees charged by sending institution",
+                     "type": "object",
+                     "$ref": "fee.json"
+            },
+           "intermedFi": {
+                    "title": "Intermediate correspondent",
+              "description": "Sending Fi to receiver Fi intermediate institution",
+                     "type": "object",
+                     "$ref": "party_org_fininst.json"
+            },
+          "receiverFee": {
+                    "title": "Receiver's fees",
+              "description": "Total fees charged by receiving institution",
+                     "type": "object",
+                     "$ref": "fee.json"
+            },
+          "remainRetry": {
+                    "title": "Retries remaining",
+              "description": "Number of retry attempts remaining",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "counterParty": {
+                    "title": "Counterparty",
+              "description": "The counterparty of the order",
+                     "type": "object",
+                     "$ref": "counterparty.json"
+            },
+          "attachments": {
+                    "title": "Attached items",
+              "description": "URI references to attached documents and images",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "attach.json"
+                  }
+            },
+                 "auth": {
+                    "title": "Authorization",
+              "description": "Transaction entry exceptions and authorization",
+                     "type": "object",
+                     "$ref": "trnEntryAuth.json"
+            },
+                "recur": {
+                    "title": "Recurring order",
+              "description": "Recurring or standing order detail",
+                     "type": "object",
+               "properties": {
+                         "freq": {
+                            "title": "Order frequency",
+                      "description": "Frequency that recurring order executes",
+                             "type": "string",
+                           "format": "frequency"
+                        },
+                       "expDtm": {
+                            "title": "Recurring order expiration date",
+                      "description": "The latest date a recurring order transaction can occur",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                      "lastDtm": {
+                            "title": "Last date",
+                      "description": "The last date recurring order was executed",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                      "nextDtm": {
+                            "title": "Next date",
+                      "description": "The next date recurring order will executed",
+                             "type": "string",
+                           "format": "date-time"
+                        },
+                          "cnt": {
+                            "title": "Count executed",
+                      "description": "Current number of times order has executed",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                       "remain": {
+                            "title": "Remaining count",
+                      "description": "Remaining number of time order will be executed",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+                       "nextId": {
+                            "title": "Next recurring order Id",
+                      "description": "The identifier of the next recurring order in the sequence",
+                             "type": "integer",
+                           "format": "tguid"
+                        }
+                  },
+                 "required": ["freq" ]
+            },
+                "trnId": {
+                    "title": "Transaction identifier",
+              "description": "Unique transaction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "threadId": {
+                    "title": "Transaction thread reference",
+              "description": "A unique trace, endToEndId, or other reference number generated by the transaction originator that may span multiple transactions or messages",
+                     "type": ["string", "integer" ],
+                "maxLength": 35
+            },
+          "trnExceptId": {
+                    "title": "Transaction exception identifier",
+              "description": "Unique transaction exception identifier for order returns",
+                     "type": "string",
+                   "format": "tguid"
+            }
+      },
+         "required": ["_Id", "orderType", "orderDtm", "network", "originator", "counterParty", "remainRetry" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "threadId",
+                     "indexKey": ["threadId" ],
+                     "isUnique": false
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "network",
+                   "foreignKey": ["network" ],
+              "referenceEntity": "network.json",
+                 "referenceKey": ["network" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "counterParty",
+                       "format": "json"
+                            },
+                            {
+                         "name": "originator",
+                       "format": "json"
+                            },
+                            {
+                         "name": "createBy",
+                       "format": "json"
+                            },
+                            {
+                         "name": "checkedBy",
+                       "format": "json"
+                            },
+                            {
+                         "name": "cancelBy",
+                       "format": "json"
+                            },
+                            {
+                         "name": "intermedFi",
+                       "format": "json"
+                            },
+                            {
+                         "name": "receiverFee",
+                       "format": "json"
+                            },
+                            {
+                         "name": "senderFee",
+                       "format": "json"
+                            },
+                            {
+                         "name": "recur",
+                       "format": "json"
+                            },
+                            {
+                         "name": "notify",
+                       "format": "json"
+                            },
+                            {
+                         "name": "attachments",
+                       "format": "json"
+                            },
+                            {
+                         "name": "auth",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true,
+              "indexes": [
+                            {
+                         "name": "posnId_Id",
+                     "indexKey": ["posnId", "_Id" ],
+                     "isUnique": true
+                            }
+                ]
+      }
+}

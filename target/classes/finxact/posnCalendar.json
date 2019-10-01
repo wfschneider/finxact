@@ -1,0 +1,49 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posnCalendar.json",
+            "title": "Position calendar",
+      "description": "Position event calendar or timeline",
+       "x-createDt": "09/09/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "eventSched.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Event Identifier",
+              "description": "Unique Position Calendar identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+          "eventCtxtId": {
+                    "title": "Event Context ID",
+              "description": "The Event Context Identifier of the event msg that handled the event",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

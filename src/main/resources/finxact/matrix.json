@@ -1,0 +1,55 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/matrix.json",
+            "title": "Matrix",
+      "description": "Multi-dimensional matrix database table",
+       "x-createDt": "08/22/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/13/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+           "matrixName": {
+                    "title": "Matrix name",
+              "description": "Name of the matrix",
+                     "type": "string",
+                "maxLength": 20
+            },
+         "validFromDtm": {
+                    "title": "Valid from time",
+              "description": "The first time that this data is in effect",
+                     "type": "string",
+                   "format": "date-time"
+            },
+           "validToDtm": {
+                    "title": "Valid to time",
+              "description": "The time that this data is no longer in effect",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "dimKey": {
+                    "title": "Dimension Key",
+              "description": "N-dimensional string key, delimiter separated",
+                     "type": "string"
+            },
+                  "val": {
+                    "title": "val",
+              "description": "Value associated with key",
+                     "type": ["string", "number", "boolean", "array", "object" ]
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["matrixName", "validFromDtm", "dimKey" ],
+          "foreignKeys": [
+                            {
+                         "name": "matrixName",
+                   "foreignKey": ["matrixName" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

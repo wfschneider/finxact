@@ -1,0 +1,141 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_dep.json",
+            "title": "Deposit position",
+      "description": "Bank account deposit position",
+       "x-createDt": "03/11/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/21/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "posn.json"
+                        },
+                        {
+                     "$ref": "posn_bk.json"
+                        }
+             ],
+       "properties": {
+        "sweepAvailBal": {
+                    "title": "Available NSF sweep balance",
+              "description": "Currently available to be transferred from other accounts to prevent NSF",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "pledgedBal": {
+                    "title": "Pledged balance",
+              "description": "Pledged initial funding balance",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "fundExpDtm": {
+                    "title": "Funding expiration date",
+              "description": "Date-time by which position must be funded",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "status": {
+                    "title": "Status",
+              "description": "Activity based position status",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/posnDepStatus.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            }
+      },
+    "x-dbInterface": {
+           "hasExtents": true,
+   "observedProperties": [                            {
+                   "properties": ["glSetCode", "acctgSeg" ],
+                 "functionName": "observeGlSetCodeAcctgSeg"
+                            }
+],
+          "foreignKeys": [
+                            {
+                         "name": "glSetCode",
+                   "foreignKey": ["glSetCode" ],
+              "referenceEntity": "glSet.json",
+                 "referenceKey": ["glSetCode" ]
+                            },
+                            {
+                         "name": "prodName",
+                   "foreignKey": ["prodName" ],
+              "referenceEntity": "prod_bk.json",
+                 "referenceKey": ["name" ]
+                            },
+                            {
+                         "name": "ccyCode",
+                   "foreignKey": ["ccyCode" ],
+              "referenceEntity": "ccyCode.json",
+                 "referenceKey": ["ccyCode" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "processFlags",
+                       "format": "json"
+                            },
+                            {
+                         "name": "components",
+                       "format": "json"
+                            },
+                            {
+                         "name": "subBals",
+                       "format": "json"
+                            },
+                            {
+                         "name": "localeData",
+                       "format": "json"
+                            },
+                            {
+                         "name": "acctgSeg",
+                       "format": "json"
+                            }
+              ],
+            "computeds": [
+                            {
+                         "name": "availBal",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "authCrAmt",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "sweepAvailBal",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "authAvailBal",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "status",
+                           "ex": "=GetStatus(ctx)"
+                            },
+                            {
+                         "name": "collectedBal",
+                           "ex": "Enter expression / function to implement this"
+                            },
+                            {
+                         "name": "glBal",
+                           "ex": "Enter expression / function to implement this"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true,
+              "indexes": [
+                            {
+                         "name": "posn_dep_product",
+                     "indexKey": ["rptAsOf", "prodName", "_Id" ],
+                     "isUnique": true
+                            }
+                ]
+      }
+}

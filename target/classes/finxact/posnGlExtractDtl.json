@@ -1,0 +1,87 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posnGlExtractDtl.json",
+            "title": "Position daily GL extract detail",
+      "description": "Position daily GL extract detail",
+       "x-createDt": "03/15/2018",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "trnId": {
+                    "title": "Transaction identifier",
+              "description": "Unique Transaction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "trnSeq": {
+                    "title": "Transaction entry",
+              "description": "Transaction entry sequence",
+                     "type": "integer",
+                  "minimum": 0
+            },
+            "glSetCode": {
+                    "title": "General ledger set code",
+              "description": "General ledger accounts used for reporting",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+               "glDate": {
+                    "title": "GL journal date",
+              "description": "GL journal date transaction is posted on",
+                     "type": "string",
+                   "format": "date"
+            },
+         "extractCntDr": {
+                    "title": "Total Debits for GL extract",
+              "description": "Total Debit count to date for GL extract",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+         "extractCntCr": {
+                    "title": "Total Credits for GL extract",
+              "description": "Total Credit count to date for GL extract",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+         "extractAmtDr": {
+                    "title": "Total Debit amount for GL extract",
+              "description": "Total Debit amount to date for GL extract",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "extractAmtCr": {
+                    "title": "Total Credit amount for GL extract",
+              "description": "Total Credit amount to date for GL extract",
+                     "type": "number",
+                   "format": "currency"
+            },
+              "comment": {
+                    "title": "Transaction comment",
+              "description": "Short transaction comment",
+                     "type": "string",
+                "maxLength": 60
+            },
+           "accumToDtm": {
+                    "title": "Accumulated to",
+              "description": "Statistics accumulated to high-water",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["posnId", "glDate", "glSetCode", "trnId", "trnSeq" ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

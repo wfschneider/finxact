@@ -1,0 +1,252 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/feeCalcDtl.json",
+            "title": "Fee calculation detail",
+      "description": "Defines fee amount calculations and limits",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+                 "name": {
+                    "title": "Fee name",
+              "description": "Fee name",
+                     "type": "string",
+                "maxLength": 20
+            },
+                 "desc": {
+                    "title": "Fee description",
+              "description": "Fee description",
+                     "type": "string"
+            },
+              "trnCode": {
+                    "title": "Posting transaction code",
+              "description": "Transaction code used to post the fee",
+                     "type": "string",
+                "maxLength": 20
+            },
+      "waiveFeeTrnCode": {
+                    "title": "Waive fee transaction code",
+              "description": "Transaction code used to waive the fee",
+                     "type": "string",
+                "maxLength": 20
+            },
+    "waiveFeeAcctGroup": {
+                    "title": "Waive fee offset account group",
+              "description": "Account Group for the waive fee offset account number",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+      "waiveFeeAcctNbr": {
+                    "title": "Waive fee offset account number",
+              "description": "The unique account identifier within an acctGroup to post the waive fee offset",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+               "feeAmt": {
+                    "title": "Fixed fee amount",
+              "description": "The fixed fee amount to be assessed",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "feeMatrix": {
+                    "title": "Fee matrix",
+              "description": "Matrix used to determine the fee",
+                     "type": "string",
+                "maxLength": 30
+            },
+               "feePct": {
+                    "title": "Fee percentage",
+              "description": "Percentage applied to amount to calculate fee",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "decimal": 5
+            },
+            "feeBalOpt": {
+                    "title": "Fee calculation balance option",
+              "description": "Balance option used for fee calculation",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Transaction amount" ],
+                            [2, "Ledger balance" ],
+                            [3, "Total due amount" ],
+                            [4, "Current due amount" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "feeMinAmt": {
+                    "title": "Minimum fee amount",
+              "description": "Minimum fee to charge per transaction",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "feeMaxAmt": {
+                    "title": "Maximum fee amount",
+              "description": "Maximum fee to charge per transaction",
+                     "type": "number",
+                   "format": "currency"
+            },
+              "feeFreq": {
+                    "title": "Fee frequency",
+              "description": "Frqeuncy to assess this specific fee",
+                     "type": "string",
+                   "format": "frequency"
+            },
+            "isAccrFee": {
+                    "title": "Is accrued fee",
+              "description": "Flag indicating this fee is accrued periodically according to feeFreq",
+                     "type": "boolean",
+                  "default": false
+            },
+ "isGracePeriodCatchUp": {
+                    "title": "Grace period catch up",
+              "description": "Specifies that an accrued late charge will be assessed from the payment due date, not the end of the grace period",
+                     "type": "boolean",
+                  "default": false
+            },
+            "nsfFeeBal": {
+                    "title": "Insufficient fee balance",
+              "description": "Fee handling when fee amount exceeds funds available to pay the fee",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Post fee" ],
+                            [1, "Waive fee" ],
+                            [2, "Take ledger balance to minimum balance required" ],
+                            [3, "Take ledger balance to zero" ]
+                     ],
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "assessAt": {
+                    "title": "When to assess",
+              "description": "Defines when fee is assessed",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Time of event" ],
+                            [2, "Periodic service charge frequency" ],
+                            [3, "Debit balance grace expiration" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "feeAcctGroup": {
+                    "title": "Fee Offset Account Group",
+              "description": "Account Group for the fee offset account number",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+           "feeAcctNbr": {
+                    "title": "Fee Offset Account number",
+              "description": "The unique account identifier within an acctGroup to post the fee offset",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+            "feeLimits": {
+                    "title": "Fee limits",
+              "description": "Defines limit determination periods and maximum fee counts and amounts",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                             "freq": {
+                                "title": "Period",
+                          "description": "Defines the period used to determine whether or not fees exceed maximum allowable",
+                                 "type": "string",
+                               "format": "duration"
+                              },
+                         "startDtm": {
+                                "title": "Start date",
+                          "description": "Start date used to calculate current period",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                        "statGroup": {
+                                "title": "Fee accumulation group",
+                          "description": "Group name the fee statistics are accumulating to",
+                                 "type": "string",
+                            "maxLength": 20
+                              },
+                        "feeMaxAmt": {
+                                "title": "Maximum allowable fee amount",
+                          "description": "Maximum total fee amount that may be assessed for the period",
+                                 "type": "number",
+                               "format": "currency"
+                              },
+                        "feeMaxCnt": {
+                                "title": "Maximum allowable fee count",
+                          "description": "Maximum total count of fees that may be assessed for period",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 255
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                  "foreignKeys": [
+                                    {
+                                 "name": "statGroup",
+                           "foreignKey": ["statGroup" ],
+                      "referenceEntity": "trnStatGroup.json",
+                         "referenceKey": ["statGroup" ]
+                                    }
+                      ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["name" ],
+          "foreignKeys": [
+                            {
+                         "name": "PostingCd",
+                   "foreignKey": ["trnCode" ],
+              "referenceEntity": "trnCode.json",
+                 "referenceKey": ["trnCode" ]
+                            },
+                            {
+                         "name": "waiveFeeTrnCode",
+                   "foreignKey": ["waiveFeeTrnCode" ],
+              "referenceEntity": "trnCode.json",
+                 "referenceKey": ["trnCode" ]
+                            },
+                            {
+                         "name": "waiveFeeAcctGroup",
+                   "foreignKey": ["waiveFeeAcctGroup" ],
+              "referenceEntity": "acctGroup.json",
+                 "referenceKey": ["acctGroup" ]
+                            },
+                            {
+                         "name": "waiveFeeAcctNbr",
+                   "foreignKey": ["waiveFeeAcctGroup", "waiveFeeAcctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            },
+                            {
+                         "name": "feeAcctGroup",
+                   "foreignKey": ["feeAcctGroup" ],
+              "referenceEntity": "acctGroup.json",
+                 "referenceKey": ["acctGroup" ]
+                            },
+                            {
+                         "name": "feeAcctNbr",
+                   "foreignKey": ["feeAcctGroup", "feeAcctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            }
+            ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

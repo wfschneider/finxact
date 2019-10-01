@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Message xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:ns2="urn:tch"
+             xmlns:ns24="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.10"
+>
+    <ns2:AppHdr>
+        <Fr>
+            <FIId>
+                <FinInstnId>
+                    <ClrSysMmbId>
+                        <MmbId>000000008EK</MmbId>
+                    </ClrSysMmbId>
+                </FinInstnId>
+                <BrnchId/>
+            </FIId>
+        </Fr>
+        <To>
+            <FIId>
+                <FinInstnId>
+                    <ClrSysMmbId>
+                        <MmbId>990000001S1</MmbId>
+                    </ClrSysMmbId>
+                </FinInstnId>
+                <BrnchId>
+                    <Id>Test Branch Id - Tonull</Id>
+                </BrnchId>
+            </FIId>
+        </To>
+        <CreDt>2016-09-23T09:15:45.000-04:00</CreDt>
+        <CpyDplct>COPY</CpyDplct>
+        <Sgntr/>
+    </ns2:AppHdr>
+    <ns2:MessageStatusReport>
+        <ns24:FIToFIPmtStsRpt>
+            <ns24:GrpHdr>
+                <ns24:MsgId>MYYYYMMDDbbbbbbbbbbbBAAAnnnnnnnnnnn</ns24:MsgId>
+                <ns24:CreDtTm>2019-09-12T09:47:02.822-04:00</ns24:CreDtTm>
+            </ns24:GrpHdr>
+            <ns24:OrgnlGrpInfAndSts>
+                <ns24:OrgnlMsgId>2016092313154500000000EIPQOD1IOC0</ns24:OrgnlMsgId>
+                <ns24:OrgnlMsgNmId>pacs.008.001.08</ns24:OrgnlMsgNmId>
+                <ns24:OrgnlCreDtTm>2016-09-23T09:15:45.000-04:00</ns24:OrgnlCreDtTm>
+                <ns24:OrgnlNbOfTxs>1</ns24:OrgnlNbOfTxs>
+            </ns24:OrgnlGrpInfAndSts>
+            <ns24:TxInfAndSts>
+                <ns24:OrgnlInstrId>20160923000000008BTCH8188378539</ns24:OrgnlInstrId>
+                <ns24:TxSts>ACTC</ns24:TxSts>
+                <ns24:StsRsnInf>
+                    <ns24:Rsn>
+                        <ns24:Prtry>Not Sure</ns24:Prtry>
+                        <ns24:Cd>AC02</ns24:Cd>
+                    </ns24:Rsn>
+                    <ns24:AddtlInf>Additional Info˜</ns24:AddtlInf>
+                </ns24:StsRsnInf>
+                <ns24:AccptncDtTm>2019-09-12T09:47:02.551-04:00</ns24:AccptncDtTm>
+                <ns24:ClrSysRef>001</ns24:ClrSysRef>
+                <ns24:InstdAgt>
+                    <ns24:FinInstnId>
+                        <ns24:ClrSysMmbId>
+                            <ns24:MmbId>000000007</ns24:MmbId>
+                        </ns24:ClrSysMmbId>
+                    </ns24:FinInstnId>
+                </ns24:InstdAgt>
+                <ns24:OrgnlTxRef>
+                    <ns24:IntrBkSttlmAmt Ccy="USD">100</ns24:IntrBkSttlmAmt>
+                    <ns24:IntrBkSttlmDt>2016-09-23-04:00</ns24:IntrBkSttlmDt>
+                </ns24:OrgnlTxRef>
+            </ns24:TxInfAndSts>
+        </ns24:FIToFIPmtStsRpt>
+    </ns2:MessageStatusReport>
+</ns2:Message>

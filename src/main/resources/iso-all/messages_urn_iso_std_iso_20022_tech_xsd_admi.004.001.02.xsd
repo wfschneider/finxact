@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ne="urn:iso:std:iso:20022:tech:xsd:admi.004.001.02"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:iso:std:iso:20022:tech:xsd:admi.004.001.02"
+    elementFormDefault="qualified">
+  <xs:complexType name="Document">
+    <xs:sequence>
+      <xs:element name="SysEvtNtfctn" type="ne:SystemEventNotificationV02"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Document_TCH">
+    <xs:sequence>
+      <xs:element name="SysEvtNtfctn" type="ne:SystemEventNotificationV02_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Event2">
+    <xs:sequence>
+      <xs:element name="EvtCd" type="ne:Max4AlphaNumericText"/>
+      <xs:element name="EvtParam" type="ne:Max35Text" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="EvtDesc" type="ne:Max1000Text" minOccurs="0"/>
+      <xs:element name="EvtTm" type="ne:ISODateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Event2_TCH">
+    <xs:sequence>
+      <xs:element name="EvtCd" type="ne:Max4AlphaNumericText"/>
+      <xs:element name="EvtParam" type="ne:Max35Text" maxOccurs="unbounded"/>
+      <xs:element name="EvtDesc" type="ne:Max1000Text" minOccurs="0"/>
+      <xs:element name="EvtTm" type="ne:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ISODateTime">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+  <xs:simpleType name="Max1000Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Max35Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Max4AlphaNumericText">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="4"/>
+      <xs:pattern value="[a-zA-Z0-9]{1,4}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SystemEventNotificationV02">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvtInf" type="ne:Event2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SystemEventNotificationV02_TCH">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvtInf" type="ne:Event2_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

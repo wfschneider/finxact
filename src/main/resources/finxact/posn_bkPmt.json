@@ -1,0 +1,20 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depPmt.json",
+            "title": "Position payment",
+      "description": "Position payment component",
+       "x-createDt": "12/18/2018",
+       "x-createBy": "Deborah Kovacs/Pat Kelly",
+       "x-updateDt": "01/10/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            }
+      },
+         "required": ["_Id"]
+}

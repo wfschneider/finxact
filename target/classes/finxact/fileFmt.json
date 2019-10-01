@@ -1,0 +1,80 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/fileFmt.json",
+            "title": "Extract File Format",
+      "description": "Format details for extract files",
+       "x-createDt": "03/12/2019",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "7/17/2019",
+       "x-updateBy": "Vince Arpa",
+             "type": "object",
+       "properties": {
+              "fmtName": {
+                    "title": "File format name",
+              "description": "A unique name for this file layout",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "fmtType": {
+                    "title": "File format type",
+              "description": "The type if formatting applied to this file",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Delimited" ],
+                            [2, "Fixed Format" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "delimiter": {
+                    "title": "Delimiter character",
+              "description": "The character used to separate fields in a delimited extract",
+                     "type": "string",
+                "maxLength": 1
+            },
+      "extractFileName": {
+                    "title": "Extract file name",
+              "description": "A name for the output file pertaining to this extract",
+                     "type": "string",
+                "maxLength": 30
+            },
+  "extractFileDateFmt": {
+                    "title": "Extract file name date format",
+              "description": "If set, the extract file name will append a date using this format",
+                     "type": "string",
+                "maxLength": 30
+            },
+        "endOfLineChar": {
+                    "title": "End of line character",
+              "description": "Character sequence that defines an end of line for this extract.  Default is a line feed",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Line feed" ],
+                            [2, "Carriage return" ],
+                            [3, "Carriage return/line feed" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+ "extractFileExtension": {
+                    "title": "Extract file extension",
+              "description": "The file extension to be used for this extract",
+                     "type": "string",
+                "maxLength": 30
+            }
+      },
+         "required": ["fmtType", "extractFileName" ],
+    "x-dbInterface": {
+           "primaryKey": ["fmtName" ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,50 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnEntryLink.json",
+            "title": "Transaction Entry Linkage",
+      "description": "Relates one transaction or entry to another for the purpose of reversals, suspense and other processes",
+       "x-createDt": "10/12/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "03/08/2019",
+       "x-updateBy": "Jason Hunter",
+             "type": "object",
+       "properties": {
+                "trnId": {
+                    "title": "Transaction Identifier",
+              "description": "Unique transaction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "trnIx": {
+                    "title": "Transaction Entry Sequence",
+              "description": "Transaction entry sequence identifier",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483647
+            },
+             "linkedId": {
+                    "title": "Linked Transaction Identifier",
+              "description": "A unique transaction identifier logically linked to this transaction entry",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "linkedIx": {
+                    "title": "Linked Transaction Entry Sequence",
+              "description": "A transaction entry sequence logically linked to this transaction entry",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2147483647
+            },
+           "linkReason": {
+                    "title": "Link Reason",
+              "description": "Reason for the transaction linkage",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["trnId", "trnIx", "linkReason" ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

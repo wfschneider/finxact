@@ -1,0 +1,39 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnReverse.json",
+            "title": "Transaction reversal log",
+      "description": "Transaction reversal log",
+       "x-createDt": "08/08/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Reversed Transaction Id",
+              "description": "Identifier of the original transaction that was reversed",
+                     "type": "string",
+                   "format": "tguid"
+            },
+           "reversalId": {
+                    "title": "Reversal Trnasaction Id",
+              "description": "Identifier of the transaction that reversed the original transaction",
+                     "type": "string",
+                   "format": "tguid"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "_Id",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "trn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+    "journal": false
+  }
+}

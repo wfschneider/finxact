@@ -1,0 +1,285 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/stop.json",
+            "title": "Stop Payment Instructions",
+      "description": "Financial stop payment instructions",
+       "x-createDt": "05/28/2019",
+       "x-createBy": "Michelle Ludwig",
+       "x-updateDt": "06/20/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Stop identifier",
+              "description": "Unique stop identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "network": {
+                    "title": "Network name",
+              "description": "The network the stop will be placed against",
+                     "type": "string",
+                "maxLength": 20
+            },
+             "stopType": {
+                    "title": "Stop type",
+              "description": "Specifies whether the stop pertains to a position, an account, or the entire institution",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Institution" ],
+                            [2, "Account" ],
+                            [3, "Position" ]
+                     ],
+                  "minimum": 1,
+                  "maximum": 255
+            },
+              "stopSrc": {
+                    "title": "Stop source",
+              "description": "The source that originated the stop",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Customer direct" ],
+                            [2, "Customer indirect" ],
+                            [3, "Bank operations" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+        "stopOriginSrc": {
+                    "title": "Origination Source",
+              "description": "The origination source by which the stop is placed (e.g. web or telephone)",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Internet/mobile" ],
+                            [2, "Telephone" ],
+                            [3, "In person" ],
+                            [254, "Other" ],
+                            [255, "N/A" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "reason": {
+                    "title": "Stop reason code",
+              "description": "The reason code for why stop was placed",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/stopReason.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "acctGroup": {
+                    "title": "Account Group",
+              "description": "Account Group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "acctNbr": {
+                    "title": "Account number",
+              "description": "The unique account identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+          "posnAcctNbr": {
+                    "title": "Position account number",
+              "description": "The unique position identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+              "comment": {
+                    "title": "Stop comment",
+              "description": "Free-form text regarding the stop payment",
+                     "type": "string",
+                   "format": "text-area"
+            },
+             "startDtm": {
+                    "title": "Stop start",
+              "description": "Date and time stop will start, default immediately",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "endDtm": {
+                    "title": "Stop end date",
+              "description": "Datetime from which the stop is no longer valid",
+                     "type": "string",
+                   "format": "date-time"
+            },
+         "violationAct": {
+                    "title": "Violation action",
+              "description": "Action to be taken when a stop is invoked",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Allow transaction with override" ],
+                            [1, "Allow transaction; log exception" ],
+                            [2, "Prohibit debits" ],
+                            [3, "Prohibit credits" ],
+                            [4, "Prohibit debits and credits" ]
+                     ],
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+              "stopAmt": {
+                    "title": "Stop amount",
+              "description": "Amount to stop",
+                     "type": "number",
+                   "format": "currency"
+            },
+          "varianceOpt": {
+                    "title": "Amount Variance",
+              "description": "Indicates if the system should stop a fixed amount or within a variance",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Fixed" ],
+                            [1, "Within a variance as a currency amount " ],
+                            [2, "Within a variance as a percentage of amount " ]
+                     ]
+            },
+             "variance": {
+                    "title": "Variance",
+              "description": "The variance to apply to the stop amount, which is the midpoint",
+                     "type": "integer",
+                "maxLength": 10
+            },
+                 "isDr": {
+                    "title": "Is debit entry",
+              "description": "Transaction entry is a debit to the position",
+                     "type": "boolean"
+            },
+              "stopFee": {
+                    "title": "Stop fee",
+              "description": "Fee charged for creating a transaction stop",
+                     "type": "string",
+                "maxLength": 20
+            },
+          "isPartyAuth": {
+                    "title": "Stop Authorized",
+              "description": "Indicates the party has signed authorization for the stop payment",
+                     "type": "boolean",
+                  "default": "false"
+            },
+          "attachments": {
+                    "title": "Attached items",
+              "description": "Attached documents and images pertaining to the stop",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "attach.json"
+                  }
+            },
+            "cancelDtm": {
+                    "title": "Cancel Date",
+              "description": "Stop canceled on datetime",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "cancelBy": {
+                    "title": "Canceled By",
+              "description": "Stop canceled by",
+                     "type": "object",
+                     "$ref": "party.json"
+            },
+       "originatorName": {
+                    "title": "Originators name",
+              "description": "Originators name",
+                     "type": "string",
+                "maxLength": 30
+            },
+        "originatorABA": {
+                    "title": "Originating ABA",
+              "description": "Originating company's ABA number",
+                     "type": "string",
+                "maxLength": 9
+            },
+           "chkStopDtl": {
+                    "title": "Check stop detail",
+              "description": "Check stop detail parameters",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "#/definitions/chkStop"
+                                }
+                       ]
+            }
+      },
+      "definitions": {
+              "chkStop": {
+                    "title": "Check Stop",
+              "description": "Information gathered for a stop check order",
+                     "type": "object",
+               "properties": {
+                  "chkStartNbr": {
+                            "title": "Beginning check number",
+                      "description": "Beginning check number to be stopped",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                    "chkEndNbr": {
+                            "title": "End check number",
+                      "description": "Last check number to be stopped",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                      "chkDate": {
+                            "title": "Check date",
+                      "description": "Date on check",
+                             "type": "string",
+                           "format": "date"
+                        },
+                     "chkPayee": {
+                            "title": "Check Payee",
+                      "description": "Who the check was written to",
+                             "type": "string",
+                        "maxLength": 30
+                        }
+                  }
+            }
+      },
+         "required": ["_Id", "network", "reason", "violationAct", "stopType" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "acctGroupAcctNbr",
+                   "foreignKey": ["acctGroup", "acctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            },
+                            {
+                         "name": "network",
+                   "foreignKey": ["network" ],
+              "referenceEntity": "network.json",
+                 "referenceKey": ["network" ]
+                            },
+                            {
+                         "name": "stopFee",
+                   "foreignKey": ["stopFee" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "chkStopDtl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "cancelBy",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

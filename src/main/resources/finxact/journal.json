@@ -1,0 +1,68 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/journal.json",
+            "title": "log",
+      "description": "General log",
+       "x-createDt": "2017-03-14 03:53am",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "2019-04-03",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Update Id",
+              "description": "Unique update Id, same as log Id",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                "class": {
+                    "title": "Class name",
+              "description": "Fully qualified class name",
+                     "type": "string"
+            },
+                 "pkey": {
+                    "title": "Primary key",
+              "description": "Composite primary key",
+                     "type": "string"
+            },
+                "plist": {
+                    "title": "Property list",
+              "description": "Ordinal list of properties that changed",
+                     "type": "array",
+                    "items": {
+                         "type": "string"
+                  }
+            },
+                "blist": {
+                    "title": "Before values",
+              "description": "Ordinal list of values before update",
+                     "type": "array",
+                    "items": {
+                         "type": "object"
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "classPath",
+                     "indexKey": ["class", "pkey", "_Id" ]
+                            }
+                ],
+            "serialize": [
+                            {
+                         "name": "plist",
+                       "format": "json"
+                            },
+                            {
+                         "name": "alist",
+                       "format": "json"
+                            },
+                            {
+                         "name": "blist",
+                       "format": "json"
+                            }
+              ]
+      }
+}

@@ -1,0 +1,33 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/merchant.json",
+            "title": "Merchant",
+      "description": "Identifies and provides details on a specific merchant",
+       "x-createDt": "10/01/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "party.json"
+                        },
+                        {
+               "properties": {
+                    "networkId": {
+                            "title": "Merchant network identifier",
+                             "type": "integer",
+                          "mimimum": 0
+                                    },
+                          "cat": {
+                            "title": "Merchant Category Code (MCC)",
+                             "type": "integer",
+                          "mimimum": 0
+                                    }
+                              }
+                        }
+             ],
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

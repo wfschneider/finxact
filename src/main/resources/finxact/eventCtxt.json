@@ -1,0 +1,126 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/eventCtxt.json",
+            "title": "Event context",
+      "description": "Event occurrence log information",
+       "x-createDt": "11/06/2017",
+       "x-createBy": "Mike O'Toole",
+       "x-updateDt": "07/25/2019",
+       "x-updateBy": "Mike O'Toole",
+             "type": "object",
+       "properties": {
+              "eventId": {
+                    "title": "Event Identifier",
+              "description": "Event Message correlation id",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                 "bpId": {
+                    "title": "Bulk process Identifier",
+              "description": "Identifier of the process that created the message",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "eventType": {
+                    "title": "Event Type",
+              "description": "The event type",
+                     "type": "string",
+                "maxLength": 20
+            },
+         "calendarType": {
+                    "title": "Calendar Type",
+              "description": "The Calendar Type associated with the event",
+                     "type": "string",
+                "maxLength": 20,
+                  "choices": [
+                            ["systemCalendar", "System Calendar Event" ],
+                            ["posnCalendar", "Posn Calendar Event" ]
+                     ]
+            },
+          "calendarIds": {
+                    "title": "Calendar IDs",
+              "description": "Calendar Ids sent in the event payload",
+                     "type": "array",
+                    "items": {
+                        "title": "Calendar ID",
+                  "description": "Id of the given event",
+                         "type": "string",
+                       "format": "tguid"
+                  }
+            },
+         "msgDirection": {
+                    "title": "Event Message Direction",
+              "description": "Describes if the message is outbound 1, or inbound 2",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Outbound Message" ],
+                            [2, "Inbound Message" ]
+                     ]
+            },
+                 "name": {
+                    "title": "Event name",
+              "description": "The event name",
+                     "type": "string",
+                "maxLength": 20
+            },
+           "hostOrigin": {
+                    "title": "host origin",
+              "description": "Host name of event origin",
+                     "type": "string",
+                "maxLength": 500
+            },
+            "createDtm": {
+                    "title": "Event create date",
+              "description": "The event was created on",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "hasErr": {
+                    "title": "Error Indicator",
+              "description": "boolean flag indicates if event failed",
+                     "type": "boolean"
+            },
+              "errInfo": {
+                    "title": "error info",
+              "description": "Error context ingo",
+                     "type": "object",
+               "properties": {
+                     "retryCnt": {
+                             "type": "integer",
+                            "title": "Retry Count",
+                      "description": "number of times the message was delivered",
+                          "maximum": 2147483647
+                        },
+                       "errors": {
+                            "title": "List of error msgs",
+                      "description": "errors generated on a failed msg",
+                             "type": "array",
+                            "items": {
+                                 "type": "string",
+                            "maxLength": 4000
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "errors",
+                               "format": "json"
+                                    }
+                        ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+            "serialize": [
+                            {
+                         "name": "calendarIds",
+                       "format": "json"
+                            }
+              ],
+           "primaryKey": ["eventId", "msgDirection" ]
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

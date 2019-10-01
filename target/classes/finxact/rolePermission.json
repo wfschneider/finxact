@@ -1,0 +1,46 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/rolePermission.json",
+            "title": "Role permission",
+      "description": "User role permission",
+       "x-createDt": "11/11/2017",
+       "x-createBy": "Jim Joyce",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+             "userRole": {
+                    "title": "User Role",
+              "description": "User Role Description",
+                     "type": "string",
+                "maxLength": 20
+            },
+            "operation": {
+                    "title": "API, Operation or Function to be performed",
+              "description": "Role",
+                     "type": "string"
+            },
+             "isPermit": {
+                    "title": "Is Permitted",
+              "description": "Role is permitted to perform operation",
+                     "type": "boolean"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["userRole", "operation" ],
+          "foreignKeys": [
+                            {
+                         "name": "userRole",
+                   "foreignKey": ["userRole" ],
+              "referenceEntity": "role.json",
+                 "referenceKey": ["userRole" ]
+                            }
+            ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

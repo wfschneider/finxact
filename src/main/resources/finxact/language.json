@@ -1,0 +1,40 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/language.json",
+            "title": "Language",
+      "description": "IETF RFC 5646 Language Tags",
+       "x-createDt": "03/18/2019",
+       "x-createBy": "Christine Phillips",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+             "language": {
+                    "title": "IETF RFC 5646 Language Tag",
+              "description": "IETF RFC 5646 Language Tag",
+                     "type": "string",
+                "maxLength": 10
+            },
+         "languageName": {
+                    "title": "Language Name",
+              "description": "English name of language",
+                     "type": "string",
+                "maxLength": 60
+            },
+        "languageCntry": {
+                    "title": "Country",
+              "description": "Country where language is spoken",
+                     "type": "string",
+                "maxLength": 60
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["language" ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,41 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/ccyCode.json",
+            "title": "Currency Code",
+      "description": "ISO 4217 Currency Codes",
+       "x-createDt": "03/14/2019",
+       "x-createBy": "Christine Phillips",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+              "ccyCode": {
+                    "title": "ISO Alpha-3 Code",
+              "description": "ISO Alpha-3 Code",
+                     "type": "string",
+                "maxLength": 3
+            },
+           "isoNumeric": {
+                    "title": "ISO Numeric Code",
+              "description": "ISO Numeric Code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "ccyName": {
+                    "title": "Currency Name",
+              "description": "English name of currency",
+                     "type": "string",
+                "maxLength": 60
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["ccyCode" ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

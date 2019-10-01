@@ -1,0 +1,102 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/componentLimit.json",
+            "title": "Transaction limit attributes",
+      "description": "Regulatory, bank, and customer balance and transaction limits",
+       "x-createDt": "01/08/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+        "componentName": {
+                    "title": "Component name",
+              "description": "Limits component name",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "Component version",
+              "description": "Limits component version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+         "deminimisAmt": {
+                    "title": "Deminimis amount",
+              "description": "Insignificant negative amount not be considered overdrawn",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "minToOpen": {
+                    "title": "Minimum amount to open",
+              "description": "Minimum deposit amount to open",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "minBal": {
+                    "title": "Minimum required balance",
+              "description": "Minimum required balance",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "maxBal": {
+                    "title": "Maximum balance",
+              "description": "Maximum allowable balance",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "restrictDr": {
+                    "title": "Restrict all debits",
+              "description": "Restrict all debits",
+                     "type": "boolean"
+            },
+    "restrictCrFundExp": {
+                    "title": "Restrict credits after funding expiration",
+              "description": "Restrict all credits after the funding expiration date",
+                     "type": "boolean"
+            },
+           "restrictCr": {
+                    "title": "Restrict all credits",
+              "description": "Restrict all credits except during a grace period",
+                     "type": "boolean"
+            },
+       "accumTrnLimits": {
+                    "title": "Accumulated transaction limits",
+              "description": "Limits on groups of transactions by period",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "accumTrnLimit.json"
+                  }
+            },
+         "perTrnLimits": {
+                    "title": "Single transaction limits",
+              "description": "Limits on single transactions",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "trnLimit.json"
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["componentName", "version" ],
+            "serialize": [
+                            {
+                         "name": "accumTrnLimits",
+                       "format": "json"
+                            },
+                            {
+                         "name": "perTrnLimits",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

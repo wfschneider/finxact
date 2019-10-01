@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings
+        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:annox="http://annox.dev.java.net"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+        version="2.1">
+    <jaxb:globalBindings>
+        <xjc:simple/>
+    </jaxb:globalBindings>
+    <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+        <jaxws:enableWrapperStyle>true</jaxws:enableWrapperStyle>
+        <jaxws:enableAsyncMapping>false</jaxws:enableAsyncMapping>
+    </jaxws:bindings>
+    <jaxb:bindings schemaLocation="../iso-all/messages.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.iso.finxact.xml.msg"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../iso-all/messages_admn.007.001.01.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.iso.finxact.xml.adm007"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../iso-all/messages_urn_iso_std_iso_20022_tech_xsd_pacs.002.001.10.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.iso.finxact.iso.xml.pacs002"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings schemaLocation="../iso-all/messages_urn_iso_std_iso_20022_tech_xsd_pacs.008.001.08.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.iso.finxact.xml.pacs008"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>

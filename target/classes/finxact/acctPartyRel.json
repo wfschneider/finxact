@@ -1,0 +1,127 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/acctPartyRel.json",
+            "title": "Account party relationship",
+      "description": "Account to party relationship",
+       "x-createDt": "03/05/2019",
+       "x-createBy": "Deborah Kovacs",
+       "x-updateDt": "03/21/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+            "acctGroup": {
+                    "title": "Account group",
+              "description": "Account group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+              "acctNbr": {
+                    "title": "Account number",
+              "description": "The unique account identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+              "partyId": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "groupId": {
+                    "title": "Group identifier",
+              "description": "Unique PartyGroup identifier",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+               "custId": {
+                    "title": "Customer Id",
+              "description": "The customer Id of Party within group",
+                     "type": ["string", "integer" ],
+                "maxLength": 80
+            },
+              "relType": {
+                    "title": "Relationship type",
+              "description": "Type of relationship between party and account",
+                     "type": "string",
+                  "choices": [
+                                {
+                             "$ref": "_choices/relType.choices"
+                                }
+                     ]
+            },
+         "partyRelDesc": {
+                    "title": "Description",
+              "description": "Description of party's relationship to use on account",
+                     "type": "string"
+            },
+        "partyAcctName": {
+                    "title": "Party account name",
+              "description": "Party name to use on account",
+                     "type": "string"
+            },
+             "priority": {
+                    "title": "Priority",
+              "description": "Priority order when more than one party has the same relationship to the account",
+                     "type": "integer"
+            },
+             "partyPct": {
+                    "title": "Party percentage",
+              "description": "Party's ownership percentage as it relates to this relationship type",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 100,
+               "multipleOf": 0.00001
+            },
+                "limit": {
+                    "title": "Limit component",
+              "description": "Limits applied to party in relationship to this account",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "componentLimit.json"
+                  }
+            },
+            "removeDtm": {
+                    "title": "Date removed",
+              "description": "Date party ceased to be related to account",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+         "required": ["acctGroup", "acctNbr", "partyId", "groupId", "custId" ],
+    "x-dbInterface": {
+           "primaryKey": ["acctGroup", "acctNbr", "partyId" ],
+          "foreignKeys": [
+                            {
+                         "name": "party",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "acctGroupAcctNbr",
+                   "foreignKey": ["acctGroup", "acctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "limit",
+                       "format": "json"
+                            }
+              ],
+              "indexes": [
+                            {
+                         "name": "acctByCustId",
+                     "indexKey": ["groupId", "custId", "acctGroup", "acctNbr", "partyId" ],
+                     "isUnique": true
+                            }
+                ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

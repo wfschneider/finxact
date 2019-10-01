@@ -1,0 +1,99 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/errLog.json",
+            "title": "Error log",
+      "description": "Log of processing errors, exceptions and relevant details",
+       "x-createDt": "09/15/2017",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "03/18/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Error Identifier",
+              "description": "Unique Identifier for this error reference",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "procName": {
+                    "title": "Process Name",
+              "description": "The name of the process that generated the error",
+                     "type": "string",
+                "maxLength": 40
+            },
+              "errName": {
+                    "title": "Error Name",
+              "description": "A short name of the error being logged",
+                     "type": "string",
+                "maxlength": 40
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Error description",
+                     "type": "string",
+                   "format": "text-area"
+            },
+               "errDtm": {
+                    "title": "Error Date",
+              "description": "The date and time that the error occurred",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                "notes": {
+                    "title": "Error Note",
+              "description": "Error notes containing additional detail",
+                     "type": "string",
+                   "format": "text-area"
+            },
+              "errDtls": {
+                    "title": "Error details",
+              "description": "Errors that occurred during transaction processing",
+                     "type": "array",
+                  "minItem": 1,
+                    "items": {
+                         "type": "object",
+                        "allOf": [
+                                    {
+                                 "$ref": "domainErr.json"
+                                    }
+                            ]
+                  }
+            },
+            "keyValues": {
+                    "title": "Key value pairs",
+              "description": "The key-value pairing for this error",
+                     "type": "object",
+     "additionalProperties": {
+                        "title": "val",
+                  "description": "Value associated with key",
+                         "type": ["string", "number", "boolean", "array", "object" ]
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "errDtm",
+                     "indexKey": ["errDtm" ]
+                            },
+                            {
+                         "name": "procName",
+                     "indexKey": ["procName" ]
+                            }
+                ],
+            "serialize": [
+                            {
+                         "name": "errDtls",
+                       "format": "json"
+                            },
+                            {
+                         "name": "keyValues",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

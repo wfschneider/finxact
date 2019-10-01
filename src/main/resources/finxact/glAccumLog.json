@@ -1,0 +1,25 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/glAccumLog.json",
+            "title": "Accumulation Log",
+      "description": "Transaction log for GL accumulation",
+       "x-createDt": "11/28/2017",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Transaction identifier",
+              "description": "Unique Transaction identifier",
+                     "type": "string",
+                   "format": "tguid"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+         "id": "http://finxact.com/product/schemas/migrationHistory.json",
+      "title": "Database schema migrations",
+"description": "Database schema migrations journal",
+ "x-createDt": "04/12/2019",
+ "x-createBy": "Rad Szulim",
+ "x-updateDt": "04/12/2019",
+ "x-updateBy": "Rad Szulim",
+       "type": "object",
+ "properties": {
+       "migrateVn": {
+              "title": "Migration ID",
+        "description": "Migration unique identifier",
+               "type": "integer",
+            "minimum": 0
+      },
+        "isDirty": {
+              "title": "Migration outcome",
+        "description": "Database state after migration",
+               "type": "boolean"
+      }
+},
+   "required": ["migrateVn", "isDirty" ],
+"x-dbInterface": {
+     "primaryKey": ["migrateVn" ]
+}
+}

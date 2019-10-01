@@ -1,0 +1,174 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_bk.json",
+            "title": "Bank position",
+      "description": "Bank position template",
+       "x-createDt": "10/23/2018",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "08/21/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "prodName": {
+                    "title": "Product name",
+              "description": "Position's product",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+              "ccyCode": {
+                    "title": "Currency code",
+              "description": "Currency code ISO 4217",
+                     "type": "string",
+                "minLength": 3,
+                "maxLength": 3,
+                  "default": "USD"
+            },
+                "glCat": {
+                    "title": "GL catgory",
+              "description": "GL category code",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Asset" ],
+                            [2, "Liability" ],
+                            [3, "Capital" ],
+                            [4, "Revenue" ],
+                            [5, "Expense" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "glSetCode": {
+                    "title": "Set code",
+              "description": "GL account numbers set code",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+                "glBal": {
+                    "title": "Position gl balance",
+              "description": "Current balance or quantity of the position by gl journal date",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "availBal": {
+                    "title": "Available balance",
+              "description": "Funds immediately available, excluding pending transactions",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "collectedBal": {
+                    "title": "Collected balance",
+              "description": "Balance that has been settled through bank's clearing system, used for funds availability calculation for revolving loans",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "authCrAmt": {
+                    "title": "Authorized credit amount",
+              "description": "Amount in excess of available that will be authorized",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "authAvailBal": {
+                    "title": "Authorized available balance",
+              "description": "Available balance plus the authorized overlimit amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "processFlags": {
+                    "title": "Process flags",
+              "description": "Process condition flags for holds, restricts, stops, etc.",
+                     "type": "object",
+               "properties": {
+                        "isPay": {
+                            "title": "Filters",
+                      "description": "Position has active payment authorization filters, e.g., PosPay",
+                             "type": "boolean",
+                          "default": false
+                        },
+                       "isHold": {
+                            "title": "Holds",
+                      "description": "Position has unexpired holds",
+                             "type": "boolean",
+                          "default": false
+                        },
+                   "isRestrict": {
+                            "title": "Restrictions",
+                      "description": "Position has active restrictions",
+                             "type": "boolean",
+                          "default": false
+                        },
+                     "isSettle": {
+                            "title": "Unsettled",
+                      "description": "Position has unsettled transactions",
+                             "type": "boolean",
+                          "default": false
+                        },
+                       "isStop": {
+                            "title": "Stop payments",
+                      "description": "Position has unexpired stop payments",
+                             "type": "boolean",
+                          "default": false
+                        }
+                  },
+                 "required": ["isPay", "isHold", "isRestrict", "isSettle", "isStop" ]
+            },
+              "purpose": {
+                    "title": "Purpose",
+              "description": "Intended use of position funds",
+                     "type": "string"
+            },
+              "subBals": {
+                    "title": "Position sub-balances",
+              "description": "Sub-balances of the position",
+                     "type": "object",
+                     "$ref": "glSubBals.json"
+            },
+              "openDtm": {
+                    "title": "Position opened on",
+              "description": "Datetime position opened for use",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "closeDtm": {
+                    "title": "Position closed on",
+              "description": "Datetime position closed for use",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "closeReason": {
+                    "title": "Close reason code",
+              "description": "Reason the position was closed",
+                     "type": "integer",
+                  "choices": [
+                                {
+                             "$ref": "_choices/closeReason.choices"
+                                }
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+           "localeData": {
+                    "title": "Locale Data",
+              "description": "Information pertaining to a position's locale such as region, branch code, etc.",
+                     "type": "object",
+     "additionalProperties": {
+            "x-map-description": "Key is a generic key value (string), used in this context to identify locale datapoints not supported by core schema.  Value is a generic value (string) used in this context to supply locale data values.",
+                         "type": "string"
+                  }
+            },
+             "acctgSeg": {
+                    "title": "Accounting Segments",
+              "description": "Map of accounting segments",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "string"
+                  }
+            }
+      },
+         "required": ["prodName", "ccyCode", "glCat", "glSetCode", "openDtm" ],
+    "x-dbInterface": {
+           "hasExtents": true
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

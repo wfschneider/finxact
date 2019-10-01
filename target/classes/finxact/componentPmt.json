@@ -1,0 +1,52 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/componentPmt.json",
+            "title": "Transaction authorization and validation",
+      "description": "Processing parameters for payment related services and transaction authorizations",
+       "x-createDt": "12/18/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+        "componentName": {
+                    "title": "Component name",
+              "description": "Payment component name",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "Component version",
+              "description": "Payment component version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+            "pmtParams": {
+                    "title": "Payment parameters",
+              "description": "Parameters controlling payment services and authorizations",
+                     "type": "object",
+     "additionalProperties": {
+                        "title": "Check generation",
+                  "description": "Properties that control check generation",
+                         "type": "object",
+                         "$ref": "chkGen.json"
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["componentName", "version" ],
+            "serialize": [
+                            {
+                         "name": "pmtParams",
+                       "format": "json"
+                            }
+              ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

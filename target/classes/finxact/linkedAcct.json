@@ -1,0 +1,116 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/linkedAcct.json",
+            "title": "Linked account",
+      "description": "Linked account detail",
+       "x-createDt": "01/09/2019",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "01/29/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+              "partyId": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                  "_Id": {
+                    "title": "Link account identifier",
+              "description": "Unique identifier for a linked account",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Linked account description",
+                     "type": "string"
+            },
+           "linkedAcct": {
+                    "title": "Linked account",
+              "description": "Linked account detail",
+                     "type": "object",
+                     "$ref": "counterparty.json"
+            },
+            "isCoValid": {
+                    "title": "Collection is valid",
+              "description": "Linked account is valid source for collection orders",
+                     "type": "boolean"
+            },
+         "sortPriority": {
+                    "title": "Sort sequence",
+              "description": "Relative sort priorty for reporting and display",
+                     "type": "integer"
+            },
+           "verifyMthd": {
+                    "title": "Verified method",
+              "description": "The method used to verify the linked account belongs to the party",
+                     "type": "string",
+                  "choices": [
+                            ["MICRO", "Micro deposit" ],
+                            ["PREAPP", "Pre-approved" ],
+                            ["TEL", "Telephone" ],
+                            ["UNK", "Unknown" ]
+                     ]
+            },
+            "verifyDtm": {
+                    "title": "Verified Date",
+              "description": "Date the linked account last verified",
+                     "type": "string",
+                   "format": "date-time"
+            },
+              "openDtm": {
+                    "title": "Opened date",
+              "description": "Date the linked account was opened",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "closeDtm": {
+                    "title": "Close date",
+              "description": "Date the linked account was closed",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "networks": {
+                    "title": "Payment networks",
+              "description": "Valid payment networks for this linked account",
+                     "type": "array",
+                    "items": {
+                         "type": "string",
+                      "choices": [
+                                ["ACH", "US Automated Clearing House" ],
+                                ["AFT", "Canadian Automated Funds Transfer" ],
+                                ["CORE", "Finxact Core Funds Transfer" ],
+                                ["FEDWIRE", "Wire Transfer" ],
+                                ["SEPA", "SEPA Transfer" ],
+                                ["SWIFT", "Electronic SWIFT Interface" ]
+                          ]
+                  }
+            }
+      },
+         "required": ["partyId", "_Id", "linkedAcct" ],
+    "x-dbInterface": {
+           "primaryKey": ["partyId", "_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "party",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "linkedAcct",
+                       "format": "json"
+                            },
+                            {
+                         "name": "networks",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

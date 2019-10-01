@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:ct="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08" xmlns="urn:tch">
+	<AppHdr>
+		<head:Fr>
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>021200201A1</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:Fr>
+		<head:To>
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>990000001S1</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:To>
+		<head:BizMsgIdr>B20151112020010001A1BRR0050006008</head:BizMsgIdr>
+		<head:MsgDefIdr>pacs.008.001.08</head:MsgDefIdr>
+		<head:CreDt>2015-11-12T16:45:00</head:CreDt>
+		<head:Sgntr xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+			<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+				<SignedInfo>
+					<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+					<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+					<Reference URI="">
+						<Transforms>
+							<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+							<Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11"/>
+						</Transforms>
+						<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+						<DigestValue>oxiaAooujjjfhOkxNa0wwYPm1M8LKbPX6QhQcDNexEY=</DigestValue>
+					</Reference>
+				</SignedInfo>
+				<SignatureValue>+Zkw9IxMZFdf274UGSV5lKGoDd4=</SignatureValue>
+				<KeyInfo>
+					<X509Data>
+						<X509SubjectName>CN=rsa0,OU=ips,O=vocalink,L=rickmansworth,ST=Unknown,C=uk</X509SubjectName>
+						<X509IssuerSerial>
+							<X509IssuerName>CN=rsa0, OU=ips, O=vocalink, L=rickmansworth, ST=Unknown, C=uk</X509IssuerName>
+							<X509SerialNumber>1328092436</X509SerialNumber>
+						</X509IssuerSerial>
+					</X509Data>
+				</KeyInfo>
+			</Signature>
+		</head:Sgntr>
+	</AppHdr>
+	<CreditTransfer>
+		<ct:FIToFICstmrCdtTrf>
+			<ct:GrpHdr>
+				<ct:MsgId>M20151112021200201BFF0000000453</ct:MsgId>
+				<ct:CreDtTm>2016-03-07T15:09:31</ct:CreDtTm>
+				<ct:NbOfTxs>1</ct:NbOfTxs>
+				<ct:TtlIntrBkSttlmAmt Ccy="USD">525.25</ct:TtlIntrBkSttlmAmt>
+				<ct:IntrBkSttlmDt>2015-11-12</ct:IntrBkSttlmDt>
+				<ct:SttlmInf>
+					<ct:SttlmMtd>CLRG</ct:SttlmMtd>
+					<ct:ClrSys>
+						<ct:Cd>TCH</ct:Cd>
+					</ct:ClrSys>
+				</ct:SttlmInf>
+			</ct:GrpHdr>
+			<ct:CdtTrfTxInf>
+				<ct:PmtId>
+					<ct:InstrId>2012110512060200101BBAA2HJH4O</ct:InstrId>
+					<ct:EndToEndId>E2E-Ref001</ct:EndToEndId>
+					<ct:TxId>20151115021200201BCPA0000000001</ct:TxId>
+					<ct:ClrSysRef>001</ct:ClrSysRef>
+				</ct:PmtId>
+				<ct:PmtTpInf>
+					<ct:SvcLvl>
+						<ct:Cd>SDVA</ct:Cd>
+					</ct:SvcLvl>
+					<ct:LclInstrm>
+						<ct:Prtry>INTERMEDIARY</ct:Prtry>
+					</ct:LclInstrm>
+					<ct:CtgyPurp>
+						<ct:Prtry>BUSINESS</ct:Prtry>
+					</ct:CtgyPurp>
+				</ct:PmtTpInf>
+				<ct:IntrBkSttlmAmt Ccy="USD">525.25</ct:IntrBkSttlmAmt>
+				<ct:ChrgBr>SLEV</ct:ChrgBr>
+				<ct:InstgAgt>
+					<ct:FinInstnId>
+						<ct:ClrSysMmbId>
+							<ct:MmbId>021200201</ct:MmbId>
+						</ct:ClrSysMmbId>
+					</ct:FinInstnId>
+				</ct:InstgAgt>
+				<ct:InstdAgt>
+					<ct:FinInstnId>
+						<ct:ClrSysMmbId>
+							<ct:MmbId>020010001</ct:MmbId>
+						</ct:ClrSysMmbId>
+					</ct:FinInstnId>
+				</ct:InstdAgt>
+				<ct:UltmtDbtr>
+					<ct:Nm>ultmtOrgaccname qq12000194212199001323234343434444 qq12000194212199001323234343434444 www qq12000194212199001323234343434444 24343refefdfdfd</ct:Nm>
+					<ct:PstlAdr>
+						<ct:StrtNm>Dbtr street name num20 Dbtr street name num20 Dbtr street name num2070</ct:StrtNm>
+						<ct:BldgNb>Dbtr bld no ii16</ct:BldgNb>
+						<ct:PstCd>NY 10118 NY 1011</ct:PstCd>
+						<ct:TwnNm>Dbtr city NY 10118 NY 1011ty67 ultm</ct:TwnNm>
+						<ct:CtrySubDvsn>dbtrAddrCtrySubDvsn dbtrAddrCtrySub</ct:CtrySubDvsn>
+						<ct:Ctry>US</ct:Ctry>
+						<ct:AdrLine>12 house 1232312e1 dffdfdsfsev fefe3f4f34f3f3f3f3fef3fefeeeereeeeeeeee</ct:AdrLine>
+					</ct:PstlAdr>
+					<ct:Id>
+						<ct:OrgId>
+							<ct:LEI>Z1Z1Z1Z1Z1Z1Z1Z1Z178</ct:LEI>
+						</ct:OrgId>
+					</ct:Id>
+				</ct:UltmtDbtr>
+				<ct:InitgPty>
+					<ct:Nm>021200201</ct:Nm>
+				</ct:InitgPty>
+				<ct:Dbtr>
+					<ct:Nm>Debtor Name</ct:Nm>
+					<ct:PstlAdr>
+						<ct:StrtNm>Dbtr street name</ct:StrtNm>
+						<ct:BldgNb>Dbtr bld no</ct:BldgNb>
+						<ct:PstCd>NY 10118</ct:PstCd>
+						<ct:TwnNm>Dbtr city</ct:TwnNm>
+						<ct:CtrySubDvsn>dbtrAddrCtrySubDvsn dbtrAddrCtrySub</ct:CtrySubDvsn>
+						<ct:Ctry>US</ct:Ctry>
+						<ct:AdrLine>12 123400222222223333wqwqwqwqwqwq dsdsfdvfvfvfdvfdvfdvfvfdvffffffff444</ct:AdrLine>
+					</ct:PstlAdr>
+					<ct:Id>
+						<ct:OrgId>
+							<ct:LEI>Z1Z1Z1Z1Z1Z1Z1Z1Z178</ct:LEI>
+						</ct:OrgId>
+					</ct:Id>
+				</ct:Dbtr>
+				<ct:DbtrAcct>
+					<ct:Id>
+						<ct:Othr>
+							<ct:Id>qq12000194212199001323234343434444</ct:Id>
+						</ct:Othr>
+					</ct:Id>
+				</ct:DbtrAcct>
+				<ct:DbtrAgt>
+					<ct:FinInstnId>
+						<ct:ClrSysMmbId>
+							<ct:MmbId>021200201</ct:MmbId>
+						</ct:ClrSysMmbId>
+					</ct:FinInstnId>
+				</ct:DbtrAgt>
+				<ct:CdtrAgt>
+					<ct:FinInstnId>
+						<ct:ClrSysMmbId>
+							<ct:MmbId>020010001</ct:MmbId>
+						</ct:ClrSysMmbId>
+					</ct:FinInstnId>
+				</ct:CdtrAgt>
+				<ct:Cdtr>
+					<ct:Nm>Creditor Name</ct:Nm>
+					<ct:PstlAdr>
+						<ct:StrtNm>Cr street name</ct:StrtNm>
+						<ct:BldgNb>Cr bld no</ct:BldgNb>
+						<ct:PstCd>NY 10118</ct:PstCd>
+						<ct:TwnNm>Cr city</ct:TwnNm>
+						<ct:CtrySubDvsn>cdtrAddrCtrySubDvsn dbtrAddrCtrySub</ct:CtrySubDvsn>
+						<ct:Ctry>US</ct:Ctry>
+						<ct:AdrLine>12 cdtrAddrCtrySubDvsn dbtrAddrCtrySub wdwfdwefewfcewvewfvewfrewfef123</ct:AdrLine>
+					</ct:PstlAdr>
+					<ct:Id>
+						<ct:OrgId>
+							<ct:LEI>Z1Z1Z1Z1Z1Z1Z1Z1Z178</ct:LEI>
+						</ct:OrgId>
+					</ct:Id>
+				</ct:Cdtr>
+				<ct:CdtrAcct>
+					<ct:Id>
+						<ct:Othr>
+							<ct:Id>qq12000194212199001323234343434444</ct:Id>
+						</ct:Othr>
+					</ct:Id>
+					<ct:Prxy>
+						<ct:Id>qq12000194212199001787887777777788889099822323232334333233334444455555558778787878787878731200019421219900178788777777778888909982232323233433323333444445555555877878787878787873120001942121990017878877777777888890998223232323343332333344444555555587787878</ct:Id>
+					</ct:Prxy>
+				</ct:CdtrAcct>
+				<ct:UltmtCdtr>
+					<ct:Nm>Ultimate Creditor Account Name 12 cdtrAddrCtrySubDvsn dbtrAddrCtrySub Ultimate Creditor Account Namewdwfdwefewfcewvewfvewfrewfef123 Ultimate</ct:Nm>
+					<ct:PstlAdr>
+						<ct:StrtNm>ultmtCdtrAdrStreetName ultmtCdtrAdrStreetNameultmtCdtrAdrStreetName123</ct:StrtNm>
+						<ct:BldgNb>U Cdt Bld no 323</ct:BldgNb>
+						<ct:PstCd>PostalCode 12122</ct:PstCd>
+						<ct:TwnNm>ultmtCdtrAdrTown ultmtCdtrAdrTown23</ct:TwnNm>
+						<ct:CtrySubDvsn>ultmtCdtrAdrContrySubDivision 56574</ct:CtrySubDvsn>
+						<ct:Ctry>US</ct:Ctry>
+						<ct:AdrLine>ultmtCdtrAdrLine ultmtCdtrAdrLine ultmtCdtrAdrLineultmtCdtrAdrLine2345</ct:AdrLine>
+					</ct:PstlAdr>
+					<ct:Id>
+						<ct:OrgId>
+							<ct:LEI>Z1Z1Z1Z1Z1Z1Z1Z1Z178</ct:LEI>
+						</ct:OrgId>
+					</ct:Id>
+				</ct:UltmtCdtr>
+				<ct:InstrForCdtrAgt>
+					<ct:Cd>TOKN</ct:Cd>
+					<ct:InstrInf>Instruction Information 22 ultmtCdt</ct:InstrInf>
+				</ct:InstrForCdtrAgt>
+				<ct:InstrForCdtrAgt>
+					<ct:Cd>PRTK</ct:Cd>
+					<ct:InstrInf>II</ct:InstrInf>
+				</ct:InstrForCdtrAgt>
+				<ct:InstrForCdtrAgt>
+					<ct:Cd>VLTK</ct:Cd>
+					<ct:InstrInf>III</ct:InstrInf>
+				</ct:InstrForCdtrAgt>
+				<ct:InstrForCdtrAgt>
+					<ct:Cd>PRTK</ct:Cd>
+					<ct:InstrInf>IV</ct:InstrInf>
+				</ct:InstrForCdtrAgt>
+				<ct:InstrForCdtrAgt>
+					<ct:Cd>VLTK</ct:Cd>
+					<ct:InstrInf>V</ct:InstrInf>
+				</ct:InstrForCdtrAgt>
+				<ct:RltdRmtInf>
+					<ct:RmtId>a</ct:RmtId>
+					<ct:RmtLctnDtls>
+						<ct:Mtd>EMAL</ct:Mtd>
+						<ct:ElctrncAdr>Electronic address of size 2048 bytes</ct:ElctrncAdr>
+					</ct:RmtLctnDtls>
+				</ct:RltdRmtInf>
+				<ct:RmtInf>
+					<ct:Ustrd>Unstructured Remittance Information</ct:Ustrd>
+					<ct:Strd>
+						<ct:RfrdDocInf>
+							<ct:Nb>a</ct:Nb>
+							<ct:RltdDt>2016-06-13</ct:RltdDt>
+						</ct:RfrdDocInf>
+						<ct:RfrdDocAmt>
+							<ct:DscntApldAmt>
+								<ct:Tp>
+									<ct:Prtry>DSCT</ct:Prtry>
+								</ct:Tp>
+								<ct:Amt Ccy="USD">1234002222222233.33</ct:Amt>
+							</ct:DscntApldAmt>
+							<ct:DscntApldAmt>
+								<ct:Tp>
+									<ct:Prtry>FULL</ct:Prtry>
+								</ct:Tp>
+								<ct:Amt Ccy="USD">432523</ct:Amt>
+							</ct:DscntApldAmt>
+						</ct:RfrdDocAmt>
+					</ct:Strd>
+				</ct:RmtInf>
+			</ct:CdtTrfTxInf>
+		</ct:FIToFICstmrCdtTrf>
+	</CreditTransfer>
+</Message>

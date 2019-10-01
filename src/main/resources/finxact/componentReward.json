@@ -1,0 +1,95 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/componentReward.json",
+            "title": "Reward program attributes",
+      "description": "Processing attributes for a rewards program",
+       "x-createDt": "01/10/2019",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+        "componentName": {
+                    "title": "Component name",
+              "description": "Term component name",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "Component version",
+              "description": "Term component version",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+          "programType": {
+                    "title": "Payout option",
+              "description": "Determine if the reward is evaluated at accrual or during interest posting",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Adjust interest accrued if Deposit Amount is met during Deposit Interval" ],
+                            [2, "Credit Reward Amount if Goal Amount is attained as of Goal Expiration Date" ],
+                            [3, "Credit Reward Amount if Goal Amount is met during any transaction prior to the Goal Expiration Date" ]
+                     ]
+            },
+          "depInterval": {
+                    "title": "Deposit interval",
+              "description": "Interval at which deposits will be made within the Goal Term, e.g., weekly, monthly, etc. Only applies to Reward Option = 1",
+                     "type": "string",
+                   "format": "duration"
+            },
+          "intervalAmt": {
+                    "title": "Interval amount",
+              "description": "The minimum amount to deposit in each Deposit Inverval within the Goal Term to meet the defined Goal Amount.  Only applies to Reward Option = 1.",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+             "goalTerm": {
+                    "title": "Goal term",
+              "description": "The time span during which the depositor intends to meet the Goal Amount",
+                     "type": "string",
+                   "format": "duration"
+            },
+              "goalAmt": {
+                    "title": "Goal amount",
+              "description": "The amount of money the depositor wants to save over the Goal Term.",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+        "rewardIntPrem": {
+                    "title": "Reward interest premium percentage",
+              "description": "A matrix that returns the incremental percentage added to the interest rate at the end of each Deposit Interval if the Interval Amount is attained.",
+                     "type": "string"
+            },
+               "reward": {
+                    "title": "Reward amount",
+              "description": "Matrix used to determine reward at goal attainment or the goal expiration date.",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["componentName", "version" ],
+          "foreignKeys": [
+                            {
+                         "name": "reward",
+                   "foreignKey": ["reward" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            },
+                            {
+                         "name": "rewardIntPrem",
+                   "foreignKey": ["rewardIntPrem" ],
+              "referenceEntity": "matrixType.json",
+                 "referenceKey": ["matrixName" ]
+                            }
+            ],
+            "x-cached": {
+              "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

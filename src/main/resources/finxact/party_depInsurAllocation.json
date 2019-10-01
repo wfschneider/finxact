@@ -1,0 +1,46 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/depInsurAllocation.json",
+            "title": "Deposit Insurance Alloctaion Schema",
+      "description": "Deposit Insurance Party Allocation Schema",
+       "x-createDt": "04/10/2019",
+       "x-createBy": "Vince Arpa",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+              "partyId": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+      "depRightCapacity": {
+                    "title": "Deposit Right Capacity",
+              "description": "The unique code the FDIC uses to identify ownership",
+                     "type": "string",
+                  "choices": [
+                                {
+                             "$ref": "_choices/depRightCapacity.choices"
+                                }
+                     ]
+            },
+          "depRemainInsurAmt": {
+                    "title": "Remaining insurance Amount",
+              "description": "The amount of insurance allocation for the deposit right capacity for this party",
+                     "type": "number",
+                   "format": "currency"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["partyId", "depRightCapacity" ],
+          "foreignKeys": [
+                            {
+                         "name": "party",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      }
+}

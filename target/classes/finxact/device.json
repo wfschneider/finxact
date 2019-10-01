@@ -1,0 +1,128 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/device.json",
+            "title": "Device detail",
+      "description": "Details pertaining to source physical device or terminal",
+       "x-createDt": "09/15/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/12/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "devType": {
+                    "title": "Device type",
+              "Description": "The type of device",
+                     "type": "integer",
+                   "choice": [
+                            [0, "Unknown" ],
+                            [1, "Other" ],
+                            [2, "ATM" ],
+                            [3, "POS Terminal" ],
+                            [4, "Teller Station" ],
+                            [5, "Bank Kiosk" ],
+                            [6, "PC" ],
+                            [7, "Phone" ]
+                      ]
+            },
+             "isMobile": {
+                    "title": "Is mobile device",
+              "description": "The device is mobile versus fixed",
+                     "type": "boolean"
+            },
+                 "make": {
+                    "title": "Device manufacturer",
+                     "type": "string",
+                "maxLength": 60
+            },
+                "model": {
+                    "title": "Device model",
+                     "type": "string",
+                "maxLength": 60
+            },
+               "bootOs": {
+                    "title": "Operating system",
+              "description": "The boot operating system and version running on the device",
+                     "type": "string",
+                "maxLength": 40
+            },
+              "network": {
+                    "title": "Network carrier",
+                     "type": "string",
+                "maxLength": 60
+            },
+                "owner": {
+                    "title": "Device owner",
+              "description": "The registered or acknowledged device owner",
+                     "$ref": "party.json"
+            },
+              "didType": {
+                    "title": "Identifier type",
+              "description": "The device identifier type, e.g., UDID",
+                     "type": "string",
+                "maxLength": 20
+            },
+               "didVal": {
+                    "title": "Identifier value",
+              "description": "The electronic device identifier value",
+                     "type": "string"
+            },
+              "devHash": {
+                    "title": "Device hash",
+              "description": "The device concatenated configuration hash",
+                     "type": "string"
+            },
+                 "desc": {
+                    "title": "Device description",
+                     "type": "string"
+            },
+                "ispIp": {
+                    "title": "ISP IP address",
+              "description": "The IP address of the ISP the device is using as a proxy server",
+                     "type": "string",
+                    "oneOf": [
+                                {
+                           "format": "ipv4"
+                                },
+                                {
+                           "format": "ipv6"
+                                },
+                                {
+                           "format": "hostname"
+                                }
+                       ]
+            },
+                   "ip": {
+                    "title": "Home IP address",
+              "description": "The registered or last home Ip of the device",
+                     "type": "string",
+                    "oneOf": [
+                                {
+                           "format": "ipv4"
+                                },
+                                {
+                           "format": "ipv6"
+                                },
+                                {
+                           "format": "hostname"
+                                }
+                       ]
+            },
+               "locale": {
+                    "title": "Home Address",
+              "description": "The registered or last physical address of the device",
+                     "$ref": "addr.json#"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

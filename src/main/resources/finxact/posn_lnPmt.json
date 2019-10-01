@@ -1,0 +1,44 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_lnPmt.json",
+            "title": "Position payment",
+      "description": "Position payment component",
+       "x-createDt": "01/10/2019",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "componentPmt.json"
+                        },
+                        {
+                     "$ref": "posn_bkPmt.json"
+                        }
+             ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+      "extends": "posn_ln.json",
+          "foreignKeys": [
+                            {
+                         "name": "posn",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "pmtParams",
+                       "format": "json"
+                            }
+              ],
+             "temporal": {
+                "tableName": "posn_lnPmtDtlhist",
+                   "option": 4
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

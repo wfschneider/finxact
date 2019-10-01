@@ -1,0 +1,97 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/freqAndDurMap.json",
+            "title": "Frequency and duration mapping",
+      "description": "Maps user-defined name to a Finxact frequency or duration",
+       "x-createDt": "05/27/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "03/13/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+              "mapName": {
+                    "title": "Name",
+              "description": "User defined name for the syntax",
+                     "type": "string",
+                "maxLength": 40
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Business description of named syntax",
+                     "type": "string",
+                   "format": "text-area"
+            },
+             "startDtm": {
+                    "title": "Start date and time",
+              "description": "Date and time when the named syntax is first available for use",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "endDtm": {
+                    "title": "End date and time",
+              "description": "Date and time after which the named syntax is no longer available for use",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "syntax": {
+                    "title": "Syntax",
+              "description": "Frequency or duration syntax",
+                     "type": "string",
+                "maxLength": 40
+            },
+           "syntaxType": {
+                    "title": "Syntax type",
+              "description": "Frequency or duration",
+                     "type": "string",
+                  "choices": [
+                            ["Freq", "Frequency" ],
+                            ["Dur", "Duration" ]
+                     ],
+                "maxLength": 15
+            },
+       "isDfltCalendar": {
+                    "title": "Use default bank calendar",
+              "description": "Indicates whether or not only the default calendar can be used",
+                     "type": "boolean"
+            },
+             "calendar": {
+                    "title": "Calendar",
+              "description": "Default calendar used when no calendar is specified or the default calendar is required to be used",
+                     "type": "string",
+                "maxLength": 30
+            },
+        "relatedFields": {
+                    "title": "Finxact related fields",
+              "description": "Finxact fields the duration or frequency is linked to",
+                     "type": "array",
+                    "items": {
+                        "title": "Related Field",
+                  "description": "Finxact Related Field",
+                         "type": "string",
+                    "maxLength": 40
+                  },
+                 "minItems": 0
+            }
+      },
+         "required": ["mapName", "syntax", "startDtm" ],
+    "x-dbInterface": {
+           "primaryKey": ["mapName" ],
+          "foreignKeys": [
+                            {
+                         "name": "calendar",
+                   "foreignKey": ["calendar" ],
+              "referenceEntity": "calendar.json",
+                 "referenceKey": ["calendarName" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "relatedFields",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

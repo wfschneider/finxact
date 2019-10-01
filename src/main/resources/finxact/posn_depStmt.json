@@ -1,0 +1,108 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depStmt.json",
+            "title": "Deposit position statement",
+      "description": "Periodic statement information for a deposit position",
+       "x-createDt": "09/28/2018",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "06/28/2019",
+       "x-updateBy": "Adam Schwartz",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "stmt.json"
+                        }
+             ],
+       "properties": {
+                 "apye": {
+                    "title": "Annual percentage yield earned",
+              "description": "Annualized rate that reflects the relationship between the amount of interest actually earned on a position and the position average daily balance, as specified by Reg DD",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "decimal": 2
+            },
+                  "adb": {
+                    "title": "Average daily balance",
+              "description": "Average daily balance of the position during the statement period",
+                     "type": "number",
+                   "format": "currency"
+            },
+          "intUnposted": {
+                    "title": "Unposted interest",
+              "description": "Interest accrued not paid this statement period",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "intEarned": {
+                    "title": "Interest earned",
+              "description": "Total of interest paid and accrued but not paid this period",
+                     "type": "number",
+                   "format": "currency"
+            },
+                "intPd": {
+                    "title": "Interest paid",
+              "description": "Interest paid this statement period",
+                     "type": "number",
+                   "format": "currency"
+            },
+              "intPdYr": {
+                    "title": "Interest paid year to date",
+              "description": "Interest paid in the current calendar year",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "intPdPriorYr": {
+                    "title": "Interest paid prior year",
+              "description": "Interest paid in the prior calendar year",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "nsfCnt": {
+                    "title": "NSF count",
+              "description": "NSF count this statement period",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+             "nsfFees": {
+                    "title": "NSF fees",
+              "description": "NSF fees this statement period",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "returnCnt": {
+                    "title": "Return item count",
+              "description": "Returned items this statement period",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+         "returnFees": {
+                    "title": "Return fees",
+              "description": "Return fees this statement period",
+                     "type": "number",
+                   "format": "currency"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id", "endDtm" ],
+          "foreignKeys": [
+                            {
+                         "name": "posn_dep",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn_dep.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "entries",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

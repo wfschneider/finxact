@@ -1,0 +1,171 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/trnLimit.json",
+            "title": "Transaction limit",
+      "description": "Defines bank and customer per transaction limits",
+       "x-createDt": "01/23/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/30/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Unique per transaction limit identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+                 "name": {
+                    "title": "Per transaction limits name",
+              "description": "Minimums, maximums, and incremental amounts applied per transaction",
+                     "type": "string",
+                "maxLength": 20
+            },
+             "minCrAmt": {
+                    "title": "Minimum per transaction credit amount",
+              "description": "Minimum per transaction credit amount allowed",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "maxCrAmt": {
+                    "title": "Maximum per transaction credit amount",
+              "description": "Maximum per transaction credit amount allowed",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "increCrAmt": {
+                    "title": "Incremental per transaction credit amount",
+              "description": "Transaction credit amount must be a multiple of this incremental amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "minDrAmt": {
+                    "title": "Minimum per transaction debit amount",
+              "description": "Minimum per transaction debit amount allowed",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "maxDrAmt": {
+                    "title": "Maximum per transaction debit amount",
+              "description": "Maximum per transaction debit amount allowed",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "increDrAmt": {
+                    "title": "Incremental per transaction debit amount",
+              "description": "Transaction debit amount must be a multiple of this incremental amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "minBal": {
+                    "title": "Minimum required balance",
+              "description": "Minimum required balance",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "maxBal": {
+                    "title": "Maximum balance",
+              "description": "Maximum allowable balance",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "definedBy": {
+                    "title": "Defined by",
+              "description": "Entity that defined the limit",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Institution" ],
+                            [2, "Customer" ],
+                            [254, "Other" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+          "trnCodeIncl": {
+                    "title": "Transaction codes included",
+              "description": "Transaction codes to which exception applies",
+                     "type": "array",
+                    "items": {
+                        "title": "Transaction code",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+          "trnCodeExcl": {
+                    "title": "Transaction codes excluded",
+              "description": "Transaction codes to which exception does not apply",
+                     "type": "array",
+                    "items": {
+                        "title": "Transaction code",
+                         "type": "string",
+                    "maxLength": 20
+                  },
+                 "minItems": 0
+            },
+             "alertIds": {
+                    "title": "Alert ID's",
+              "description": "Party ID's to alert in case of a limit violation",
+                     "type": "array",
+                    "items": {
+                        "title": "Alert ID's",
+                  "description": "Id of the given party",
+                         "type": "string",
+                       "format": "tguid"
+                  }
+            },
+         "violationAct": {
+                    "title": "Violation action",
+              "description": "Action to be taken when a limit will be breached",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Allow transaction with override" ],
+                            [1, "Allow transaction; log exception" ],
+                            [2, "Prohibit debits" ],
+                            [3, "Prohibit credits" ],
+                            [4, "Prohibit debits and credits" ]
+                     ],
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "violationFee": {
+                    "title": "Violation fee",
+              "description": "Fee assessed when a limit is breached",
+                     "type": "string",
+                "maxLength": 20
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+            "serialize": [
+                            {
+                         "name": "trnCodeIncl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "trnCodeExcl",
+                       "format": "json"
+                            },
+                            {
+                         "name": "alertIds",
+                       "format": "json"
+                            }
+              ],
+          "foreignKeys": [
+                            {
+                         "name": "ViolationFee",
+                   "foreignKey": ["violationFee" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            }   
+            ],
+            "x-cached": {
+               "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

@@ -1,0 +1,100 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/counterparty.json",
+            "title": "Counterparty",
+      "description": "Transaction counterparty detail",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "05/06/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "party.json"
+                        },
+                        {
+               "properties": {
+                      "finInst": {
+                            "title": "Counterparty financial institution",
+                      "description": "Counterparty institution correspondent bank",
+                             "type": "object",
+                             "$ref": "party_org_fininst.json"
+                                    },
+                       "custId": {
+                            "title": "Counterparty id",
+                      "description": "Counter party Id in finInst",
+                             "type": "string",
+                        "maxLength": 20
+                                    },
+                      "acctNbr": {
+                            "title": "Account number",
+                      "description": "The unique account identifier within a type",
+                             "type": ["string", "integer" ],
+                        "maxLength": 20
+                                    },
+                    "acctGroup": {
+                            "title": "Account Group",
+                      "description": "Account Group code",
+                             "type": "integer",
+                          "minimum": 0,
+                          "maximum": 65535
+                                    },
+                    "acctTitle": {
+                            "title": "Account title",
+                      "description": "Counter party account title in finInst",
+                             "type": "string",
+                        "maxLength": 80
+                                    },
+                   "acctBranch": {
+                            "title": "Account branch",
+                      "description": "Counter party account branch in finInst",
+                             "type": ["string", "integer" ],
+                        "maxLength": 20
+                                    },
+                  "ifxAcctType": {
+                            "title": "IFX account type",
+                      "description": "Assigns account to a generally recognized industry standard category",
+                             "type": "string",
+                          "choices": [
+                                    ["DDA", "Demand deposit account" ],
+                                    ["MMA", "Money market account" ],
+                                    ["SDA", "Savings deposit account" ],
+                                    ["CDA", "Certificate of deposit" ],
+                                    ["CMA", "Cash management account" ],
+                                    ["CCA", "Credit card account" ],
+                                    ["EQU", "Home equity loan" ],
+                                    ["ILA", "Installment loan account" ],
+                                    ["CLA", "Commercial loan account" ],
+                                    ["LOC", "Consumer line of credit" ]
+                                 ],
+                          "minimum": 0,
+                          "maximum": 10
+                                    },
+                     "acctType": {
+                            "title": "Account type",
+                      "description": "Identifies the account as personal or business",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Personal" ],
+                                    [2, "Business" ]
+                                 ]
+                                    },
+                          "ref": {
+                            "title": "Transaction reference",
+                      "description": "Counter party transaction reference",
+                             "type": "string",
+                        "maxLength": 40
+                                    },
+                  "posnAcctNbr": {
+                            "title": "Position Account Number",
+                      "description": "The unique position identifier within an acctGroup",
+                             "type": ["string", "integer" ],
+                        "maxLength": 30
+                                    }
+                              }
+                        }
+             ],
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

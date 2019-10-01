@@ -1,0 +1,39 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/folder.json",
+            "title": "Folder",
+      "description": "Folder container for folders, files and URI references",
+       "x-createDt": "08/15/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/28/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Folder identifier",
+              "description": "Unique folder identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                 "desc": {
+                    "title": "Description",
+              "description": "Folder description",
+                     "type": "string"
+            },
+          "attachments": {
+                    "title": "Attached items",
+              "description": "Attached folders and files",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "attach.json"
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

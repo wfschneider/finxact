@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:tch" xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:rt="urn:iso:std:iso:20022:tech:xsd:camt.056.001.05">
+	<AppHdr>
+		<head:Fr>
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>000000008EK</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:Fr>
+		<head:To>
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>990000001S1</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:To>
+		<head:BizMsgIdr>B2016092300000000HAA6903072</head:BizMsgIdr>
+		<head:MsgDefIdr>camt.056.001.05</head:MsgDefIdr>
+		<head:CreDt>2016-09-23T10:04:59</head:CreDt>
+		<head:Sgntr>
+			<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+				<SignedInfo>
+					<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+					<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+					<Reference URI="">
+						<Transforms>
+							<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+							<Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11"/>
+						</Transforms>
+						<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+						<DigestValue>8EOPhCP7BXusfj1JtApwir0D+JP5eXAZlRsot75FtqU=</DigestValue>
+					</Reference>
+				</SignedInfo>
+				<SignatureValue>mfvc5HEtifWpWeHgh1Wytd5R0po=</SignatureValue>
+				<KeyInfo>
+					<X509Data>
+						<X509SubjectName>CN=rsa0,OU=ips,O=vocalink,L=rickmansworth,ST=Unknown,C=uk</X509SubjectName>
+						<X509IssuerSerial>
+							<X509IssuerName>CN=sign0, OU=ips, O=vocalink, L=rickmansworth, ST=Unknown, C=uk</X509IssuerName>
+							<X509SerialNumber>1328092436</X509SerialNumber>
+						</X509IssuerSerial>
+					</X509Data>
+				</KeyInfo>
+			</Signature>
+		</head:Sgntr>
+	</AppHdr>
+	<ReturnOfFunds>
+		<rt:FIToFIPmtCxlReq>
+			<rt:Assgnmt>
+				<rt:Id>M20160923000000008BFF1290261374</rt:Id>
+				<rt:Assgnr>
+					<rt:Agt>
+						<rt:FinInstnId>
+							<rt:ClrSysMmbId>
+								<rt:MmbId>000000008</rt:MmbId>
+							</rt:ClrSysMmbId>
+						</rt:FinInstnId>
+					</rt:Agt>
+				</rt:Assgnr>
+				<rt:Assgne>
+					<rt:Agt>
+						<rt:FinInstnId>
+							<rt:ClrSysMmbId>
+								<rt:MmbId>000000007</rt:MmbId>
+							</rt:ClrSysMmbId>
+						</rt:FinInstnId>
+					</rt:Agt>
+				</rt:Assgne>
+				<rt:CreDtTm>2016-09-23T14:04:59</rt:CreDtTm>
+			</rt:Assgnmt>
+			<rt:Case>
+				<rt:Id>M20160923000000008BFF1290261374</rt:Id>
+				<rt:Cretr>
+					<rt:Agt>
+						<rt:FinInstnId>
+							<rt:ClrSysMmbId>
+								<rt:MmbId>000000008</rt:MmbId>
+							</rt:ClrSysMmbId>
+						</rt:FinInstnId>
+					</rt:Agt>
+				</rt:Cretr>
+			</rt:Case>
+			<rt:Undrlyg>
+				<rt:OrgnlGrpInfAndCxl>
+					<rt:OrgnlMsgId>M20160923000000008BFF6678161821</rt:OrgnlMsgId>
+					<rt:OrgnlMsgNmId>pacs.008.001.06</rt:OrgnlMsgNmId>
+					<rt:OrgnlCreDtTm>2016-09-23T10:04:59</rt:OrgnlCreDtTm>
+				</rt:OrgnlGrpInfAndCxl>
+				<rt:TxInf>
+					<rt:OrgnlInstrId>20160923000000008BTCH3695882909</rt:OrgnlInstrId>
+					<rt:OrgnlEndToEndId>E2E-Ref001</rt:OrgnlEndToEndId>
+					<rt:OrgnlTxId>20160923000000008BTCH3695882909</rt:OrgnlTxId>
+					<rt:OrgnlClrSysRef>001</rt:OrgnlClrSysRef>
+					<rt:OrgnlIntrBkSttlmAmt Ccy="USD">100.00</rt:OrgnlIntrBkSttlmAmt>
+					<rt:OrgnlIntrBkSttlmDt>2016-09-23</rt:OrgnlIntrBkSttlmDt>
+					<rt:CxlRsnInf>
+						<rt:Rsn>
+							<rt:Cd>DUPL</rt:Cd>
+						</rt:Rsn>
+						<rt:AddtlInf>ERR</rt:AddtlInf>
+					</rt:CxlRsnInf>
+					<rt:OrgnlTxRef/>
+				</rt:TxInf>
+			</rt:Undrlyg>
+		</rt:FIToFIPmtCxlReq>
+	</ReturnOfFunds>
+</Message>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:tch">
+	<AppHdr>
+		<head:Fr xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>000000008EK</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:Fr>
+		<head:To xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+			<head:FIId>
+				<head:FinInstnId>
+					<head:ClrSysMmbId>
+						<head:MmbId>990000001S1</head:MmbId>
+					</head:ClrSysMmbId>
+				</head:FinInstnId>
+			</head:FIId>
+		</head:To>
+		<head:BizMsgIdr xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">B2016092300000000HAA6897119</head:BizMsgIdr>
+		<head:MsgDefIdr xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">pain.013.001.05</head:MsgDefIdr>
+		<head:CreDt xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">2016-09-23T09:21:00</head:CreDt>
+		<Sgntr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+			<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+				<SignedInfo>
+					<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+					<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+					<Reference URI="">
+						<Transforms>
+							<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+							<Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11"/>
+						</Transforms>
+						<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+						<DigestValue>GhFe2uajH45G1GVJpouvlFtdv+OK/5JwgqPH66kziLY=</DigestValue>
+					</Reference>
+				</SignedInfo>
+				<SignatureValue>KvAuQsFHKnF5HY0GlhOuwRkLAfE=</SignatureValue>
+				<KeyInfo>
+					<X509Data>
+						<X509SubjectName>CN=rsa0,OU=ips,O=vocalink,L=rickmansworth,ST=Unknown,C=uk</X509SubjectName>
+						<X509IssuerSerial>
+							<X509IssuerName>CN=sign0, OU=ips, O=vocalink, L=rickmansworth, ST=Unknown, C=uk</X509IssuerName>
+							<X509SerialNumber>1328092436</X509SerialNumber>
+						</X509IssuerSerial>
+					</X509Data>
+				</KeyInfo>
+			</Signature>
+		</Sgntr>
+	</AppHdr>
+	<PaymentRequest>
+		<pr:CdtrPmtActvtnReq xmlns:pr="urn:iso:std:iso:20022:tech:xsd:pain.013.001.07">
+			<pr:GrpHdr>
+				<pr:MsgId>2016092313210000000000EIPQTL0BMS0</pr:MsgId>
+				<pr:CreDtTm>2016-09-23T13:21:00.941</pr:CreDtTm>
+				<pr:NbOfTxs>1</pr:NbOfTxs>
+				<pr:InitgPty>
+					<pr:Id>
+						<pr:OrgId>
+							<pr:Othr>
+								<pr:Id>000000008</pr:Id>
+							</pr:Othr>
+						</pr:OrgId>
+					</pr:Id>
+				</pr:InitgPty>
+			</pr:GrpHdr>
+			<pr:PmtInf>
+				<pr:PmtInfId>PayId</pr:PmtInfId>
+				<pr:PmtMtd>TRF</pr:PmtMtd>
+				<pr:ReqdExctnDt>2016-09-23</pr:ReqdExctnDt>
+				<pr:Dbtr>
+					<pr:Nm>000000007</pr:Nm>
+				</pr:Dbtr>
+				<pr:DbtrAcct>
+					<pr:Id>
+						<pr:Othr>
+							<pr:Id>02123456789012345</pr:Id>
+						</pr:Othr>
+					</pr:Id>
+				</pr:DbtrAcct>
+				<pr:DbtrAgt>
+					<pr:FinInstnId>
+						<pr:ClrSysMmbId>
+							<pr:MmbId>000000007</pr:MmbId>
+						</pr:ClrSysMmbId>
+					</pr:FinInstnId>
+				</pr:DbtrAgt>
+				<pr:CdtTrfTx>
+					<pr:PmtId>
+						<pr:InstrId>20160923000000008BTCH0567700214</pr:InstrId>
+						<pr:EndToEndId>E2E-Ref001</pr:EndToEndId>
+					</pr:PmtId>
+					<pr:PmtTpInf>
+						<pr:SvcLvl>
+							<pr:Cd>SDVA</pr:Cd>
+						</pr:SvcLvl>
+						<pr:LclInstrm>
+							<pr:Prtry>CONSUMER</pr:Prtry>
+						</pr:LclInstrm>
+					</pr:PmtTpInf>
+					<pr:Amt>
+						<pr:InstdAmt Ccy="USD">100.00</pr:InstdAmt>
+					</pr:Amt>
+					<pr:ChrgBr>SLEV</pr:ChrgBr>
+					<pr:CdtrAgt>
+						<pr:FinInstnId>
+							<pr:ClrSysMmbId>
+								<pr:MmbId>000000008</pr:MmbId>
+							</pr:ClrSysMmbId>
+						</pr:FinInstnId>
+					</pr:CdtrAgt>
+					<pr:Cdtr>
+						<pr:Nm>000000008</pr:Nm>
+					</pr:Cdtr>
+					<pr:CdtrAcct>
+						<pr:Id>
+							<pr:Othr>
+								<pr:Id>04123456789012345</pr:Id>
+							</pr:Othr>
+						</pr:Id>
+					</pr:CdtrAcct>
+				</pr:CdtTrfTx>
+			</pr:PmtInf>
+		</pr:CdtrPmtActvtnReq>
+	</PaymentRequest>
+</Message>

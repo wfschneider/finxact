@@ -1,0 +1,70 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/loginActivity.json",
+            "title": "User login activity",
+      "description": "User login activity journal",
+       "x-createDt": "04/17/2018",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "domainId": {
+                    "title": "Domain Id",
+              "description": "Domain unique identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+              "loginId": {
+                    "title": "Login Id",
+              "description": "Unique login within a domain",
+                     "type": "string",
+                "maxLength": 100
+            },
+                  "seq": {
+                    "title": "Login sequence",
+              "description": "Login sequence",
+                     "type": "integer",
+                  "minimum": 0
+            },
+             "eventDtm": {
+                    "title": "Event date",
+              "description": "Login attempted on date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "status": {
+                    "title": "Login status",
+              "description": "Login attempt status",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Success" ],
+                            [1, "Invalid input" ],
+                            [2, "Unmatched biometric" ],
+                            [3, "Expired value" ],
+                            [4, "Suspended login" ]
+                     ]
+            },
+                "logId": {
+                    "title": "Log Id",
+              "description": "Message log id",
+                     "type": "integer",
+                   "format": "tguid"
+            }
+      },
+         "required": ["domainId", "loginId", "seq", "eventDtm", "status", "logId" ],
+    "x-dbInterface": {
+           "primaryKey": ["domainId", "loginId", "seq" ],
+          "foreignKeys": [
+                            {
+                         "name": "loginDomain",
+                   "foreignKey": ["domainId", "loginId" ],
+              "referenceEntity": "login.json",
+                 "referenceKey": ["domainId", "loginId" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+    "journal": false
+  }
+}

@@ -1,0 +1,135 @@
+{
+          "$schema": "http://json-schema.org/draft-01/schema#",
+               "id": "http://finxact.com/product/schemas/bankparamUSBankInfo.json",
+            "title": "Bank parameters - US specific",
+      "description": "FDIC specific bank parameters",
+       "x-createDt": "04/05/2019",
+       "x-createBy": "Adam Schwartz",
+       "x-updateDt": "04/24/2019",
+       "x-updateBy": "Vince Arpa",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Bank parameter identifier",
+              "description": "Unique bank identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+                 "fdic": {
+                    "title": "FDIC370 related fields",
+              "description": "Information related to the FDIC370 regulation",
+                     "type": "object",
+               "properties": {
+                 "maxDepInsAmt": {
+                            "title": "Maximum deposit insurance amount",
+                      "description": "Maximum deposit insurance amount in system base currency",
+                             "type": "number",
+                           "format": "currency"
+                        },
+                  "signDocType": {
+                            "title": "Signature Card Doc Type for FDIC",
+                      "description": "The document type for signature cards",
+                             "type": "integer",
+                          "choices": [
+                                    [1, "Terms and conditions" ],
+                                    [2, "Electronic statement consent" ]
+                               ],
+                          "default": 1,
+                          "minimum": 0,
+                          "maximum": 255
+                        },
+               "deathCovrgTerm": {
+                            "title": "Post Death Term Coverage",
+                      "description": "Term after death a customer is no longer covered",
+                             "type": "string",
+                           "format": "duration"
+                        },
+                     "authRole": {
+                            "title": "Authorized roles",
+                      "description": "Roles permitted to perform create/update/delete actions during bank closure",
+                             "type": "array",
+                         "minItems": 1,
+                            "items": {
+                                 "type": "object",
+                                "title": "Authorized Role",
+                           "properties": {
+                                     "role": {
+                                        "title": "Authorized role",
+                                  "description": "Role authorized to create/update/delete",
+                                         "type": "string"
+                                          }
+                                    }
+                              },
+                    "x-dbInterface": {
+                          "foreignKeys": [
+                                            {
+                                         "name": "authRole",
+                                   "foreignKey": ["role" ],
+                              "referenceEntity": "role.json",
+                                 "referenceKey": ["userRole" ]
+                                            }
+                                ]
+                              }
+                        },
+                    "inputPath": {
+                            "title": "Input path",
+                      "description": "Input location for exports and reports for bank closure process",
+                             "type": "string",
+                           "format": "uri"
+                        },
+                   "outputPath": {
+                            "title": "Output path",
+                      "description": "Output location for exports and reports for bank closure process",
+                             "type": "string",
+                           "format": "uri"
+                        },
+                 "restrictCode": {
+                            "title": "Restriction Code",
+                             "desc": "Code to apply to all accounts in event of an FDIC bank closure",
+                             "type": "string"
+                        },
+             "uninsuredTrnCode": {
+                            "title": "Uninsured transaction code",
+                             "desc": "Transaction code used to write off uninsured amounts",
+                             "type": "string"
+                        }
+                  },
+            "x-dbInterface": {
+                    "serialize": [
+                                    {
+                                 "name": "authRole",
+                               "format": "json"
+                                    }
+                        ],
+                  "foreignKeys": [
+                                    {
+                                 "name": "trnCode",
+                           "foreignKey": ["uninsuredTrnCode" ],
+                      "referenceEntity": "trnCode.json",
+                         "referenceKey": ["trnCode" ]
+                                    },
+                                    {
+                                 "name": "restrictCode",
+                           "foreignKey": ["restrictCode" ],
+                      "referenceEntity": "exceptRule.json",
+                         "referenceKey": ["code" ]
+                                    }
+                      ]
+                  },
+                 "required": ["authRole" ]
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+      "extends": "bankparam.json",
+            "serialize": [
+                            {
+                         "name": "fdic",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

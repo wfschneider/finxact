@@ -1,0 +1,51 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/eventSched.json",
+            "title": "Event schedule",
+      "description": "Provides a calendar and/or timeline of things",
+       "x-createDt": "10/12/2017",
+       "x-createBy": "Dylan Phillips",
+       "x-updateDt": "08/20/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "schedDtm": {
+                    "title": "Event date",
+              "description": "Event schedule datetime, determined when the event should occur",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                 "name": {
+                    "title": "Event name",
+              "description": "The event name",
+                     "type": "string",
+                "maxLength": 20
+            },
+          "isScheduled": {
+                    "title": "Event scheduled",
+              "description": "Flag determines whether the event has been scheduled",
+                     "type": "boolean"
+            },
+            "eventType": {
+                    "title": "Event type",
+              "description": "The event type",
+                     "type": "string",
+                "maxLength": 20
+            },
+           "handledDtm": {
+                    "title": "Handled on",
+              "description": "The event was handled on",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "cancelDtm": {
+                    "title": "Event cancelled date",
+              "description": "If cancelled, the datetime the event was cancelled",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

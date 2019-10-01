@@ -1,0 +1,37 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/pmtDueStatus.json",
+            "title": "Payment due status",
+      "description": "Loan payment due status",
+       "x-createDt": "05/30/2019",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "",
+       "x-updateBy": "",
+             "type": "object",
+       "properties": {
+               "status": {
+                    "title": "Payment due status",
+              "description": "Valid loan payment due status options",
+                     "type": "string",
+                  "choices": [
+                            ["Priority", "Payment with priority due status" ],
+                            ["Past", "One or more payments is past due" ],
+                            ["Current", "No payments are past due" ]
+                     ]
+            },
+       "statusPriority": {
+                    "title": "Status priority",
+              "description": "Priority order of the payment due status, lowest value is highest priority",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+            }
+      },
+         "required": ["status", "statusPriority" ],
+    "x-dbInterface": {
+           "primaryKey": ["status" ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

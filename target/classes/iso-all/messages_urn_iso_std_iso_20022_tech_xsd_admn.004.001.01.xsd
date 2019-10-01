@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:rf="urn:iso:std:iso:20022:tech:xsd:admn.004.001.01"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:iso:std:iso:20022:tech:xsd:admn.004.001.01"
+    elementFormDefault="qualified">
+  <xs:complexType name="BranchAndFinancialInstitutionIdentification4ADMN">
+    <xs:sequence>
+      <xs:element name="FinInstnId" type="rf:FinancialInstitutionIdentification7ADMN"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClearingSystemMemberIdentification2ADMN">
+    <xs:sequence>
+      <xs:element name="MmbId" type="rf:Min11Max11Text"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Document">
+    <xs:sequence>
+      <xs:element name="AdmnSignOffResp" type="rf:SignOffResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Document_TCH">
+    <xs:sequence>
+      <xs:element name="AdmnSignOffResp" type="rf:SignOffResponse_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FinancialInstitutionIdentification7ADMN">
+    <xs:sequence>
+      <xs:element name="ClrSysMmbId" type="rf:ClearingSystemMemberIdentification2ADMN"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GrpHdr">
+    <xs:sequence>
+      <xs:element name="MsgId" type="rf:Max35Text"/>
+      <xs:element name="CreDtTm" type="rf:ISODateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ISODateTime">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+  <xs:simpleType name="Max35Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Min11Max11Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="11"/>
+      <xs:maxLength value="11"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProprietaryReasonCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1100"/>
+      <xs:enumeration value="9909"/>
+      <xs:enumeration value="9910"/>
+      <xs:enumeration value="9912"/>
+      <xs:enumeration value="9934"/>
+      <xs:enumeration value="9946"/>
+      <xs:enumeration value="9947"/>
+      <xs:enumeration value="9948"/>
+      <xs:enumeration value="9952"/>
+      <xs:enumeration value="9953"/>
+      <xs:enumeration value="9956"/>
+      <xs:enumeration value="9957"/>
+      <xs:enumeration value="9964"/>
+      <xs:enumeration value="AG03"/>
+      <xs:enumeration value="DS0H"/>
+      <xs:enumeration value="NOAT"/>
+      <xs:enumeration value="RC01"/>
+      <xs:enumeration value="RC02"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProprietaryReasonCode_TCH">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="9946"/>
+      <xs:enumeration value="9948"/>
+      <xs:enumeration value="9964"/>
+      <xs:enumeration value="DS0H"/>
+      <xs:enumeration value="RC02"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SignOffResp">
+    <xs:sequence>
+      <xs:element name="OrgnlInstrId" type="rf:Max35Text"/>
+      <xs:element name="InstgAgt" type="rf:BranchAndFinancialInstitutionIdentification4ADMN"/>
+      <xs:element name="InstdAgt" type="rf:BranchAndFinancialInstitutionIdentification4ADMN"/>
+      <xs:element name="Sts" type="rf:TransactionGroupStatus3Code_Admin"/>
+      <xs:element name="StsRsnInf" type="rf:StatusReasonInformation8" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SignOffResponse">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GrpHdr" type="rf:GrpHdr"/>
+      <xs:element name="SignOffResp" type="rf:SignOffResp"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SignOffResponse_TCH">
+    <xs:annotation>
+      <xs:documentation source="ChangeDate">01/2019</xs:documentation>
+      <xs:documentation source="ChangeUser">VocaLink</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GrpHdr" type="rf:GrpHdr"/>
+      <xs:element name="SignOffResp" type="rf:SignOffResp_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SignOffResp_TCH">
+    <xs:sequence>
+      <xs:element name="OrgnlInstrId" type="rf:Max35Text"/>
+      <xs:element name="InstgAgt" type="rf:BranchAndFinancialInstitutionIdentification4ADMN"/>
+      <xs:element name="InstdAgt" type="rf:BranchAndFinancialInstitutionIdentification4ADMN"/>
+      <xs:element name="Sts" type="rf:TransactionGroupStatus3Code_Admin"/>
+      <xs:element name="StsRsnInf" type="rf:StatusReasonInformation8_TCH" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatusReason6Choice">
+    <xs:choice>
+      <xs:element name="Prtry" type="rf:ProprietaryReasonCode"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="StatusReason6Choice_TCH">
+    <xs:choice>
+      <xs:element name="Prtry" type="rf:ProprietaryReasonCode_TCH"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="StatusReasonInformation8">
+    <xs:sequence>
+      <xs:element name="Rsn" type="rf:StatusReason6Choice" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatusReasonInformation8_TCH">
+    <xs:sequence>
+      <xs:element name="Rsn" type="rf:StatusReason6Choice_TCH"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TransactionGroupStatus3Code_Admin">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACTC"/>
+      <xs:enumeration value="RJCT"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

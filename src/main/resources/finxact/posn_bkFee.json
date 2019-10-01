@@ -1,0 +1,111 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_bkFee.json",
+            "title": "Service fee attributes",
+      "description": "Calculation and amounts collected for service fees",
+       "x-createDt": "09/08/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "05/24/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+        "componentName": {
+                    "title": "Fee component name",
+              "description": "Fee component used by the position",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "version": {
+                    "title": "Fee component version",
+              "description": "Version of fee component used by the position",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+          "svcChrgFreq": {
+                    "title": "Periodic service charge frequency",
+              "description": "Defines the service charge period and posting date for cycled and accumulated fees",
+                     "type": "string",
+                   "format": "frequency"
+            },
+          "collectFrom": {
+                    "title": "Fee collection account",
+              "description": "Account from which to collect fees",
+                     "type": "object",
+                     "$ref": "order.json"
+            },
+             "earnings": {
+                    "title": "Current earnings",
+              "description": "Current earnings available to offset fees assessed",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "sumForfeited": {
+                    "title": "Earnings forfeited",
+              "description": "Sum of unused earnings forfeited",
+                     "type": "number",
+                   "format": "currency"
+            },
+  "anticipatedLateChrg": {
+                    "title": "Anticipated late charge",
+              "description": "Anticipated late charge upon expiration of grace period",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "feeDtl": {
+                    "title": "Fees details",
+              "description": "Fees details for each fee linked to the position",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "object",
+                   "properties": {
+                        "assessCnt": {
+                                "title": "Count fees assessed",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 65535
+                              },
+                        "assessAmt": {
+                                "title": "Sum fees assessed",
+                                 "type": "number",
+                               "format": "currency"
+                              },
+                    "nextAssessDtm": {
+                                "title": "Next assessment date-time",
+                          "description": "Next assessment date-time for frequency based fee",
+                                 "type": "string",
+                               "format": "date-time"
+                              },
+                           "sumFee": {
+                                "title": "Sum fees collected",
+                                 "type": "number",
+                               "format": "currency"
+                              },
+                           "cntFee": {
+                                "title": "Count fees collected",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 65535
+                              },
+                        "waivedAmt": {
+                                "title": "Sum fees waived",
+                                 "type": "number",
+                               "format": "currency"
+                              },
+                        "waivedCnt": {
+                                "title": "Count fees waived",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 65535
+                              }
+                        }
+                  }
+            }
+      }
+}

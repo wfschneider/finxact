@@ -1,0 +1,77 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/realEstateInfo.json",
+            "title": "Real estate information",
+      "description": "Real estate identification information",
+       "x-createDt": "06/18/2019",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "06/18/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+             "titleNbr": {
+                    "title": "Title number",
+              "description": "Evidence of title",
+                     "type": "string"
+            },
+         "titleExpDate": {
+                    "title": "Title expiration date",
+              "description": "Expiration date of the title",
+                     "type": "string",
+                   "format": "date"
+            },
+       "possessionDate": {
+                    "title": "Possession date",
+              "description": "Possession date of the property",
+                     "type": "string",
+                   "format": "date"
+            },
+             "nbrUnits": {
+                    "title": "Number of units",
+              "description": "Number of units",
+                     "type": "integer"
+            },
+          "pctOccupied": {
+                    "title": "Percent occupied",
+              "description": "occupancy percentage of the property",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "decimal": 5
+            },
+            "occupancy": {
+                    "title": "Occupancy type",
+              "description": "Type of property occupancy",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Primary residence" ],
+                            [2, "Second home" ],
+                            [3, "Investment property" ],
+                            [4, "FHA secondary residence" ],
+                            [254, "Other" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "mixedUse": {
+                    "title": "Mixed use property",
+              "description": "Space set aside within the property to operate a business",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Multi-family and retail" ],
+                            [2, "Multi-family and office" ],
+                            [3, "Retail and office" ],
+                            [254, "Other" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+              "mfdHome": {
+                    "title": "manufactured home",
+              "description": "Is the property a manufactured/mobile home? (e.g., a factory built dwelling built on a permanent chassis)",
+                     "type": "boolean",
+                  "default": false
+            }
+      }
+}

@@ -1,0 +1,62 @@
+{
+  "createDtm": 1474636545000,
+  "verifyDtm": 1568296022551,
+  "procDtm": 1474603200000,
+  "orderAmt": 100.0,
+  "beneNetAmt": 100.0,
+  "originator": {
+    "finInst": {
+      "finInstAba": "000000008",
+      "finInstBic": "000000008EK"
+    },
+    "acctNbr": "02123456789012345",
+    "ref": "MYREF123",
+    "name": "000000008",
+    "addrs": [],
+    "emails": [],
+    "phones": []
+  },
+  "notify": [],
+  "intermedFi": {
+    "finInstBic": "990000001S1"
+  },
+  "counterParty": {
+    "finInst": {
+      "finInstAba": "000000007"
+    },
+    "acctNbr": "04123456789012345",
+    "name": "000000007",
+    "addrs": [],
+    "emails": [],
+    "phones": []
+  },
+  "attachments": [],
+  "threadId": "20160923000000008BTCH8188378539",
+  "ClrSysRef": "001",
+  "SttlmMtd": "CLRG",
+  "RmtInfStrdDt": "ReferType",
+  "orderBizIdr": "B2016092300000000HAA6896438",
+  "msgId": "2016092313154500000000EIPQOD1IOC0",
+  "counterPartyBirthDt": "counterPartyBirthDt1976-02-14",
+  "NbOfTxs": "1",
+  "SvcLvl": "SDVA",
+  "customerType": null,
+  "ToBrnchId": "Test Branch Id - Tonull",
+  "originatorCityOfBirth": "originatorCityOfBirthNY",
+  "originatorBirthDt": "originatorBirthDt1980-12-06",
+  "RmtInfUstrd": "RmtInfUstrdnull",
+  "InstrId": "20160923000000008BTCH8188378539",
+  "orderInstrm": "SLEV",
+  "originatorCtryOfBirth": "originatorCtryOfBirthUS",
+  "orderDefnIdr": "pacs.008.001.08",
+  "InstrForCdtrAgtCd": "InstrForCdtrAgtCd",
+  "counterPartyCtryOfBirth": "counterPartyCtryOfBirthRO",
+  "InstrForCdtrAgtInstrInf": "InstrForCdtrAgtInstrInf",
+  "RmtInfStrdNo": "RmtInfStrdNonull",
+  "ReferDscntApldAmt": "0",
+  "orderCpyDplct": "Test-orderCpyDplct",
+  "counterPartyCityOfBirth": "counterPartyCityOfBirthGL",
+  "FromBrnchId": "Test Branch Id - Fromnull",
+  "originatorBankId": "originatorBankIdnull",
+  "ClrSys": "TCH"
+}

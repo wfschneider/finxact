@@ -1,0 +1,95 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/sweepRel.json",
+            "title": "Sweep position relationship",
+      "description": "Defines relationship between positions and a sweep",
+       "x-createDt": "09/7/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "09/10/2018",
+       "x-updateBy": "Vince Arpa",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Primary position",
+              "description": "Position that initiates sweep action",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "sweepType": {
+                    "title": "Sweep type",
+              "description": "Sweep type",
+                     "type": "string",
+                "maxLength": 20
+            },
+            "sweepName": {
+                    "title": "Customer sweep description",
+              "description": "Customer sweep description",
+                     "type": "string"
+            },
+        "secondaryPosn": {
+                    "title": "Secondary position",
+              "description": "Position that exchanges funds with primary position",
+                     "type": "array",
+                    "items": {
+                        "title": "Secondary Position Information",
+                         "type": "object",
+                   "properties": {
+                           "posnId": {
+                                "title": "Secondary position",
+                          "description": "Secondary position",
+                                 "type": "string",
+                               "format": "tguid"
+                              },
+                         "posnName": {
+                                "title": "Secondary sweep position name",
+                          "description": "Name assigned to position by customer",
+                                 "type": "string"
+                              },
+                         "priority": {
+                                "title": "Priority",
+                          "description": "Secondary position sweep priority",
+                                 "type": "integer",
+                              "minimum": 0,
+                              "maximum": 255
+                              }
+                        },
+                "x-dbInterface": {
+                      "foreignKeys": [
+                                        {
+                                     "name": "secondaryPosn",
+                               "foreignKey": ["posnId" ],
+                          "referenceEntity": "posn.json",
+                             "referenceKey": ["_Id" ]
+                                        }
+                           ]
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "sweepType",
+                   "foreignKey": ["sweepType" ],
+              "referenceEntity": "sweep.json",
+                 "referenceKey": ["name" ]
+                            },
+                            {
+                         "name": "posn",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+            "serialize": [
+                            {
+                         "name": "secondaryPosn",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

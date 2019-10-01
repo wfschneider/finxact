@@ -1,0 +1,90 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/acctType.json",
+            "title": "Account type",
+      "description": "Account type",
+       "x-createDt": "03/05/2019",
+       "x-createBy": "Deborah Kovacs",
+       "x-updateDt": "06/18/2019",
+       "x-updateBy": "Ken Rohlfing",
+             "type": "object",
+       "properties": {
+             "acctType": {
+                    "title": "Account type",
+              "description": "Name of the account type",
+                     "type": "string",
+                "maxLength": 30
+            },
+                 "desc": {
+                    "title": "Account type description",
+              "description": "Description of account type",
+                     "type": "string"
+            },
+                 "rels": {
+                    "title": "Account type relationships",
+              "description": "Describes relationship types valid for the account type",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                          "relType": {
+                                "title": "Relationship type",
+                          "description": "Type of relationship between party and account",
+                                 "type": "string",
+                              "choices": [
+                                            {
+                                         "$ref": "_choices/relType.choices"
+                                            }
+                                    ]
+                              },
+                          "reldesc": {
+                                "title": "Description",
+                          "description": "Text describing party's relationship to account",
+                                 "type": "string"
+                              },
+                       "minParties": {
+                                "title": "Minimum parties",
+                          "description": "Minimum parties required for relationship type",
+                                 "type": "integer",
+                              "minimum": 0
+                              },
+                       "maxParties": {
+                                "title": "Maximum parties",
+                          "description": "Maximum parties required for relationship type",
+                                 "type": "integer",
+                              "minimum": 0
+                              },
+                            "limit": {
+                                "title": "Limit component",
+                          "description": "Default limits for this relationship type",
+                                 "type": "array",
+                                "items": {
+                                     "type": "object",
+                                     "$ref": "componentLimit.json"
+                                    }
+                              }
+                        }
+                  }
+            },
+            "cardLimit": {
+                    "title": "Card Limit",
+              "description": "Limits the number of active cards an account may have",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+            }
+      },
+         "required": ["acctType" ],
+    "x-dbInterface": {
+           "primaryKey": ["acctType" ],
+            "serialize": [
+                            {
+                         "name": "rels",
+                       "format": "json"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

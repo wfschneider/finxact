@@ -1,0 +1,87 @@
+{
+  "createDtm": 1474636545000,
+  "procDtm": 1474603200000,
+  "orderAmt": 100.0,
+  "orderInfo": "20160923000000008BTCH8188378539",
+  "beneNetAmt": 100.0,
+  "originator": {
+    "finInst": {
+      "finInstAba": "000000008"
+    },
+    "acctNbr": "02123456789012345",
+    "ref": "MYREF123",
+    "_Id": "000000008",
+    "name": "000000008",
+    "addrs": [],
+    "emails": [],
+    "phones": [],
+    "extRef": {
+      "CityOfBirth": {
+        "name": "BDNY"
+      },
+      "CtryOfBirth": {
+        "name": "BDUS"
+      },
+      "BirthDt": {
+        "name": "BD1980-12-06"
+      }
+    }
+  },
+  "notify": [],
+  "intermedFi": {
+    "finInstBic": "990000001S1"
+  },
+  "counterParty": {
+    "finInst": {
+      "finInstAba": "000000007"
+    },
+    "acctNbr": "04123456789012345",
+    "_Id": "000000007",
+    "name": "000000007",
+    "addrs": [],
+    "emails": [],
+    "phones": [],
+    "extRef": {
+      "RmtInfStrdDt": {
+        "name": "ReferType"
+      },
+      "CityOfBirth": {
+        "name": "BDGL"
+      },
+      "InstrForCdtrAgtCd": {
+        "name": "CD"
+      },
+      "RmtInfStrdNo": {
+        "name": "RemtStrnull"
+      },
+      "ReferDscntApldAmt": {
+        "name": "0"
+      },
+      "CtryOfBirth": {
+        "name": "BDRO"
+      },
+      "BirthDt": {
+        "name": "BD1976-02-14"
+      },
+      "RmtInfUstrd": {
+        "name": "RemtUnStrnull"
+      },
+      "InstrForCdtrAgtInstrInf": {
+        "name": "InstrInf"
+      }
+    }
+  },
+  "attachments": [],
+  "trnId": "20160923000000008BTCH8188378539",
+  "threadId": "2016092313154500000000EIPQOD1IOC0",
+  "ClrSysRef": "001",
+  "SttlmMtd": "CLRG",
+  "orderInstrm": "SLEV",
+  "orderBizIdr": "B2016092300000000HAA6896438",
+  "orderDefnIdr": null,
+  "orderCpyDplct": "Test-orderCpyDplct",
+  "NbOfTxs": "1",
+  "SvcLvl": "SDVA",
+  "ClrSys": "TCH"
+}
+

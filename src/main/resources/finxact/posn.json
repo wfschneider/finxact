@@ -1,0 +1,129 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn.json",
+            "title": "Position",
+      "description": "Quantity of value of an item within an account",
+       "x-createDt": "03/11/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "08/21/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "acctGroup": {
+                    "title": "Account Group",
+              "description": "Account Group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+          "posnAcctNbr": {
+                    "title": "Position Account Number",
+              "description": "The unique position identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+              "acctNbr": {
+                    "title": "Account number",
+              "description": "The unique account identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+                  "bal": {
+                    "title": "Position balance",
+              "description": "Current balance or quantity of the position",
+                     "type": "number",
+                   "format": "currency"
+            },
+             "posnName": {
+                    "title": "Position name",
+              "description": "Unique position name within an account",
+                     "type": "string",
+                "maxLength": 40
+            },
+           "tmZoneCode": {
+                    "title": "Position time zone code",
+              "description": "Time zone assigned to position for daily processing window",
+                     "type": "string",
+                "maxLength": 64
+            },
+              "posnNbr": {
+                    "title": "Position sequence number",
+              "description": "Unique position identifier within an account",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+            },
+           "assetClass": {
+                    "title": "Asset class identifier",
+              "description": "The asset class of the position",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Cash ISO 4217" ],
+                            [2, "ISIN ISO 6166" ]
+                     ],
+                  "minimum": 0,
+                  "maximim": 255,
+                  "default": 1
+            },
+              "assetId": {
+                    "title": "Asset identifier",
+              "description": "Asset identifier within the asset class",
+                     "type": "string",
+                "maxLength": 12
+            },
+       "nextPosnCalDtm": {
+                    "title": "Next Position Calendar Event",
+              "description": "Datetime of the next position calendar event for this position",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+         "required": ["acctNbr", "acctGroup", "bal", "posnAcctNbr", "tmZoneCode" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "indexes": [
+                            {
+                         "name": "acctGroupPosnAcctNbr",
+                     "indexKey": ["acctGroup", "posnAcctNbr" ],
+                     "isUnique": true
+                            },
+                            {
+                         "name": "acctGroupAcctNbr",
+                     "indexKey": ["acctGroup", "acctNbr" ]
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "acctGroupAcctNbr",
+                   "foreignKey": ["acctGroup", "acctNbr" ],
+              "referenceEntity": "acct.json",
+                 "referenceKey": ["acctGroup", "acctNbr" ]
+                            },
+                            {
+                         "name": "tmZoneCode",
+                   "foreignKey": ["tmZoneCode" ],
+              "referenceEntity": "tmZone.json",
+                 "referenceKey": ["tmZoneCode" ]
+                            }
+            ],
+             "temporal": {
+              "elementName": "posnHist",
+                   "option": 4,
+           "baseProperties": ["bal" ],
+            "contextValues": [
+                                {
+                              "key": "trnEntry",
+                  "referenceEntity": "trn.json",
+                     "referenceKey": "entries",
+                         "required": true
+                                }
+               ]
+            }
+      }
+}

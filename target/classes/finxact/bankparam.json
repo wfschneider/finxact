@@ -1,0 +1,251 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/bankParam.json",
+            "title": "Bank parameter",
+      "description": "Information about the bank and its preferences for processing accounts and transactions",
+       "x-createDt": "01/05/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Bank demographic information",
+              "description": "Information about the bank",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "calendar": {
+                    "title": "Financial institution calendar",
+              "description": "Business calendar associated with the financial institution",
+                     "type": "string",
+                "maxLength": 30
+            },
+              "ccyCode": {
+                    "title": "Bank base currency",
+              "description": "Currency code ISO 4217",
+                     "type": "string",
+                "minLength": 3,
+                "maxLength": 3,
+                  "default": "USD"
+            },
+         "dfltNraWthRt": {
+                    "title": "NRA withholding rate",
+              "description": "Withholding rate applied to interest income of Non-Resident Aliens subject to backup withholding, if there is no rate by treaty with the Non-Resident Aliens Country of Citizenship",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "decimal": 5
+            },
+             "fedWthRt": {
+                    "title": "Federal withholding rate",
+              "description": "Withholding rate applied to interest income for individuals and organizations subject to Federal backup withholding",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "decimal": 5
+            },
+         "largeOdLimit": {
+                    "title": "Large overdraft limit",
+              "description": "Large overdraft limit used to determine repeat overdrafter status",
+                     "type": "number",
+                   "format": "currency"
+            },
+     "repeatODDuration": {
+                    "title": "Repeat overdrafter duration",
+              "description": "Rolling duration used to determine whether the customer has become a repeat overdrafter",
+                     "type": "string",
+                   "format": "duration"
+            },
+                 "logo": {
+                    "title": "Logo",
+              "description": "Default logo on check",
+                     "type": "string",
+                   "format": "uri",
+                "maxLength": 60
+            },
+            "chkBottom": {
+                    "title": "Check bottom",
+              "description": "Default text for bottom of check",
+                     "type": "string",
+                   "format": "uri",
+                "maxLength": 60
+            },
+           "maxExtAcct": {
+                    "title": "Maximum external transaction accounts",
+              "descritpion": "Maximum number of active external transaction accounts allowed for a party",
+                     "type": "integer"
+            },
+           "pageTrnCnt": {
+                    "title": "Maximum page transactions",
+              "description": "Maximum transactions on a page",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+           "tmZoneCode": {
+                    "title": "Bank institution time zone",
+              "description": "Default time zone assigned to the banking institution",
+                     "type": "string",
+                "maxLength": 64
+            },
+             "userRole": {
+                    "title": "Authorization role",
+              "description": "Authorization role for automatically authorizing system overrides (i.e., violationAct, deminimis)",
+                     "type": "string",
+                "maxLength": 20
+            },
+            "lnPenRate": {
+                    "title": "Loan penalty rate",
+              "description": "Penalty interest accrual rate used to accrue late charge when loan is past due",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "#/definitions/rateDtl"
+                                }
+                       ]
+            },
+   "isGlExtractSummary": {
+                    "title": "GL extract summary indicator",
+              "description": "A flag that determines if all GL transactions in the GL extract are at the GL summary level.  If set to false, summary determination is based on transaction code",
+                     "type": "boolean"
+            },
+     "glExtractFileFmt": {
+                    "title": "Gl Extract File Formats",
+              "description": "Formatting records for daily GL extracts",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                          "fmtName": {
+                                "title": "Gl extract format name",
+                          "description": "Gl extact file format name",
+                                 "type": "string",
+                            "maxLength": 30
+                              }
+                        }
+                  },
+            "x-dbInterface": {
+                  "foreignKeys": [
+                                    {
+                                 "name": "fileFmt",
+                           "foreignKey": ["fmtName" ],
+                      "referenceEntity": "fileFmt.json",
+                         "referenceKey": ["fmtName" ]
+                                    }
+                      ]
+                  }
+            },
+          "baseSavRate": {
+                    "title": "Base Savings Rate",
+              "description": "Matrix that defines the interest accrual rate used as default if nothing is defined on product",
+                     "type": "object",
+                    "allOf": [
+                                {
+                             "$ref": "#/definitions/rateDtl"
+                                }
+                       ]
+            }
+      },
+      "definitions": {
+              "rateDtl": {
+                    "title": "Rate parameters",
+              "description": "Interest rate determination parameters",
+                     "type": "object",
+               "properties": {
+                    "indexName": {
+                            "title": "Index name",
+                      "description": "Index matrix name",
+                             "type": "string"
+                        },
+                      "minRate": {
+                            "title": "Minimum rate",
+                      "description": "Minimum nominal rate floor",
+                             "type": "number",
+                           "format": "rate",
+                          "minimum": 0,
+                          "maximum": 100,
+                          "decimal": 5
+                        },
+                      "maxRate": {
+                            "title": "Maximum rate",
+                      "description": "Maximum nominal rate ceiling",
+                             "type": "number",
+                           "format": "rate",
+                          "minimum": 0,
+                          "maximum": 100,
+                       "multipleOf": 0.00001
+                        },
+                       "offSet": {
+                            "title": "Rate offset",
+                      "description": "Rate offset expression [+|- value]",
+                             "type": "string"
+                        },
+                        "round": {
+                            "title": "Rounding expression",
+                      "description": "Rate rounding expression [U|D fraction|decimal]",
+                             "type": "string"
+                        }
+                  }
+            }
+      },
+         "required": ["tmZoneCode" ],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+           "hasExtents": true,
+            "serialize": [
+                            {
+                         "name": "baseSavRate",
+                       "format": "json"
+                            },
+                            {
+                         "name": "lnPenRate",
+                       "format": "json"
+                            },
+                            {
+                         "name": "glExtractFileFmt",
+                       "format": "json"
+                            }
+              ],
+          "foreignKeys": [
+                            {
+                         "name": "calendar",
+                   "foreignKey": ["calendar" ],
+              "referenceEntity": "calendar.json",
+                 "referenceKey": ["calendarName" ]
+                            },
+                            {
+                         "name": "_Id",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "party_org_fininst.json",
+                 "referenceKey": ["_Id" ]
+                            },
+                            {
+                         "name": "tmZoneCode",
+                   "foreignKey": ["tmZoneCode" ],
+              "referenceEntity": "tmZone.json",
+                 "referenceKey": ["tmZoneCode" ]
+                            },
+                            {
+                         "name": "ccyCode",
+                   "foreignKey": ["ccyCode" ],
+              "referenceEntity": "ccyCode.json",
+                 "referenceKey": ["ccyCode" ]
+                            },
+                            {
+                         "name": "userRole",
+                   "foreignKey": ["userRole" ],
+              "referenceEntity": "role.json",
+                 "referenceKey": ["userRole" ]
+                            }
+            ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

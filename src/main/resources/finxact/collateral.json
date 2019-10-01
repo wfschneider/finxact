@@ -1,0 +1,264 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/collateral.json",
+            "title": "Collateral",
+      "description": "Collateral record information",
+       "x-createDt": "09/20/2018",
+       "x-createBy": "Gaurav Agrawal",
+       "x-updateDt": "06/19/2019",
+       "x-updateBy": "Gaurav Agrawal",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Identifier",
+              "description": "Unique collateral identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "owners": {
+                    "title": "Collateral owners",
+              "description": "Collateral owners information",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/ownership"
+                  }
+            },
+       "collateralDesc": {
+                    "title": "Description",
+              "description": "Collateral description",
+                     "type": "string"
+            },
+              "entries": {
+                    "title": "Collateral entries",
+              "description": "Entries of collateral with detailed information",
+                     "type": "array",
+                 "minItems": 1,
+                    "items": {
+                         "type": "object",
+                         "$ref": "collateralEntry.json",
+                "x-dbInterface": {
+                        "serialize": [
+                                        {
+                                     "name": "addr",
+                                   "format": "json"
+                                        },
+                                        {
+                                     "name": "insurance",
+                                   "format": "json"
+                                        },
+                                        {
+                                     "name": "vehicleInfo",
+                                   "format": "json"
+                                        },
+                                        {
+                                     "name": "vesselInfo",
+                                   "format": "json"
+                                        },
+                                        {
+                                     "name": "pledgedAcctInfo",
+                                   "format": "json"
+                                        },
+                                        {
+                                     "name": "realEstateInfo",
+                                   "format": "json"
+                                        },
+                                        {
+                                     "name": "otherDtls",
+                                   "format": "json"
+                                        }
+                             ]
+                        }
+                  }
+            },
+           "reviewFreq": {
+                    "title": "Review frequency",
+              "description": "Valuation review frequency",
+                     "type": "string",
+                   "format": "frequency"
+            },
+        "nextReviewDtm": {
+                    "title": "Next valuation review",
+              "description": "Next valuation review datetime",
+                     "type": "string",
+                   "format": "date-time"
+            },
+        "lastReviewDtm": {
+                    "title": "Last valuation review",
+              "description": "Last valuation review datetime",
+                     "type": "string",
+                   "format": "date-time"
+            },
+              "extLien": {
+                    "title": "External lien",
+              "description": "External lien information",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                         "$ref": "#/definitions/extLien"
+                  },
+                 "minItems": 0
+            },
+              "ccyCode": {
+                    "title": "Currency code",
+              "description": "Currency code ISO 4217",
+                     "type": "string",
+                "minLength": 3,
+                "maxLength": 3,
+                  "default": "USD"
+            },
+              "aggCurrVal": {
+                    "title": "Current value aggregate",
+              "description": "Aggregate current value of all collateral entries",
+                     "type": "number",
+                   "format": "currency"
+            },
+         "aggMaxPledgeAmt": {
+                    "title": "Maximum pledged amount aggregate",
+              "description": "Aggregate maximum available pledged amount of all collateral entries",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "aggNetOperInc": {
+                    "title": "Net operating income aggregate",
+              "description": "Aggregate net operating income of all collateral entries",
+                     "type": "number",
+                   "format": "currency"
+            },
+        "totPledgedAmt": {
+                    "title": "Total pledged amount",
+              "description": "Amount pledged towards all loan positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+      "availPledgedAmt": {
+                    "title": "Available pledged amount",
+              "description": "Amount available to be pledged towards new loan positions",
+                     "type": "number",
+                   "format": "currency"
+            },
+     "debtSvcCvgeRatio": {
+                    "title": "Debt service coverage ratio",
+              "description": "Debt service coverage ratio based on all loans secured by collateral",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "decimal": 5
+            }
+      },
+      "definitions": {
+            "ownership": {
+                    "title": "Collateral ownership",
+              "description": "Collateral ownership information",
+                     "type": "object",
+               "properties": {
+                      "partyId": {
+                            "title": "Party Id",
+                      "description": "Party within group",
+                             "type": "string",
+                           "format": "tguid"
+                        },
+                    "isPrimary": {
+                            "title": "Is primary",
+                      "description": "The party is a primary owner of the collateral",
+                             "type": "boolean"
+                        }
+                  },
+            "x-dbInterface": {
+                     "required": ["partyId" ],
+                  "foreignKeys": [
+                                    {
+                                 "name": "partyId",
+                           "foreignKey": ["partyId" ],
+                      "referenceEntity": "party.json",
+                         "referenceKey": ["_Id" ]
+                                    }
+                      ]
+                  }
+            },
+              "extLien": {
+                    "title": "External lien",
+              "description": "External lien information",
+                     "type": "object",
+               "properties": {
+                      "lienPos": {
+                            "title": "Lien position",
+                      "description": "Lien position at external institution",
+                             "type": "integer"
+                        },
+                       "lienFi": {
+                            "title": "Financial institution",
+                      "description": "Lien Financial institution",
+                             "type": "object",
+                             "$ref": "party_org_fininst.json"
+                        },
+                      "acctNbr": {
+                            "title": "Loan account number",
+                      "description": "Account number at external institution",
+                             "type": "string"
+                        },
+                      "crLimit": {
+                            "title": "Credit Limit",
+                      "description": "Authorized credit limit on the loan",
+                             "type": "number",
+                           "format": "currency"
+                        },
+                      "acctBal": {
+                            "title": "Loan account balance",
+                      "description": "Loan account outstanding balance",
+                             "type": "number",
+                           "format": "currency"
+                        },
+                      "balDate": {
+                            "title": "Loan balance date",
+                      "description": "Date loan account balance updated",
+                             "type": "string",
+                           "format": "date"
+                        },
+                       "pmtAmt": {
+                            "title": "Payment amount",
+                      "description": "Monthly payment amount",
+                             "type": "number",
+                           "format": "currency"
+                        }
+                  }
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+             "temporal": {
+                "tableName": "collateralHist",
+                   "option": 4
+            },
+            "computeds": [
+                            {
+                         "name": "aggCurrVal",
+                           "ex": "Total of currVal of all collateral items"
+                            },
+                            {
+                         "name": "aggMaxPledgeAmt",
+                           "ex": "Total of maxPledgeAmt of all collateral items"
+                            },
+                            {
+                         "name": "aggNetOperInc",
+                           "ex": "Total of netOperInc of all collateral items"
+                            },
+                            {
+                         "name": "totPledgedAmt",
+                           "ex": "Enter expression / function to implement this. sum(pledgedAmt from all linked posn_lnCollateral)"
+                            },
+                            {
+                         "name": "availPledgedAmt",
+                           "ex": "Enter expression / function to implement this. currVal - totPledgedAmt"
+                            },
+                            {
+                         "name": "debtSvcCvgeRatio",
+                           "ex": "Enter expression / function to implement this. netOperInc/sum(Annual debt service of all loans secured by this collateral)"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

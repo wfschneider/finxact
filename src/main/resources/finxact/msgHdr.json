@@ -1,0 +1,173 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/hdr.json",
+            "title": "Header",
+      "description": "Message header",
+       "x-createDt": "08/04/2017",
+       "x-createBy": "Jim Joyce",
+       "x-updateDt": "03/12/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+       "properties": {
+                "agent": {
+                    "title": "Client agent",
+              "description": "The client software stack that generated the request",
+                     "type": "object",
+               "properties": {
+                       "osType": {
+                            "title": "Operating system",
+                      "description": "The client operating system and version",
+                             "type": "string"
+                        },
+                      "browser": {
+                            "title": "Browser",
+                      "description": "The client browser and version",
+                             "type": "string"
+                        },
+                          "app": {
+                            "title": "Application name",
+                      "description": "The client application name and version",
+                             "type": "string"
+                        }
+                  }
+            },
+            "_ts": {
+                    "title": "Timestamp",
+              "description": "Request originated on local timestamp",
+                     "type": "integer",
+                   "format": "utc-millesec"
+            },
+               "device": {
+                    "title": "Current device",
+              "description": "The client device originating this message",
+                     "type": "object",
+                     "$ref": "device.json"
+            },
+               "locale": {
+                    "title": "Current location",
+              "description": "The current physical location of the client device",
+                     "type": "object",
+                     "$ref": "addr.json"
+            },
+             "language": {
+                    "title": "Client language",
+              "description": "The IETF Client language tag",
+                     "type": "string"
+            },
+               "cookie": {
+                    "title": "Client cookie",
+              "description": "The client cookie",
+                     "type": "string"
+            },
+               "fmt": {
+                    "title": "Message format",
+              "description": "The format and version of the message, used to map to code tables and additional properties, also for legacy compatibility",
+                     "type": "string"
+            },
+              "isRetry": {
+                    "title": "Is retry",
+              "description": "Message is a retry request",
+                     "type": "boolean"
+            },
+              "msgLogs": {
+                    "title": "External Logs",
+              "description": "External logging system references",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                         "resource": {
+                                "title": "Resource name",
+                          "description": "Logging resource name",
+                                 "type": "string"
+                              },
+                              "ref": {
+                                "title": "Reference",
+                          "description": "Foreign log reference",
+                                 "type": ["string", "number" ]
+                              }
+                        }
+                  }
+            },
+             "workItem": {
+                    "title": "Case reference",
+              "description": "Customer case reference",
+                     "type": "object",
+                     "$ref": "workItem.json"
+            },
+                 "http": {
+                    "title": "HTTP header",
+              "description": "HTTP Header information pass through",
+                     "type": "string",
+                   "format": "text-area"
+            },
+             "identity": {
+                    "title": "Client identity",
+              "description": "The client identity that this request is processed under, id can be a reference to a persistent 'sticky' session",
+                     "type": "object",
+               "properties": {
+                       "sessId": {
+                            "title": "Session identifier",
+                      "description": "The persistent session identifier, if connected",
+                             "type": "integer",
+                           "format": "objectId"
+                        },
+                      "sessPwd": {
+                            "title": "Session password",
+                      "description": "The password assigned by to this persistent session",
+                             "type": "string"
+                        },
+                     "tenantId": {
+                            "title": "Tenant identifier",
+                      "description": "The unique tenant identifier",
+                             "type": "integer"
+                        },
+                        "login": {
+                            "title": "Client login",
+                      "description": "The client login",
+                             "type": "string"
+                        },
+                     "loginPwd": {
+                            "title": "Login password",
+                      "description": "The user login password",
+                             "type": "string"
+                        },
+                        "token": {
+                            "title": "User token",
+                      "description": "The peristent token to re-establish an authenticated user",
+                             "type": ["string", "integer" ]
+                        },
+                     "tokenPwd": {
+                            "title": "Session token",
+                      "description": "The password assigned by the password authority to this token",
+                             "type": "string"
+                        },
+                       "userId": {
+                            "title": "User Id",
+                      "description": "The User Id in the server system",
+                             "type": ["string", "integer" ]
+                        },
+                      "userPwd": {
+                            "title": "User password",
+                      "description": "The user login password",
+                             "type": "string"
+                        },
+                    "userRoles": {
+                            "title": "User roles",
+                      "description": "The user roles or userclass of session",
+                             "type": "array",
+                            "items": {
+                                "title": "user role",
+                          "description": "A user role",
+                                 "type": ["string", "integer" ]
+                              }
+                        },
+                    "isSession": {
+                            "title": "Persistent session",
+                      "description": "Flag to initiate persistent and return session Id",
+                             "type": "boolean"
+                        }
+                  }
+            }
+      }
+}

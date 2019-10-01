@@ -1,0 +1,56 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/cntry.json",
+            "title": "Country",
+      "description": "ISO 3166 country codes",
+       "x-createDt": "09/18/2017",
+       "x-createBy": "Frank Sanchez",
+       "x-updateDt": "08/13/2019",
+       "x-updateBy": "Eric Lien",
+             "type": "object",
+       "properties": {
+                "cntry": {
+                    "title": "ISO Alpha-2 Code",
+              "description": "ISO Alpha-2 Code",
+                     "type": "string",
+                "maxLength": 2
+            },
+            "isoAlpha3": {
+                    "title": "ISO Alpha-3 Code",
+              "description": "ISO Alpha-3 Code",
+                     "type": "string",
+                "maxLength": 3
+            },
+           "isoNumeric": {
+                    "title": "ISO Numeric Code",
+              "description": "ISO Numeric Code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+            "cntryName": {
+                    "title": "Country Name",
+              "description": "English name of country",
+                     "type": "string",
+                "maxLength": 60
+            },
+             "nraWthRt": {
+                    "title": "NRA withholding rate",
+              "description": "Withholding rate applied to interest income of Non-Resident Aliens subject to backup withholding, who are a citizen of the country",
+                     "type": "number",
+                   "format": "rate",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "decimal": 5
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["cntry" ],
+             "x-cached": {
+                   "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

@@ -1,0 +1,103 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/partyUSBankInfo.json",
+            "title": "Party US Bank Information",
+      "description": "United States Banking information for a customer party",
+       "x-createDt": "04/15/2019",
+       "x-createBy": "Pat Kelly",
+       "x-updateDt": "07/23/2019",
+       "x-updateBy": "Adam Schwartz",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+         "bNotice1stDt": {
+                    "title": "1st B Notice Date",
+              "description": "Date of receipt of first \"B Notice\"",
+                     "type": "string",
+                   "format": "date"
+            },
+         "bNotice2ndDt": {
+                    "title": "2nd B Notice Date",
+              "description": "Date of receipt of second \"B Notice\"",
+                     "type": "string",
+                   "format": "date"
+            },
+            "isFiledW8": {
+                    "title": "Is W8 Filed",
+              "description": "Indicates whether or not party has provided a signed W8-BEN (person) or W8BEN-E (organization)",
+                     "type": "boolean",
+                  "default": false
+            },
+            "isFiledW9": {
+                    "title": "Is W9 Filed",
+              "description": "Indicates whether or not party has provided a signed W9",
+                     "type": "boolean",
+                  "default": false
+            },
+             "isWthFed": {
+                    "title": "Is Federal Withholding",
+              "description": "Indicates whether or not party is subject to Federal backup withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+             "isWthNra": {
+                    "title": "Is NRA Withholding",
+              "description": "Indicates whether or not party is a Non-Resident Alien subject to backup withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+           "isWthState": {
+                    "title": "Is State Withholding",
+              "description": "Indicates whether or not party is subject to State withholding",
+                     "type": "boolean",
+                  "default": false
+            },
+                 "w8Dt": {
+                    "title": "W8 Received Date",
+              "description": "Date W8 was received by financial institution",
+                     "type": "string",
+                   "format": "date"
+            },
+                 "w9Dt": {
+                    "title": "W9 Received Date",
+              "description": "Date W9 was received by financial institution",
+                     "type": "string",
+                   "format": "date"
+            },
+     "isElectronicStmt": {
+                    "title": "Electronic statement",
+              "description": "Party's account receives an electronic statement",
+                     "type": "boolean",
+                  "default": true
+            },
+          "isPaperStmt": {
+                    "title": "Paper statement",
+              "description": "Party's account receives a paper statement",
+                     "type": "boolean",
+                  "default": false
+            },
+  "isRepeatOverdrafter": {
+                    "title": "Is customer a repeat overdrafter",
+              "description": "Determines whether customer has violated overdraft counts",
+                     "type": "boolean"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+              "extends": "party.json",
+            "computeds": [
+                            {
+                         "name": "isRepeatOverdrafter",
+                           "ex": "=GetIsCustomerRepeatOverdrafter(ctx, this)"
+                            }
+              ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

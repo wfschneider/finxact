@@ -1,0 +1,84 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/prodSubType.json",
+            "title": "Product sub-type",
+      "description": "Product parameters (level 2)",
+       "x-createDt": "10/25/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/28/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+             "prodType": {
+                    "title": "Product type",
+              "description": "The product type in prodType (e.g., deposits, loans, etc.)",
+                     "type": "string",
+                "maxLength": 10
+            },
+          "prodSubType": {
+                    "title": "Product sub-type",
+              "description": "The product subtype (level 2) within prodType",
+                     "type": "string",
+                "maxLength": 10
+            },
+                 "desc": {
+                    "title": "Product sub-type description",
+              "description": "Product sub-type description",
+                     "type": "string"
+            },
+               "isRegD": {
+                    "title": "Reg D product",
+              "description": "Indicates whether or not product positions are subject to Regulation D",
+                     "type": "boolean"
+            },
+            "glSetCode": {
+                    "title": "General ledger set code",
+              "description": "General ledger acccounts used for reporting",
+                     "type": ["string", "integer" ],
+                "maxLength": 20
+            },
+             "stmtFreq": {
+                    "title": "Statement frequency",
+              "description": "Default frequency to create a position statement",
+                     "type": "string",
+                   "format": "frequency"
+            },
+           "accrCalcTm": {
+              "description": "Time of day used to determine position balance for calculating interest",
+                     "type": "string",
+                   "format": "time"
+            },
+           "drBalGrace": {
+                    "title": "Debit balance grace cutoff",
+              "description": "Time of day the debit balance grace period ends",
+                     "type": "string",
+                   "format": "time"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["prodType", "prodSubType" ],
+              "indexes": [
+                            {
+                         "name": "ixprodType",
+                     "indexKey": ["prodType" ]
+                            }
+                ],
+          "foreignKeys": [
+                            {
+                         "name": "prodType",
+                   "foreignKey": ["prodType" ],
+              "referenceEntity": "prodType.json",
+                 "referenceKey": ["prodType" ]
+                            },
+                            {
+                         "name": "glSetCode",
+                   "foreignKey": ["glSetCode" ],
+              "referenceEntity": "glSet.json",
+                 "referenceKey": ["glSetCode" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

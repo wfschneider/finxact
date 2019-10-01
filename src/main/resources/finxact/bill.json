@@ -1,0 +1,293 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/bill.json",
+            "title": "Bill",
+      "description": "Retail, commercial or service bill or invoice",
+       "x-createDt": "09/28/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/15/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+              "partyId": {
+                    "title": "Party identifier",
+              "description": "Unique Party identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+               "billId": {
+                    "title": "Bill identifier",
+              "description": "Unique Bill identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "merchant": {
+                     "type": "object",
+                     "$ref": "merchant.json"
+            },
+               "custId": {
+                    "title": "Customer account",
+              "description": "Customer account at merchant",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+            "custTitle": {
+                    "title": "Customer title",
+              "description": "Customer account title or name at merchant",
+                     "type": "string",
+                "maxLength": 60
+            },
+             "custAddr": {
+                     "type": "object",
+                     "$ref": "addr.json"
+            },
+           "contractId": {
+                    "title": "Contract Id",
+              "description": "Contract or master services agreement identifier",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+                "jobId": {
+                    "title": "Job Id",
+              "description": "Job number or reference",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+              "orderId": {
+                    "title": "Order Id",
+              "description": "Purchase Order identifier",
+                     "type": ["string", "integer" ]
+            },
+             "orderDtm": {
+                    "title": "Order Date",
+              "description": "The order date",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                "invId": {
+                    "title": "Invoice Id",
+              "description": "Merchant bill/invoice identifier",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+              "storeId": {
+                    "title": "Store identifier",
+              "description": "The store identifier",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+              "billImg": {
+                    "title": "Bill image",
+              "description": "The bill image URI",
+                     "type": "string",
+                   "format": "uri"
+            },
+             "billDate": {
+                    "title": "Bill date",
+              "description": "The date bill was issued",
+                     "type": "string",
+                   "format": "date"
+            },
+           "pmtDueDate": {
+                    "title": "Due date",
+              "description": "The payment due date",
+                     "type": "string",
+                   "format": "date"
+            },
+         "billFromDate": {
+                    "title": "Bill from date",
+              "description": "The beginning of the billing period",
+                     "type": "string",
+                   "format": "date"
+            },
+           "billToDate": {
+                    "title": "Bill to date",
+              "description": "The end of the billing period",
+                     "type": "string",
+                   "format": "date"
+            },
+              "stmtImg": {
+                    "title": "Statement image",
+              "description": "Electronic statement URL",
+                     "type": "string",
+                   "format": "uri"
+            },
+             "grossAmt": {
+                    "title": "Gross amount",
+              "description": "Gross bill/invoice amount",
+                     "type": "number",
+                   "format": "currency"
+            },
+           "finChrgAmt": {
+                    "title": "Finance charge",
+              "description": "Finance charge amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+               "taxAmt": {
+                    "title": "Tax amount",
+              "description": "Total tax amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+             "dscntAmt": {
+                    "title": "Discount amount",
+              "description": "Total discount amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+              "shipAmt": {
+                    "title": "Shipping amount",
+              "description": "Total shipping amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+            "insureAmt": {
+                    "title": "Insurance amount",
+              "description": "Total insurance amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+                "crAmt": {
+                    "title": "Credit amount",
+              "description": "Total deposits, payments and credits previously applied",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+           "pastDueAmt": {
+                    "title": "Past due amount",
+              "description": "Total past due amount",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+               "dueAmt": {
+                    "title": "Due amount",
+              "description": "Payment amount due balance",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+            "minPmtDue": {
+                    "title": "Minumum payment amount",
+              "description": "Minimum payment amount due",
+                     "type": "number",
+                   "format": "currency",
+                  "minimum": 0
+            },
+                 "note": {
+                    "title": "Bill note",
+              "description": "Free form bill note",
+                     "type": "string",
+                   "format": "text-area"
+            },
+                  "dtl": {
+                    "title": "Bill detail",
+              "description": "Bill detail lines",
+                     "type": "array",
+                    "items": {
+                         "type": "object",
+                   "properties": {
+                         "qtyOrder": {
+                                "title": "Quantity ordered",
+                          "description": "Quantity ordered",
+                                 "type": "integer",
+                              "minimum": 1
+                              },
+                          "qtyFill": {
+                                "title": "Quantity fulfilled",
+                          "description": "Quantity fulfilled",
+                                 "type": "integer",
+                              "minimum": 0
+                              },
+                          "catCode": {
+                                "title": "Category code",
+                          "description": "Category code",
+                                 "type": ["string", "integer" ],
+                            "maxLength": 20
+                              },
+                           "partId": {
+                                "title": "Part number",
+                          "description": "Part Number or Id (SKU) ordered",
+                                 "type": ["string", "integer" ],
+                            "maxLength": 20
+                              },
+                             "desc": {
+                                "title": "Description",
+                          "description": "Line item description",
+                                 "type": "string",
+                            "maxLength": 60
+                              },
+                          "itemImg": {
+                                "title": "Image",
+                          "description": "Item image URL",
+                                 "type": "string",
+                               "format": "uri"
+                              },
+                             "cost": {
+                                "title": "Unit cost",
+                          "description": "Cost per one unit item",
+                                 "type": "number",
+                               "format": "currency",
+                              "minimum": 0
+                              },
+                         "dscntAmt": {
+                                "title": "Unit discount",
+                          "description": "Discount amount per unit item",
+                                 "type": "number",
+                               "format": "currency",
+                              "minimum": 0
+                              },
+                         "dscntPct": {
+                                "title": "Discount percent",
+                          "description": "Discount percentage",
+                                 "type": "integer",
+                               "format": "rate",
+                              "minimum": 0,
+                              "maximum": 100,
+                              "decimal": 5
+                              },
+                        "extendAmt": {
+                                "title": "Extended cost",
+                          "description": "Total amount for line - extended",
+                                 "type": "number",
+                               "format": "currency",
+                             "minimum:": 0
+                              },
+                         "isNonTax": {
+                                "title": "Non taxable",
+                          "description": "Is non-taxable item",
+                                 "type": "boolean"
+                              }
+                        }
+                  }
+            }
+      },
+         "required": ["partyId", "billId", "merchant" ],
+    "x-dbInterface": {
+           "primaryKey": ["partyId", "billId" ],
+            "serialize": [
+                            {
+                         "name": "custAddr",
+                       "format": "json"
+                            }
+              ],
+          "foreignKeys": [
+                            {
+                         "name": "party",
+                   "foreignKey": ["partyId" ],
+              "referenceEntity": "party.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

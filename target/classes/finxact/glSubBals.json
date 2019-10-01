@@ -1,0 +1,58 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/glSubBals.json",
+            "title": "General ledger sub-balances",
+      "description": "Temporary template definition of sub-balances",
+       "x-createDt": "11/29/2018",
+       "x-createBy": "Dylan C Phillips",
+       "x-updateDt": "12/26/18",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                 "dec0": {
+                    "title": "0 decimal sub-balance amount",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "integer"
+                  }
+            },
+                 "dec2": {
+                    "title": "2 decimal sub-balance amount",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "number",
+                       "format": "currency"
+                  }
+            },
+                 "dec5": {
+                    "title": "5 decimal sub-balance amount",
+                     "type": "object",
+     "additionalProperties": {
+                         "type": "number",
+                       "format": "rate",
+                      "minimum": 0,
+                   "multipleOf": 0.00001
+                  }
+            }
+      },
+    "x-dbInterface": {
+            "serialize": [
+                            {
+                         "name": "dec0",
+                       "format": "json"
+                            },
+                            {
+                         "name": "dec2",
+                       "format": "json"
+                            },
+                            {
+                         "name": "dec3",
+                       "format": "json"
+                            },
+                            {
+                         "name": "dec5",
+                       "format": "json"
+                            }
+              ]
+      }
+}

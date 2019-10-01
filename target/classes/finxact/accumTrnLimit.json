@@ -1,0 +1,156 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/accumTrnLimit.json",
+            "title": "Accumulated transaction limit",
+      "description": "Regulatory, bank, and customer accumulated transaction limits",
+       "x-createDt": "01/23/2018",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "08/30/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Unique accumulated limit identifier",
+                     "type": "integer",
+                   "format": "tguid"
+            },
+                 "name": {
+                    "title": "Limit name",
+              "description": "Name of limit being tracked",
+                     "type": "string",
+                "maxLength": 20
+            },
+            "statGroup": {
+                    "title": "Accumulation group",
+              "description": "Bucket for accumulated amounts and counts",
+                     "type": "string",
+                "maxLength": 20
+            },
+               "period": {
+                    "title": "Accumulation period",
+              "description": "Defines the period used to determine whether or not the limit is exceeded",
+                     "type": "string",
+                   "format": "duration"
+            },
+             "startDtm": {
+                    "title": "Start date",
+              "description": "Start date used to calculate current period",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                "drAmt": {
+                    "title": "Period maximum debit amount",
+              "description": "Maximum amount of all debit transactions allowed for the period",
+                     "type": "number",
+                   "format": "currency"
+            },
+                "drCnt": {
+                    "title": "Period maximum debit count",
+              "description": "Maximum number of debit transactions allowed for the period",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+            },
+                "crAmt": {
+                    "title": "Period maximum credit amount",
+              "description": "Maximum amount of all credit transactions allowed for the period",
+                     "type": "number",
+                   "format": "currency"
+            },
+                "crCnt": {
+                    "title": "Period maximum credit count",
+              "description": "Maximum number of credit transactions allowed for the period",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+            },
+            "definedBy": {
+                    "title": "Defined by",
+              "description": "Entity that defined the limit",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Unknown" ],
+                            [1, "Institution" ],
+                            [2, "Customer" ],
+                            [254, "Other" ]
+                     ],
+                  "default": 1,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "totAmt": {
+                    "title": "Period maximum total amount",
+              "description": "Total amount of absolute debit amount and credit amount for period",
+                     "type": "number",
+                   "format": "currency"
+            },
+               "totCnt": {
+                    "title": "Period maximum total transaction count",
+              "description": "Maximum number of transactions allowed for the period",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+            },
+             "alertIds": {
+                    "title": "Alert ID's",
+              "description": "Party ID's to alert in case of a limit violation",
+                     "type": "array",
+                    "items": {
+                        "title": "Alert ID's",
+                  "description": "Id of the given party",
+                         "type": "string",
+                       "format": "tguid"
+                  }
+            },
+         "violationAct": {
+                    "title": "Violation action",
+              "description": "Action to be taken when a limit will be breached",
+                     "type": "integer",
+                  "choices": [
+                            [0, "Allow transaction with override" ],
+                            [1, "Allow transaction; log exception" ],
+                            [2, "Prohibit debits" ],
+                            [3, "Prohibit credits" ],
+                            [4, "Prohibit debits and credits" ]
+                     ],
+                  "default": 0,
+                  "minimum": 0,
+                  "maximum": 255
+            },
+         "violationFee": {
+                    "title": "Violation fee",
+              "description": "Fee assessed when a limit is breached",
+                     "type": "string",
+                "maxLength": 20
+            }
+      },
+    "x-dbInterface": {
+          "foreignKeys": [
+                            {
+                         "name": "statGroup",
+                   "foreignKey": ["statGroup" ],
+              "referenceEntity": "trnStatGroup.json",
+                 "referenceKey": ["statGroup" ]
+                            },
+                            {
+                         "name": "violationFee",
+                   "foreignKey": ["violationFee" ],
+              "referenceEntity": "feeCalcDtl.json",
+                 "referenceKey": ["name" ]
+                            }
+            ],
+           "primaryKey": ["_Id" ],
+            "serialize": [
+                            {
+                         "name": "alertIds",
+                       "format": "json"
+                            }
+              ],
+            "x-cached": {
+                  "expiry": "24h"
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": false
+      }
+}

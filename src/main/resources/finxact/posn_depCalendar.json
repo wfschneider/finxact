@@ -1,0 +1,62 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depCalendar.json",
+            "title": "Position calendar",
+      "description": "Position event calendar or timeline",
+       "x-createDt": "09/09/2017",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "11/30/2018",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "eventSched.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Event Identifier",
+              "description": "Unique Position Calendar identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+            "acctGroup": {
+                    "title": "Account Group",
+              "description": "Account Group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+          "posnAcctNbr": {
+                    "title": "Position Account Number",
+              "description": "The unique position identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+               "posnId": {
+                    "title": "Position Foreign Key",
+              "description": "Foreign Key to Position _Id",
+                     "type": "string",
+                   "format": "tguid"
+            },
+          "eventCtxtId": {
+                    "title": "Event Context ID",
+              "description": "The Event Context Identifier of the event msg that handled the event",
+                     "type": "string"
+            }
+      },
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+          "foreignKeys": [
+                            {
+                         "name": "posn_dep",
+                   "foreignKey": ["posnId" ],
+              "referenceEntity": "posn_dep.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ]
+      },
+  "x-reportDbInterface": {
+    "journal": true
+  }
+}

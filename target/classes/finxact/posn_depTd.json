@@ -1,0 +1,107 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/posn_depTd.json",
+            "title": "Time deposit attribute",
+      "description": "Defines processing attributes for term deposit",
+       "x-createDt": "06/28/2017",
+       "x-createBy": "Deborah C Kovacs",
+       "x-updateDt": "01/08/2019",
+       "x-updateBy": "Pat Kelly",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "componentTd.json"
+                        }
+             ],
+       "properties": {
+                  "_Id": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+       "matDisbmtInstr": {
+                    "title": "Maturity disbursement instructions",
+              "description": "Customer instructions for payment of principal and interest not capitalized at maturity",
+                     "type": "object",
+                     "$ref": "order.json"
+            },
+        "expDrGraceDtm": {
+                    "title": "Debit grace period expiration",
+              "description": "Debit expiration date and time for the current term",
+                     "type": "string",
+                   "format": "date-time"
+            },
+        "expCrGraceDtm": {
+                    "title": "Credit grace period expiration",
+              "description": "Credit expiration date and time for the current term",
+                     "type": "string",
+                   "format": "date-time"
+            },
+             "initTerm": {
+                    "title": "Initial term",
+              "description": "Initial term",
+                     "type": "string",
+                   "format": "duration"
+            },
+              "rollCnt": {
+                    "title": "Times rolled over",
+              "description": "Number of times the position has rolled over",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255,
+                  "default": 0
+            },
+          "origRollDtm": {
+                    "title": "First rollover date",
+              "description": "Date and time the position first rolled over",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "lastRollDtm": {
+                    "title": "Last rollover date",
+              "description": "Date and time the position last rolled over",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "noticeDtm": {
+                    "title": "Next maturity notification",
+              "description": "Date and time of next maturity notification",
+                     "type": "string",
+                   "format": "date-time"
+            },
+          "maturityDtm": {
+                    "title": "Next maturity date",
+              "description": "Date and time the position will mature",
+                     "type": "string",
+                   "format": "date-time"
+            }
+      },
+         "required": ["_Id", "initTerm", "maturityDtm"],
+    "x-dbInterface": {
+           "primaryKey": ["_Id" ],
+      "extends": "posn_dep.json",
+            "serialize": [
+                            {
+                         "name": "matDisbmtInstr",
+                       "format": "json"
+                            }
+              ],
+          "foreignKeys": [
+                            {
+                         "name": "posn_dep",
+                   "foreignKey": ["_Id" ],
+              "referenceEntity": "posn_dep.json",
+                 "referenceKey": ["_Id" ]
+                            }
+            ],
+             "temporal": {
+                "tableName": "posn_dep_tdDtl_hist",
+                   "option": 4,
+           "baseProperties": ["rollCnt", "lastRollDtm", "maturityDtm", "expDrGraceDtm", "expCrGraceDtm" ]
+            }
+      },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}

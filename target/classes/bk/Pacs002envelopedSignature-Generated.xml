@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:Message xmlns:ns2="urn:tch" xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01"
+             xmlns:ns24="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.10">
+    <ns2:AppHdr>
+        <Fr>
+            <FIId>
+                <FinInstnId>
+                    <ClrSysMmbId>
+                        <MmbId>000000008EK</MmbId>
+                    </ClrSysMmbId>
+                </FinInstnId>
+                <BrnchId/>
+            </FIId>
+        </Fr>
+        <To>
+            <FIId>
+                <FinInstnId>
+                    <ClrSysMmbId>
+                        <MmbId>990000001S1</MmbId>
+                    </ClrSysMmbId>
+                </FinInstnId>
+                <BrnchId>
+                    <Id>Test Branch Id - Tonull</Id>
+                </BrnchId>
+            </FIId>
+        </To>
+        <CreDt>2016-09-23T09:15:45.000-04:00</CreDt>
+        <CpyDplct>COPY</CpyDplct>
+        <Sgntr>
+            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                <SignedInfo>
+                    <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                    <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+                    <Reference URI="">
+                        <Transforms>
+                            <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                            <Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11"/>
+                        </Transforms>
+                        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                        <DigestValue>G3wLMgrY05HmACs72frYAkbf5vmzR/SNDDvrFHvMyVo=</DigestValue>
+                    </Reference>
+                </SignedInfo>
+                <SignatureValue>bdXXtJA3YVOx2G9syuoSfLItLje5I/QFByKHXOwkCR1hUTFUqqHxIBzQK3U1zPCF65af2AHyRqWt
+                    x739Eh3VXCXyiRrEkq3pKvVO4nqvkacNCzDUu7yuKpCG5DNQADkrhj9QoGGQR9CQELaVoMkbL3Q7
+                    kRc+Nh6o7JxPIyaptAqa1r3nXRx3RX0g4I+ag3k2G0MW+1+h3c2qWpafTvSRdiicCOdjEtjQKdjU
+                    ZTCwZWpR/mci57DXHv72WQGVJi8oAoxHr1YT7kwGwCKhKAqfxGg/BSs0Ylm1d7y0hg1wm/moH8NS
+                    BVXNkJRp63/4yYRMqGKhaq7rs1r+MjNk0M8iUA==
+                </SignatureValue>
+                <KeyInfo>
+                    <X509Data>
+                        <X509SubjectName>CN=lallu luke,OU=levvel,O=levvel,L=cary,ST=nc,C=us</X509SubjectName>
+                        <X509Certificate>MIIDXzCCAkegAwIBAgIEAtQYrzANBgkqhkiG9w0BAQsFADBgMQswCQYDVQQGEwJ1czELMAkGA1UE
+                            CBMCbmMxDTALBgNVBAcTBGNhcnkxDzANBgNVBAoTBmxldnZlbDEPMA0GA1UECxMGbGV2dmVsMRMw
+                            EQYDVQQDEwpsYWxsdSBsdWtlMB4XDTE5MDkxMTE1MDIwMVoXDTIwMDkwNTE1MDIwMVowYDELMAkG
+                            A1UEBhMCdXMxCzAJBgNVBAgTAm5jMQ0wCwYDVQQHEwRjYXJ5MQ8wDQYDVQQKEwZsZXZ2ZWwxDzAN
+                            BgNVBAsTBmxldnZlbDETMBEGA1UEAxMKbGFsbHUgbHVrZTCCASIwDQYJKoZIhvcNAQEBBQADggEP
+                            ADCCAQoCggEBAIGw2nJeF+DwvLuEEYzqcr8VfEeV7HHTHKLbGfzGQwpF4p/mT/QtWBYkvz2OXE1I
+                            09nKYam7tsX5au9S4OZDSjLMFmWZIBCk2Ot3ftF4isVxk2Rvm1V85NCTrkoVR31pxvy84NgL9SWe
+                            56c2QkZqYQKjulC31+s303SqY9B+mEmpGxXzcoi0ft83JPG6NmlQ1o3OSbeILtW3tWBmW9SsygGq
+                            o74gaV0hTp8d+dtXpuGYMdAWT2rBdIg7Bk+sn5KbSF4K625bJxJkla54nLG4paW4KKk9khd86LRZ
+                            oaV3JffXL8Ei58unFxZDRWmp02mQoF60DSK1caaZ7s7KDom/KIsCAwEAAaMhMB8wHQYDVR0OBBYE
+                            FDeD3Yd3wqYbDxwTuw66oUPtYEL7MA0GCSqGSIb3DQEBCwUAA4IBAQB5esJw3mvxWBxhoSEIgRsV
+                            cp7osAuB0Xm5eRYlFFV3uKca+yjWS382vROCX77rvZbvg/H50PTJlT+DACTlzdUM+T6Ds+OJ8cGe
+                            BnALfeU8CKNlMGQETRd3llOpj9DWmrEb/rAlGIEWKlFPs08B5diPrMuhHI0zOShgYQ2nN+JsiPhl
+                            yPt+BkTjbNDjmYMWxLml673MtRAR4cPeUMtHF5MrElSV4s/yZV2+GwL1dUcXluHWL8EWkDcddeeM
+                            ho/KeMu5oUHXaqSEkDhQcmXCwXKZ5WGpygdHAzTP/vNZYR/6KXy7PsE2R9gi06D8aeTS7WUiHXk+
+                            KkcueeRmXOHQaYQy
+                        </X509Certificate>
+                    </X509Data>
+                </KeyInfo>
+            </Signature>
+        </Sgntr>
+    </ns2:AppHdr>
+    <ns2:MessageStatusReport>
+        <ns24:FIToFIPmtStsRpt>
+            <ns24:GrpHdr>
+                <ns24:MsgId>MYYYYMMDDbbbbbbbbbbbBAAAnnnnnnnnnnn</ns24:MsgId>
+                <ns24:CreDtTm>2019-09-12T09:47:02.822-04:00</ns24:CreDtTm>
+            </ns24:GrpHdr>
+            <ns24:OrgnlGrpInfAndSts>
+                <ns24:OrgnlMsgId>2016092313154500000000EIPQOD1IOC0</ns24:OrgnlMsgId>
+                <ns24:OrgnlMsgNmId>pacs.008.001.08</ns24:OrgnlMsgNmId>
+                <ns24:OrgnlCreDtTm>2016-09-23T09:15:45.000-04:00</ns24:OrgnlCreDtTm>
+                <ns24:OrgnlNbOfTxs>1</ns24:OrgnlNbOfTxs>
+            </ns24:OrgnlGrpInfAndSts>
+            <ns24:TxInfAndSts>
+                <ns24:OrgnlInstrId>20160923000000008BTCH8188378539</ns24:OrgnlInstrId>
+                <ns24:TxSts>ACTC</ns24:TxSts>
+                <ns24:StsRsnInf>
+                    <ns24:Rsn>
+                        <ns24:Prtry>Not Sure</ns24:Prtry>
+                        <ns24:Cd>AC02</ns24:Cd>
+                    </ns24:Rsn>
+                    <ns24:AddtlInf>Additional Info˜</ns24:AddtlInf>
+                </ns24:StsRsnInf>
+                <ns24:AccptncDtTm>2019-09-12T09:47:02.551-04:00</ns24:AccptncDtTm>
+                <ns24:ClrSysRef>001</ns24:ClrSysRef>
+                <ns24:InstdAgt>
+                    <ns24:FinInstnId>
+                        <ns24:ClrSysMmbId>
+                            <ns24:MmbId>000000007</ns24:MmbId>
+                        </ns24:ClrSysMmbId>
+                    </ns24:FinInstnId>
+                </ns24:InstdAgt>
+                <ns24:OrgnlTxRef>
+                    <ns24:IntrBkSttlmAmt Ccy="USD">100</ns24:IntrBkSttlmAmt>
+                    <ns24:IntrBkSttlmDt>2016-09-23-04:00</ns24:IntrBkSttlmDt>
+                </ns24:OrgnlTxRef>
+            </ns24:TxInfAndSts>
+        </ns24:FIToFIPmtStsRpt>
+    </ns2:MessageStatusReport>
+</ns2:Message>

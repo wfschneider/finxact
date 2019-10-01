@@ -1,0 +1,137 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/hold.json",
+            "title": "Hold",
+      "description": "Defines parameters related to availability of specific sums of funds",
+       "x-createDt": "09/30/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "05/29/2019",
+       "x-updateBy": "Ken Rohlfing",
+             "type": "object",
+       "properties": {
+                  "_Id": {
+                    "title": "Hold identifier",
+              "description": "Unique hold identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+              "network": {
+                    "title": "Network",
+              "description": "Network associated with authRef",
+                     "type": ["integer", "string" ],
+                "maxLength": 30
+            },
+              "authRef": {
+                    "title": "Authorization reference",
+              "description": "External reference for authorization hold",
+                     "type": ["integer", "string" ],
+                "maxLength": 30
+            },
+             "holdType": {
+                    "title": "Hold type code",
+              "description": "The hold type code",
+                     "type": "integer",
+                  "choices": [
+                            [1, "Clearing" ],
+                            [2, "PreAuth" ],
+                            [3, "RegCC" ],
+                            [4, "Reserve" ],
+                            [5, "Admin" ]
+                     ],
+                  "minimum": 0,
+                  "maximum": 255
+            },
+               "reason": {
+                    "title": "Hold reason code",
+              "description": "The reason code for why hold was placed",
+                     "type": "string",
+                "maxLength": 10
+            },
+                 "note": {
+                    "title": "Hold note",
+              "description": "Free form accompanying note",
+                     "type": "string",
+                   "format": "text-area"
+            },
+              "holdAmt": {
+                    "title": "Hold amount",
+              "description": "Amount to hold, default to entry.tranAmt",
+                     "type": "number",
+                   "format": "currency"
+            },
+            "acctGroup": {
+                    "title": "Account Group",
+              "description": "Account Group code",
+                     "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+            },
+          "posnAcctNbr": {
+                    "title": "Position Account Number",
+              "description": "The unique position identifier within an acctGroup",
+                     "type": ["string", "integer" ],
+                "maxLength": 30
+            },
+               "posnId": {
+                    "title": "Position identifier",
+              "description": "Unique position identifier",
+                     "type": "string",
+                   "format": "tguid"
+            },
+             "startDtm": {
+                    "title": "Hold start",
+              "description": "Date and time hold will start, default immediately",
+                     "type": "string",
+                   "format": "date-time"
+            },
+               "endDtm": {
+                    "title": "Hold expiration",
+              "description": "Date and time hold will expire, default 10/15/2114-23:59",
+                     "type": "string",
+                   "format": "date-time"
+            },
+            "cancelDtm": {
+                    "title": "Hold cancellation",
+              "description": "Date and time hold was cancelled",
+                     "type": "string",
+                   "format": "date-time"
+            },
+                  "dur": {
+                    "title": "Hold duration",
+              "description": "Duration of the hold determines endDt",
+                     "type": "string",
+                   "format": "duration"
+            },
+               "slices": {
+                    "title": "Hold slices",
+              "description": "Hold release amount per period, used for reg CC or custom",
+                     "type": "array",
+                    "items": {
+                        "title": "Slice amount",
+                         "type": "number",
+                       "format": "currency"
+                  }
+            },
+             "interval": {
+                    "title": "Slice interval",
+              "description": "Duration of a slice interval if slices (e.g., (1D)",
+                     "type": "string",
+                   "format": "duration"
+            },
+                  "eft": {
+                    "title": "EFT detail object",
+              "description": "Detail information accompanying an EFT ISO8583 transaction",
+                     "type": "object",
+                     "$ref": "trnEft.json"
+            },
+              "updtRef": {
+                    "title": "Update References",
+              "description": "References to transactions that updated this hold",
+                     "type": "array",
+                    "items": {
+                        "title": "Reference",
+                         "type": "string"
+                  }
+            }
+      }
+}

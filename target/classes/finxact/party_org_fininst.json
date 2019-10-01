@@ -1,0 +1,38 @@
+{
+          "$schema": "http://json-schema.org/draft-04/schema#",
+               "id": "http://finxact.com/product/schemas/party_org_fininst.json",
+            "title": "Financial institution",
+      "description": "Financial institution detail",
+       "x-createDt": "06/28/2016",
+       "x-createBy": "Frank R Sanchez",
+       "x-updateDt": "03/12/2019",
+       "x-updateBy": "Christine Phillips",
+             "type": "object",
+            "allOf": [
+                        {
+                     "$ref": "party_org.json"
+                        }
+             ],
+       "properties": {
+           "finInstAba": {
+                    "title": "Bank ABA number",
+              "description": "Bank ABA routing number (US only)",
+                     "type": "string",
+                "maxLength": 9
+            },
+           "finInstBic": {
+                    "title": "BIC identifier number",
+              "description": "Bank SWIFT BIC identifier",
+                     "type": "string",
+                "maxLength": 30
+            }
+      },
+  "x-dbInterface": {
+    "x-cached": {
+      "expiry": "24h"
+    }
+  },
+  "x-reportDbInterface": {
+              "journal": true
+      }
+}
