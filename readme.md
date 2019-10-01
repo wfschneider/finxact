@@ -20,13 +20,13 @@ A step by step series of examples that tell you how to get a development env run
 
 Say what the step will be
 
-1. Digital Signature validation - run 
+1. ```Digital Signature validation - run ```
 java GenEnveloped
 
 
 And repeat
 
-2. Create Finxact model from pacs.008 and then generate pacs 002 - run
+2. ```Create Finxact model from pacs.008 and then generate pacs 002 - run```
 java Pacs008ToTranOrderTransformer
 
 End with an example of getting some data out of the system or using it for a little demo
@@ -40,7 +40,7 @@ Explain how to run the automated tests for this system
 Explain what these tests test and why
 
 ```
-Give an example
+Will be Added
 ```
 
 ### And coding style tests
@@ -48,7 +48,7 @@ Give an example
 Explain what these tests test and why
 
 ```
-Give an example
+Will be Added
 ```
 
 ## Deployment
@@ -71,7 +71,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Luke LalLU******
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
